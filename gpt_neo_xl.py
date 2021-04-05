@@ -1,3 +1,9 @@
+import os
+os.environ['MASTER_ADDR'] = 'localhost'
+os.environ['MASTER_PORT'] = '9994'
+os.environ['RANK'] = "0"
+os.environ['LOCAL_RANK'] = "0"
+os.environ['WORLD_SIZE'] = "1"
 import pandas as pd
 import torch
 from torch.utils.data import Dataset, random_split
@@ -34,8 +40,8 @@ dataset = NetflixDataset(descriptions, tokenizer, max_length=max_length)
 train_size = int(0.9 * len(dataset))
 train_dataset, val_dataset = random_split(dataset, [train_size, len(dataset) - train_size])
 training_args = TrainingArguments(output_dir='./results', num_train_epochs=5, logging_steps=5000, save_steps=5000,
-                                  per_device_train_batch_size=2, per_device_eval_batch_size=2,
-                                  warmup_steps=100, weight_decay=0.01, logging_dir='./logs')
+                                  per_device_train_batch_size=2, per_device_eval_batch_size=2,warmup_steps=100,
+                                  weight_decay=0.01, logging_dir='./logs', deepspeed='./ds_config.json')
 Trainer(model=model, args=training_args, train_dataset=train_dataset,
         eval_dataset=val_dataset, data_collator=lambda data: {'input_ids': torch.stack([f[0] for f in data]),
                                                               'attention_mask': torch.stack([f[1] for f in data]),
