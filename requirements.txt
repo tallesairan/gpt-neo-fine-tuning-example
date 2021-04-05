@@ -1,0 +1,7 @@
+numpy==1.17.3
+pandas==1.2.2
+-f https://download.pytorch.org/whl/torch_stable.html
+torch==1.8.0+cu111
+torchvision==0.9.0+cu111
+torchsummary==1.5.1
+git+https://github.com/huggingface/transformers@master
