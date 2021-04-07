@@ -1,0 +1,688 @@
+Special tokens have been added in the vocabulary, make sure the associated word embedding are fine-tuned or trained.
+[2021-04-06 23:33:41,680] [INFO] [distributed.py:46:init_distributed] Initializing torch distributed with backend: nccl
+[2021-04-06 23:33:41,971] [INFO] [logging.py:60:log_dist] [Rank 0] DeepSpeed info: version=0.3.13, git-hash=unknown, git-branch=unknown
+[2021-04-06 23:33:41,991] [INFO] [engine.py:75:_initialize_parameter_parallel_groups] data_parallel_size: 1, parameter_parallel_size: 1
+Using /home/edwardhyde/.cache/torch_extensions as PyTorch extensions root...
+Detected CUDA files, patching ldflags
+Emitting ninja build file /home/edwardhyde/.cache/torch_extensions/cpu_adam/build.ninja...
+Building extension module cpu_adam...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Loading extension module cpu_adam...
+Time to load cpu_adam op: 0.3627657890319824 seconds
+Adam Optimizer #0 is created with scalar arithmetic capability.
+Config: alpha=0.000050, betas=(0.900000, 0.999000), weight_decay=0.000000, adam_w=1
+[2021-04-06 23:33:44,630] [INFO] [engine.py:600:_configure_optimizer] Using DeepSpeed Optimizer param name adamw as basic optimizer
+[2021-04-06 23:33:44,630] [INFO] [engine.py:605:_configure_optimizer] DeepSpeed Basic Optimizer = DeepSpeedCPUAdam
+Checking ZeRO support for optimizer=DeepSpeedCPUAdam type=<class 'deepspeed.ops.adam.cpu_adam.DeepSpeedCPUAdam'>
+[2021-04-06 23:33:44,630] [INFO] [logging.py:60:log_dist] [Rank 0] Creating fp16 ZeRO stage 3 optimizer
+Initializing ZeRO Stage 3
+[2021-04-06 23:33:44,631] [WARNING] [stage3.py:34:<module>] apex was installed without --cpp_ext.  Falling back to Python flatten and unflatten.
+[2021-04-06 23:33:44,632] [INFO] [utils.py:555:see_memory_usage] Stage 3 intialize beginning
+[2021-04-06 23:33:44,632] [INFO] [utils.py:556:see_memory_usage] MA 5.06 GB         Max_MA 10.3 GB         CA 10.32 GB         Max_CA 10 GB
+[2021-04-06 23:33:44,632] [INFO] [utils.py:564:see_memory_usage] CPU Virtual Memory:  used = 16.78 GB, percent = 13.3%
+[2021-04-06 23:33:44,632] [INFO] [stage3.py:586:__init__] Reduce bucket size 500000000
+[2021-04-06 23:33:44,632] [INFO] [stage3.py:587:__init__] Allgather bucket size 50000000
+/home/edwardhyde/PycharmProjects/gpt-neo-fine-tuning-example/venv/lib/python3.8/site-packages/torch/cuda/memory.py:373: FutureWarning: torch.cuda.memory_cached has been renamed to torch.cuda.memory_reserved
+  warnings.warn(
+/home/edwardhyde/PycharmProjects/gpt-neo-fine-tuning-example/venv/lib/python3.8/site-packages/torch/cuda/memory.py:381: FutureWarning: torch.cuda.max_memory_cached has been renamed to torch.cuda.max_memory_reserved
+  warnings.warn(
+[2021-04-06 23:33:51,882] [INFO] [stage3.py:730:__init__] optimizer state initialized
+[2021-04-06 23:33:52,240] [INFO] [utils.py:555:see_memory_usage] After initializing ZeRO optimizer
+[2021-04-06 23:33:52,241] [INFO] [utils.py:556:see_memory_usage] MA 0.54 GB         Max_MA 10.3 GB         CA 10.8 GB         Max_CA 11 GB
+[2021-04-06 23:33:52,241] [INFO] [utils.py:564:see_memory_usage] CPU Virtual Memory:  used = 61.39 GB, percent = 48.8%
+[2021-04-06 23:33:52,241] [INFO] [logging.py:60:log_dist] [Rank 0] DeepSpeed Final Optimizer = adamw
+[2021-04-06 23:33:52,241] [INFO] [engine.py:438:_configure_lr_scheduler] DeepSpeed using configured LR scheduler = WarmupLR
+[2021-04-06 23:33:52,241] [INFO] [logging.py:60:log_dist] [Rank 0] DeepSpeed LR Scheduler = <deepspeed.runtime.lr_schedules.WarmupLR object at 0x7f002c48ff70>
+[2021-04-06 23:33:52,241] [INFO] [logging.py:60:log_dist] [Rank 0] step=0, skipped=0, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:33:52,241] [INFO] [config.py:737:print] DeepSpeedEngine configuration:
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   activation_checkpointing_config  {
+    "contiguous_memory_optimization": false,
+    "cpu_checkpointing": false,
+    "number_checkpoints": null,
+    "partition_activations": false,
+    "profile": false,
+    "synchronize_checkpoint_boundary": false
+}
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   allreduce_always_fp32 ........ False
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   amp_enabled .................. False
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   amp_params ................... False
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   checkpoint_tag_validation_enabled  True
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   checkpoint_tag_validation_fail  False
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   disable_allgather ............ False
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   dump_state ................... False
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   dynamic_loss_scale_args ...... {'init_scale': 4294967296, 'scale_window': 1000, 'delayed_shift': 2, 'min_scale': 1}
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   elasticity_enabled ........... False
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   flops_profiler_config ........ {
+    "detailed": true,
+    "enabled": false,
+    "module_depth": -1,
+    "profile_step": 1,
+    "top_modules": 3
+}
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   fp16_enabled ................. True
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   global_rank .................. 0
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   gradient_accumulation_steps .. 1
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   gradient_clipping ............ 1.0
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   gradient_predivide_factor .... 1.0
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   initial_dynamic_scale ........ 4294967296
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   loss_scale ................... 0
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   memory_breakdown ............. False
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   optimizer_legacy_fusion ...... False
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   optimizer_name ............... adamw
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   optimizer_params ............. {'lr': 5e-05, 'betas': [0.9, 0.999], 'eps': 1e-08}
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0}
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   pld_enabled .................. False
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   pld_params ................... False
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   prescale_gradients ........... False
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   scheduler_name ............... WarmupLR
+[2021-04-06 23:33:52,241] [INFO] [config.py:741:print]   scheduler_params ............. {'warmup_min_lr': 0, 'warmup_max_lr': 5e-05, 'warmup_num_steps': 100}
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   sparse_attention ............. None
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   sparse_gradients_enabled ..... False
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   steps_per_print .............. 10
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   tensorboard_enabled .......... False
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   tensorboard_job_name ......... DeepSpeedJobName
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   tensorboard_output_path ......
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   train_batch_size ............. 15
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   train_micro_batch_size_per_gpu  15
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   wall_clock_breakdown ......... False
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   world_size ................... 1
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   zero_allow_untested_optimizer  False
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   zero_config .................. {
+    "allgather_bucket_size": 500000000,
+    "allgather_partitions": true,
+    "contiguous_gradients": true,
+    "cpu_offload": true,
+    "cpu_offload_params": true,
+    "cpu_offload_use_pin_memory": false,
+    "elastic_checkpoint": true,
+    "load_from_fp32_weights": true,
+    "max_live_parameters": 1000000000,
+    "max_reuse_distance": 1000000000,
+    "overlap_comm": true,
+    "param_persistence_threshold": 100000,
+    "prefetch_bucket_size": 50000000,
+    "reduce_bucket_size": 500000000,
+    "reduce_scatter": true,
+    "stage": 3,
+    "sub_group_size": 1000000000000
+}
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   zero_enabled ................. True
+[2021-04-06 23:33:52,242] [INFO] [config.py:741:print]   zero_optimization_stage ...... 3
+[2021-04-06 23:33:52,242] [INFO] [config.py:743:print]   json = {
+    "fp16":{
+        "enabled":true,
+        "min_loss_scale":1,
+        "opt_level":"O3"
+    },
+    "gradient_accumulation_steps":1,
+    "gradient_clipping":1.0,
+    "optimizer":{
+        "params":{
+            "betas":[
+                0.9,
+                0.999
+            ],
+            "eps":1e-08,
+            "lr":5e-05
+        },
+        "type":"AdamW"
+    },
+    "scheduler":{
+        "params":{
+            "warmup_max_lr":5e-05,
+            "warmup_min_lr":0,
+            "warmup_num_steps":100
+        },
+        "type":"WarmupLR"
+    },
+    "train_micro_batch_size_per_gpu":15,
+    "zero_optimization":{
+        "contiguous_gradients":true,
+        "cpu_offload":true,
+        "cpu_offload_params":true,
+        "overlap_comm":true,
+        "stage":3
+    }
+}
+Using /home/edwardhyde/.cache/torch_extensions as PyTorch extensions root...
+Emitting ninja build file /home/edwardhyde/.cache/torch_extensions/utils/build.ninja...
+Building extension module utils...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Loading extension module utils...
+Time to load utils op: 1.7109196186065674 seconds
+  0%|          | 1/2340 [00:02<1:53:55,  2.92s/it][2021-04-06 23:33:56,882] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 4294967296, reducing to 4294967296
+[2021-04-06 23:33:58,953] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 4294967296, reducing to 2147483648.0
+  0%|          | 3/2340 [00:06<1:23:33,  2.15s/it][2021-04-06 23:34:00,770] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 2147483648.0, reducing to 1073741824.0
+  0%|          | 4/2340 [00:08<1:18:53,  2.03s/it][2021-04-06 23:34:02,614] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 1073741824.0, reducing to 536870912.0
+[2021-04-06 23:34:04,444] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 536870912.0, reducing to 268435456.0
+  0%|          | 6/2340 [00:12<1:14:39,  1.92s/it][2021-04-06 23:34:06,292] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 268435456.0, reducing to 134217728.0
+  0%|          | 7/2340 [00:14<1:13:29,  1.89s/it][2021-04-06 23:34:08,122] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 134217728.0, reducing to 67108864.0
+  0%|          | 8/2340 [00:15<1:12:47,  1.87s/it][2021-04-06 23:34:09,958] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 67108864.0, reducing to 33554432.0
+[2021-04-06 23:34:11,787] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 33554432.0, reducing to 16777216.0
+  0%|          | 10/2340 [00:19<1:11:45,  1.85s/it][2021-04-06 23:34:13,609] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 16777216.0, reducing to 8388608.0
+[2021-04-06 23:34:13,609] [INFO] [timer.py:154:stop] 0/10, SamplesPerSec=8.19610605703834
+  0%|          | 11/2340 [00:21<1:11:17,  1.84s/it][2021-04-06 23:34:15,421] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 8388608.0, reducing to 4194304.0
+[2021-04-06 23:34:17,247] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 4194304.0, reducing to 2097152.0
+  1%|          | 13/2340 [00:25<1:11:13,  1.84s/it][2021-04-06 23:34:19,091] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 2097152.0, reducing to 1048576.0
+[2021-04-06 23:34:20,960] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 1048576.0, reducing to 524288.0
+  1%|          | 15/2340 [00:28<1:11:15,  1.84s/it][2021-04-06 23:34:22,782] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 524288.0, reducing to 262144.0
+  1%|          | 16/2340 [00:30<1:11:10,  1.84s/it][2021-04-06 23:34:24,616] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 262144.0, reducing to 131072.0
+[2021-04-06 23:34:26,440] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 131072.0, reducing to 65536.0
+  1%|          | 18/2340 [00:34<1:10:52,  1.83s/it][2021-04-06 23:34:28,265] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 65536.0, reducing to 32768.0
+  1%|          | 20/2340 [00:43<2:06:47,  3.28s/it][2021-04-06 23:34:37,609] [INFO] [logging.py:60:log_dist] [Rank 0] step=20, skipped=18, lr=[7.525749891599529e-06], mom=[[0.9, 0.999]]
+[2021-04-06 23:34:37,609] [INFO] [timer.py:154:stop] 0/20, SamplesPerSec=6.991109455659733
+  1%|▏         | 30/2340 [01:30<2:58:32,  4.64s/it][2021-04-06 23:35:24,141] [INFO] [logging.py:60:log_dist] [Rank 0] step=30, skipped=18, lr=[2.6979531151190617e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:35:24,141] [INFO] [timer.py:154:stop] 0/30, SamplesPerSec=4.933603497358467
+  2%|▏         | 40/2340 [02:17<3:02:21,  4.76s/it][2021-04-06 23:36:11,556] [INFO] [logging.py:60:log_dist] [Rank 0] step=40, skipped=18, lr=[3.3560567020555153e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:36:11,556] [INFO] [timer.py:154:stop] 0/40, SamplesPerSec=4.301099810266843
+  2%|▏         | 50/2340 [03:03<2:57:00,  4.64s/it][2021-04-06 23:36:57,905] [INFO] [logging.py:60:log_dist] [Rank 0] step=50, skipped=18, lr=[3.762874945799765e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:36:57,905] [INFO] [timer.py:154:stop] 0/50, SamplesPerSec=4.02566816241732
+  3%|▎         | 60/2340 [03:50<3:00:49,  4.76s/it][2021-04-06 23:37:44,834] [INFO] [logging.py:60:log_dist] [Rank 0] step=60, skipped=18, lr=[4.058123225994751e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:37:44,834] [INFO] [timer.py:154:stop] 0/60, SamplesPerSec=3.85364889677217
+  3%|▎         | 70/2340 [04:38<2:59:04,  4.73s/it][2021-04-06 23:38:32,253] [INFO] [logging.py:60:log_dist] [Rank 0] step=70, skipped=18, lr=[4.290008359086998e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:38:32,253] [INFO] [timer.py:154:stop] 0/70, SamplesPerSec=3.7341077080580196
+  3%|▎         | 80/2340 [05:25<2:59:23,  4.76s/it][2021-04-06 23:39:19,789] [INFO] [logging.py:60:log_dist] [Rank 0] step=80, skipped=18, lr=[4.4809792237456346e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:39:19,789] [INFO] [timer.py:154:stop] 0/80, SamplesPerSec=3.6485789571559835
+  4%|▍         | 90/2340 [06:12<2:53:41,  4.63s/it][2021-04-06 23:40:06,467] [INFO] [logging.py:60:log_dist] [Rank 0] step=90, skipped=18, lr=[4.643331241078171e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:40:06,467] [INFO] [timer.py:154:stop] 0/90, SamplesPerSec=3.5935098659661784
+  4%|▍         | 100/2340 [06:58<2:52:18,  4.62s/it][2021-04-06 23:40:52,581] [INFO] [logging.py:60:log_dist] [Rank 0] step=100, skipped=18, lr=[4.7845346309592914e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:40:52,581] [INFO] [timer.py:154:stop] 0/100, SamplesPerSec=3.555690548486492
+  5%|▍         | 110/2340 [07:44<2:52:11,  4.63s/it][2021-04-06 23:41:38,825] [INFO] [logging.py:60:log_dist] [Rank 0] step=110, skipped=18, lr=[4.909469568363888e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:41:38,825] [INFO] [timer.py:154:stop] 0/110, SamplesPerSec=3.5244672324859634
+  5%|▌         | 120/2340 [08:31<2:51:11,  4.63s/it][2021-04-06 23:42:25,014] [INFO] [logging.py:60:log_dist] [Rank 0] step=120, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:42:25,014] [INFO] [timer.py:154:stop] 0/120, SamplesPerSec=3.4993305493265447
+  6%|▌         | 130/2340 [09:17<2:50:29,  4.63s/it][2021-04-06 23:43:11,276] [INFO] [logging.py:60:log_dist] [Rank 0] step=130, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:43:11,276] [INFO] [timer.py:154:stop] 0/130, SamplesPerSec=3.4779330876808823
+  6%|▌         | 140/2340 [10:03<2:49:03,  4.61s/it][2021-04-06 23:43:57,374] [INFO] [logging.py:60:log_dist] [Rank 0] step=140, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:43:57,374] [INFO] [timer.py:154:stop] 0/140, SamplesPerSec=3.460798094241111
+  6%|▋         | 150/2340 [10:49<2:48:52,  4.63s/it][2021-04-06 23:44:43,631] [INFO] [logging.py:60:log_dist] [Rank 0] step=150, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:44:43,631] [INFO] [timer.py:154:stop] 0/150, SamplesPerSec=3.445262848743699
+  7%|▋         | 160/2340 [11:36<2:49:10,  4.66s/it][2021-04-06 23:45:30,338] [INFO] [logging.py:60:log_dist] [Rank 0] step=160, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:45:30,338] [INFO] [timer.py:154:stop] 0/160, SamplesPerSec=3.4295749968815037
+  7%|▋         | 170/2340 [12:22<2:48:27,  4.66s/it][2021-04-06 23:46:16,858] [INFO] [logging.py:60:log_dist] [Rank 0] step=170, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:46:16,858] [INFO] [timer.py:154:stop] 0/170, SamplesPerSec=3.416730753659954
+  8%|▊         | 180/2340 [13:10<2:48:46,  4.69s/it][2021-04-06 23:47:03,992] [INFO] [logging.py:60:log_dist] [Rank 0] step=180, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:47:03,992] [INFO] [timer.py:154:stop] 0/180, SamplesPerSec=3.4027592013669485
+  8%|▊         | 190/2340 [13:56<2:45:30,  4.62s/it][2021-04-06 23:47:50,162] [INFO] [logging.py:60:log_dist] [Rank 0] step=190, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:47:50,162] [INFO] [timer.py:154:stop] 0/190, SamplesPerSec=3.3942914988424118
+  9%|▊         | 200/2340 [14:42<2:47:34,  4.70s/it][2021-04-06 23:48:36,840] [INFO] [logging.py:60:log_dist] [Rank 0] step=200, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:48:36,840] [INFO] [timer.py:154:stop] 0/200, SamplesPerSec=3.3847610796344356
+  9%|▉         | 210/2340 [15:29<2:43:50,  4.62s/it][2021-04-06 23:49:23,066] [INFO] [logging.py:60:log_dist] [Rank 0] step=210, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:49:23,066] [INFO] [timer.py:154:stop] 0/210, SamplesPerSec=3.377851305181705
+  9%|▉         | 220/2340 [16:15<2:43:17,  4.62s/it][2021-04-06 23:50:09,319] [INFO] [logging.py:60:log_dist] [Rank 0] step=220, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:50:09,319] [INFO] [timer.py:154:stop] 0/220, SamplesPerSec=3.37149454860265
+ 10%|▉         | 230/2340 [17:01<2:42:30,  4.62s/it][2021-04-06 23:50:55,620] [INFO] [logging.py:60:log_dist] [Rank 0] step=230, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:50:55,620] [INFO] [timer.py:154:stop] 0/230, SamplesPerSec=3.3655593510615
+ 10%|█         | 240/2340 [17:47<2:41:21,  4.61s/it][2021-04-06 23:51:41,735] [INFO] [logging.py:60:log_dist] [Rank 0] step=240, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:51:41,735] [INFO] [timer.py:154:stop] 0/240, SamplesPerSec=3.360726953367134
+ 11%|█         | 250/2340 [18:34<2:41:54,  4.65s/it][2021-04-06 23:52:28,201] [INFO] [logging.py:60:log_dist] [Rank 0] step=250, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:52:28,201] [INFO] [timer.py:154:stop] 0/250, SamplesPerSec=3.355235318278351
+ 11%|█         | 260/2340 [19:20<2:40:44,  4.64s/it][2021-04-06 23:53:14,603] [INFO] [logging.py:60:log_dist] [Rank 0] step=260, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:53:14,603] [INFO] [timer.py:154:stop] 0/260, SamplesPerSec=3.350372977897036
+ 12%|█▏        | 270/2340 [20:06<2:39:08,  4.61s/it][2021-04-06 23:54:00,754] [INFO] [logging.py:60:log_dist] [Rank 0] step=270, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:54:00,754] [INFO] [timer.py:154:stop] 0/270, SamplesPerSec=3.346582014250818
+ 12%|█▏        | 280/2340 [20:53<2:39:03,  4.63s/it][2021-04-06 23:54:46,975] [INFO] [logging.py:60:log_dist] [Rank 0] step=280, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:54:46,975] [INFO] [timer.py:154:stop] 0/280, SamplesPerSec=3.3428832497912673
+ 12%|█▏        | 290/2340 [21:39<2:38:16,  4.63s/it][2021-04-06 23:55:33,283] [INFO] [logging.py:60:log_dist] [Rank 0] step=290, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:55:33,284] [INFO] [timer.py:154:stop] 0/290, SamplesPerSec=3.3392265941906047
+ 13%|█▎        | 300/2340 [22:25<2:37:09,  4.62s/it][2021-04-06 23:56:19,632] [INFO] [logging.py:60:log_dist] [Rank 0] step=300, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-06 23:56:19,632] [INFO] [timer.py:154:stop] 0/300, SamplesPerSec=3.3357214316418697
+{'loss': 1.7382, 'learning_rate': 5e-05, 'epoch': 0.64}
+[2021-04-06 23:56:19,729] [INFO] [logging.py:60:log_dist] [Rank 0] Saving model checkpoint: ./results/checkpoint-300/global_step300/zero_pp_rank_0_mp_rank_00_model_states.pt
+[2021-04-06 23:59:57,277] [INFO] [engine.py:1680:_save_zero_checkpoint] zero checkpoint saved ./results/checkpoint-300/global_step300/zero_pp_rank_0_mp_rank_00optim_states.pt
+ 13%|█▎        | 310/2340 [26:51<4:06:40,  7.29s/it][2021-04-07 00:00:45,030] [INFO] [logging.py:60:log_dist] [Rank 0] step=310, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:00:45,030] [INFO] [timer.py:154:stop] 0/310, SamplesPerSec=3.329141496029544
+ 14%|█▎        | 320/2340 [27:37<2:38:37,  4.71s/it][2021-04-07 00:01:31,381] [INFO] [logging.py:60:log_dist] [Rank 0] step=320, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:01:31,381] [INFO] [timer.py:154:stop] 0/320, SamplesPerSec=3.326190163883135
+ 14%|█▍        | 330/2340 [28:23<2:35:31,  4.64s/it][2021-04-07 00:02:17,775] [INFO] [logging.py:60:log_dist] [Rank 0] step=330, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:02:17,776] [INFO] [timer.py:154:stop] 0/330, SamplesPerSec=3.3233206997374576
+ 15%|█▍        | 340/2340 [29:10<2:33:57,  4.62s/it][2021-04-07 00:03:04,038] [INFO] [logging.py:60:log_dist] [Rank 0] step=340, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:03:04,038] [INFO] [timer.py:154:stop] 0/340, SamplesPerSec=3.320911516301827
+ 15%|█▍        | 350/2340 [29:56<2:34:03,  4.65s/it][2021-04-07 00:03:50,282] [INFO] [logging.py:60:log_dist] [Rank 0] step=350, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:03:50,283] [INFO] [timer.py:154:stop] 0/350, SamplesPerSec=3.3186839244096125
+ 15%|█▌        | 360/2340 [30:42<2:31:55,  4.60s/it][2021-04-07 00:04:36,430] [INFO] [logging.py:60:log_dist] [Rank 0] step=360, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:04:36,430] [INFO] [timer.py:154:stop] 0/360, SamplesPerSec=3.3167827804057115
+ 16%|█▌        | 370/2340 [31:28<2:31:48,  4.62s/it][2021-04-07 00:05:22,635] [INFO] [logging.py:60:log_dist] [Rank 0] step=370, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:05:22,635] [INFO] [timer.py:154:stop] 0/370, SamplesPerSec=3.3148733908127266
+ 16%|█▌        | 380/2340 [32:14<2:30:53,  4.62s/it][2021-04-07 00:06:08,926] [INFO] [logging.py:60:log_dist] [Rank 0] step=380, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:06:08,926] [INFO] [timer.py:154:stop] 0/380, SamplesPerSec=3.312897989893239
+ 17%|█▋        | 390/2340 [33:01<2:29:46,  4.61s/it][2021-04-07 00:06:55,121] [INFO] [logging.py:60:log_dist] [Rank 0] step=390, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:06:55,121] [INFO] [timer.py:154:stop] 0/390, SamplesPerSec=3.3112094165564043
+ 17%|█▋        | 400/2340 [33:47<2:29:15,  4.62s/it][2021-04-07 00:07:41,301] [INFO] [logging.py:60:log_dist] [Rank 0] step=400, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:07:41,301] [INFO] [timer.py:154:stop] 0/400, SamplesPerSec=3.3096323336420945
+ 18%|█▊        | 410/2340 [34:33<2:28:50,  4.63s/it][2021-04-07 00:08:27,607] [INFO] [logging.py:60:log_dist] [Rank 0] step=410, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:08:27,607] [INFO] [timer.py:154:stop] 0/410, SamplesPerSec=3.307913599543883
+ 18%|█▊        | 420/2340 [35:20<2:28:12,  4.63s/it][2021-04-07 00:09:13,981] [INFO] [logging.py:60:log_dist] [Rank 0] step=420, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:09:13,981] [INFO] [timer.py:154:stop] 0/420, SamplesPerSec=3.306158859157528
+ 18%|█▊        | 430/2340 [36:06<2:27:09,  4.62s/it][2021-04-07 00:10:00,233] [INFO] [logging.py:60:log_dist] [Rank 0] step=430, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:10:00,233] [INFO] [timer.py:154:stop] 0/430, SamplesPerSec=3.304694041863405
+ 19%|█▉        | 440/2340 [36:52<2:26:40,  4.63s/it][2021-04-07 00:10:46,556] [INFO] [logging.py:60:log_dist] [Rank 0] step=440, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:10:46,556] [INFO] [timer.py:154:stop] 0/440, SamplesPerSec=3.303183580635357
+ 19%|█▉        | 450/2340 [37:38<2:25:47,  4.63s/it][2021-04-07 00:11:32,778] [INFO] [logging.py:60:log_dist] [Rank 0] step=450, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:11:32,778] [INFO] [timer.py:154:stop] 0/450, SamplesPerSec=3.3018995017670267
+ 20%|█▉        | 460/2340 [38:24<2:24:18,  4.61s/it][2021-04-07 00:12:18,887] [INFO] [logging.py:60:log_dist] [Rank 0] step=460, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:12:18,887] [INFO] [timer.py:154:stop] 0/460, SamplesPerSec=3.300856872057704
+ 20%|██        | 470/2340 [39:11<2:23:09,  4.59s/it][2021-04-07 00:13:04,968] [INFO] [logging.py:60:log_dist] [Rank 0] step=470, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:13:04,969] [INFO] [timer.py:154:stop] 0/470, SamplesPerSec=3.299899620517553
+ 21%|██        | 480/2340 [39:57<2:23:37,  4.63s/it][2021-04-07 00:13:51,215] [INFO] [logging.py:60:log_dist] [Rank 0] step=480, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:13:51,215] [INFO] [timer.py:154:stop] 0/480, SamplesPerSec=3.298731607531759
+ 21%|██        | 490/2340 [40:43<2:23:08,  4.64s/it][2021-04-07 00:14:37,567] [INFO] [logging.py:60:log_dist] [Rank 0] step=490, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:14:37,567] [INFO] [timer.py:154:stop] 0/490, SamplesPerSec=3.297455616588299
+ 21%|██▏       | 500/2340 [41:29<2:22:05,  4.63s/it][2021-04-07 00:15:23,938] [INFO] [logging.py:60:log_dist] [Rank 0] step=500, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:15:23,939] [INFO] [timer.py:154:stop] 0/500, SamplesPerSec=3.2962029929469314
+ 22%|██▏       | 510/2340 [42:16<2:21:13,  4.63s/it][2021-04-07 00:16:10,304] [INFO] [logging.py:60:log_dist] [Rank 0] step=510, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:16:10,304] [INFO] [timer.py:154:stop] 0/510, SamplesPerSec=3.29500884466243
+ 22%|██▏       | 520/2340 [43:02<2:20:33,  4.63s/it][2021-04-07 00:16:56,610] [INFO] [logging.py:60:log_dist] [Rank 0] step=520, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:16:56,610] [INFO] [timer.py:154:stop] 0/520, SamplesPerSec=3.2939486275528944
+ 23%|██▎       | 530/2340 [43:48<2:19:31,  4.62s/it][2021-04-07 00:17:42,878] [INFO] [logging.py:60:log_dist] [Rank 0] step=530, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:17:42,878] [INFO] [timer.py:154:stop] 0/530, SamplesPerSec=3.2929780445364436
+ 23%|██▎       | 540/2340 [44:35<2:18:13,  4.61s/it][2021-04-07 00:18:29,049] [INFO] [logging.py:60:log_dist] [Rank 0] step=540, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:18:29,049] [INFO] [timer.py:154:stop] 0/540, SamplesPerSec=3.292174397386226
+ 24%|██▎       | 550/2340 [45:21<2:18:03,  4.63s/it][2021-04-07 00:19:15,352] [INFO] [logging.py:60:log_dist] [Rank 0] step=550, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:19:15,352] [INFO] [timer.py:154:stop] 0/550, SamplesPerSec=3.291225492383146
+ 24%|██▍       | 560/2340 [46:07<2:17:17,  4.63s/it][2021-04-07 00:20:01,572] [INFO] [logging.py:60:log_dist] [Rank 0] step=560, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:20:01,573] [INFO] [timer.py:154:stop] 0/560, SamplesPerSec=3.290417990492528
+ 24%|██▍       | 570/2340 [46:53<2:16:11,  4.62s/it][2021-04-07 00:20:47,785] [INFO] [logging.py:60:log_dist] [Rank 0] step=570, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:20:47,785] [INFO] [timer.py:154:stop] 0/570, SamplesPerSec=3.289651661476976
+ 25%|██▍       | 580/2340 [47:40<2:15:35,  4.62s/it][2021-04-07 00:21:34,114] [INFO] [logging.py:60:log_dist] [Rank 0] step=580, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:21:34,114] [INFO] [timer.py:154:stop] 0/580, SamplesPerSec=3.288764037318121
+ 25%|██▌       | 590/2340 [48:26<2:15:06,  4.63s/it][2021-04-07 00:22:20,347] [INFO] [logging.py:60:log_dist] [Rank 0] step=590, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:22:20,347] [INFO] [timer.py:154:stop] 0/590, SamplesPerSec=3.2880251605098714
+ 26%|██▌       | 600/2340 [49:12<2:14:28,  4.64s/it][2021-04-07 00:23:06,640] [INFO] [logging.py:60:log_dist] [Rank 0] step=600, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:23:06,640] [INFO] [timer.py:154:stop] 0/600, SamplesPerSec=3.287240653493837
+{'loss': 1.3806, 'learning_rate': 5e-05, 'epoch': 1.28}
+[2021-04-07 00:23:06,742] [INFO] [logging.py:60:log_dist] [Rank 0] Saving model checkpoint: ./results/checkpoint-600/global_step600/zero_pp_rank_0_mp_rank_00_model_states.pt
+[2021-04-07 00:27:57,867] [INFO] [engine.py:1680:_save_zero_checkpoint] zero checkpoint saved ./results/checkpoint-600/global_step600/zero_pp_rank_0_mp_rank_00optim_states.pt
+ 26%|██▌       | 610/2340 [54:50<3:55:34,  8.17s/it][2021-04-07 00:28:44,297] [INFO] [logging.py:60:log_dist] [Rank 0] step=610, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:28:44,297] [INFO] [timer.py:154:stop] 0/610, SamplesPerSec=3.2863545372689127
+ 26%|██▋       | 620/2340 [55:36<2:15:45,  4.74s/it][2021-04-07 00:29:30,752] [INFO] [logging.py:60:log_dist] [Rank 0] step=620, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:29:30,752] [INFO] [timer.py:154:stop] 0/620, SamplesPerSec=3.285433957686444
+ 27%|██▋       | 630/2340 [56:23<2:12:26,  4.65s/it][2021-04-07 00:30:17,186] [INFO] [logging.py:60:log_dist] [Rank 0] step=630, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:30:17,186] [INFO] [timer.py:154:stop] 0/630, SamplesPerSec=3.2845666140387735
+ 27%|██▋       | 640/2340 [57:09<2:10:42,  4.61s/it][2021-04-07 00:31:03,472] [INFO] [logging.py:60:log_dist] [Rank 0] step=640, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:31:03,472] [INFO] [timer.py:154:stop] 0/640, SamplesPerSec=3.28389345166528
+ 28%|██▊       | 650/2340 [57:55<2:10:41,  4.64s/it][2021-04-07 00:31:49,751] [INFO] [logging.py:60:log_dist] [Rank 0] step=650, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:31:49,751] [INFO] [timer.py:154:stop] 0/650, SamplesPerSec=3.2832530698199673
+ 28%|██▊       | 660/2340 [58:42<2:09:40,  4.63s/it][2021-04-07 00:32:35,990] [INFO] [logging.py:60:log_dist] [Rank 0] step=660, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:32:35,990] [INFO] [timer.py:154:stop] 0/660, SamplesPerSec=3.2826732771477234
+ 29%|██▊       | 670/2340 [59:28<2:09:21,  4.65s/it][2021-04-07 00:33:22,440] [INFO] [logging.py:60:log_dist] [Rank 0] step=670, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:33:22,440] [INFO] [timer.py:154:stop] 0/670, SamplesPerSec=3.281884873958987
+ 29%|██▉       | 680/2340 [1:00:14<2:07:40,  4.61s/it][2021-04-07 00:34:08,687] [INFO] [logging.py:60:log_dist] [Rank 0] step=680, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:34:08,687] [INFO] [timer.py:154:stop] 0/680, SamplesPerSec=3.281337012550892
+ 29%|██▉       | 690/2340 [1:01:00<2:07:11,  4.63s/it][2021-04-07 00:34:54,875] [INFO] [logging.py:60:log_dist] [Rank 0] step=690, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:34:54,876] [INFO] [timer.py:154:stop] 0/690, SamplesPerSec=3.2808625120602333
+ 30%|██▉       | 700/2340 [1:01:47<2:06:21,  4.62s/it][2021-04-07 00:35:41,037] [INFO] [logging.py:60:log_dist] [Rank 0] step=700, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:35:41,038] [INFO] [timer.py:154:stop] 0/700, SamplesPerSec=3.2804301020284985
+ 30%|███       | 710/2340 [1:02:33<2:05:25,  4.62s/it][2021-04-07 00:36:27,249] [INFO] [logging.py:60:log_dist] [Rank 0] step=710, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:36:27,249] [INFO] [timer.py:154:stop] 0/710, SamplesPerSec=3.2799605125331954
+ 31%|███       | 720/2340 [1:03:19<2:04:39,  4.62s/it][2021-04-07 00:37:13,398] [INFO] [logging.py:60:log_dist] [Rank 0] step=720, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:37:13,398] [INFO] [timer.py:154:stop] 0/720, SamplesPerSec=3.279564479730946
+ 31%|███       | 730/2340 [1:04:05<2:03:38,  4.61s/it][2021-04-07 00:37:59,554] [INFO] [logging.py:60:log_dist] [Rank 0] step=730, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:37:59,554] [INFO] [timer.py:154:stop] 0/730, SamplesPerSec=3.279174904700705
+ 32%|███▏      | 740/2340 [1:04:51<2:03:39,  4.64s/it][2021-04-07 00:38:45,806] [INFO] [logging.py:60:log_dist] [Rank 0] step=740, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:38:45,806] [INFO] [timer.py:154:stop] 0/740, SamplesPerSec=3.27870042034082
+ 32%|███▏      | 750/2340 [1:05:38<2:02:45,  4.63s/it][2021-04-07 00:39:32,185] [INFO] [logging.py:60:log_dist] [Rank 0] step=750, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:39:32,185] [INFO] [timer.py:154:stop] 0/750, SamplesPerSec=3.2781174770026675
+ 32%|███▏      | 760/2340 [1:06:24<2:02:06,  4.64s/it][2021-04-07 00:40:18,434] [INFO] [logging.py:60:log_dist] [Rank 0] step=760, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:40:18,434] [INFO] [timer.py:154:stop] 0/760, SamplesPerSec=3.277672659851223
+ 33%|███▎      | 770/2340 [1:07:10<2:00:35,  4.61s/it][2021-04-07 00:41:04,594] [INFO] [logging.py:60:log_dist] [Rank 0] step=770, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:41:04,594] [INFO] [timer.py:154:stop] 0/770, SamplesPerSec=3.277323472500855
+ 33%|███▎      | 780/2340 [1:07:56<2:00:11,  4.62s/it][2021-04-07 00:41:50,825] [INFO] [logging.py:60:log_dist] [Rank 0] step=780, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:41:50,826] [INFO] [timer.py:154:stop] 0/780, SamplesPerSec=3.2769169656830925
+ 34%|███▍      | 790/2340 [1:08:43<1:59:22,  4.62s/it][2021-04-07 00:42:37,085] [INFO] [logging.py:60:log_dist] [Rank 0] step=790, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:42:37,086] [INFO] [timer.py:154:stop] 0/790, SamplesPerSec=3.276498897166439
+ 34%|███▍      | 800/2340 [1:09:29<1:58:40,  4.62s/it][2021-04-07 00:43:23,190] [INFO] [logging.py:60:log_dist] [Rank 0] step=800, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:43:23,190] [INFO] [timer.py:154:stop] 0/800, SamplesPerSec=3.2762270190794185
+ 35%|███▍      | 810/2340 [1:10:15<1:57:48,  4.62s/it][2021-04-07 00:44:09,432] [INFO] [logging.py:60:log_dist] [Rank 0] step=810, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:44:09,432] [INFO] [timer.py:154:stop] 0/810, SamplesPerSec=3.2758417233857946
+ 35%|███▌      | 820/2340 [1:11:01<1:57:38,  4.64s/it][2021-04-07 00:44:55,831] [INFO] [logging.py:60:log_dist] [Rank 0] step=820, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:44:55,831] [INFO] [timer.py:154:stop] 0/820, SamplesPerSec=3.275327325195562
+ 35%|███▌      | 830/2340 [1:11:48<1:56:23,  4.62s/it][2021-04-07 00:45:42,135] [INFO] [logging.py:60:log_dist] [Rank 0] step=830, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:45:42,135] [INFO] [timer.py:154:stop] 0/830, SamplesPerSec=3.2749072807106403
+ 36%|███▌      | 840/2340 [1:12:34<1:55:35,  4.62s/it][2021-04-07 00:46:28,330] [INFO] [logging.py:60:log_dist] [Rank 0] step=840, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:46:28,330] [INFO] [timer.py:154:stop] 0/840, SamplesPerSec=3.274590406949627
+ 36%|███▋      | 850/2340 [1:13:20<1:54:55,  4.63s/it][2021-04-07 00:47:14,560] [INFO] [logging.py:60:log_dist] [Rank 0] step=850, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:47:14,560] [INFO] [timer.py:154:stop] 0/850, SamplesPerSec=3.274253001352456
+ 37%|███▋      | 860/2340 [1:14:06<1:54:00,  4.62s/it][2021-04-07 00:48:00,824] [INFO] [logging.py:60:log_dist] [Rank 0] step=860, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:48:00,824] [INFO] [timer.py:154:stop] 0/860, SamplesPerSec=3.2738930960984445
+ 37%|███▋      | 870/2340 [1:14:53<1:53:52,  4.65s/it][2021-04-07 00:48:47,231] [INFO] [logging.py:60:log_dist] [Rank 0] step=870, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:48:47,231] [INFO] [timer.py:154:stop] 0/870, SamplesPerSec=3.2734243561643934
+ 38%|███▊      | 880/2340 [1:15:39<1:52:36,  4.63s/it][2021-04-07 00:49:33,572] [INFO] [logging.py:60:log_dist] [Rank 0] step=880, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:49:33,572] [INFO] [timer.py:154:stop] 0/880, SamplesPerSec=3.2730210374690083
+ 38%|███▊      | 890/2340 [1:16:25<1:51:54,  4.63s/it][2021-04-07 00:50:19,818] [INFO] [logging.py:60:log_dist] [Rank 0] step=890, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:50:19,818] [INFO] [timer.py:154:stop] 0/890, SamplesPerSec=3.272702808767494
+ 38%|███▊      | 900/2340 [1:17:12<1:51:13,  4.63s/it][2021-04-07 00:51:06,088] [INFO] [logging.py:60:log_dist] [Rank 0] step=900, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:51:06,088] [INFO] [timer.py:154:stop] 0/900, SamplesPerSec=3.2723739026749206
+{'loss': 1.0658, 'learning_rate': 5e-05, 'epoch': 1.92}
+[2021-04-07 00:51:06,190] [INFO] [logging.py:60:log_dist] [Rank 0] Saving model checkpoint: ./results/checkpoint-900/global_step900/zero_pp_rank_0_mp_rank_00_model_states.pt
+[2021-04-07 00:56:03,410] [INFO] [engine.py:1680:_save_zero_checkpoint] zero checkpoint saved ./results/checkpoint-900/global_step900/zero_pp_rank_0_mp_rank_00optim_states.pt
+ 39%|███▉      | 910/2340 [1:22:55<3:15:48,  8.22s/it][2021-04-07 00:56:49,737] [INFO] [logging.py:60:log_dist] [Rank 0] step=910, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:56:49,737] [INFO] [timer.py:154:stop] 0/910, SamplesPerSec=3.272029357885696
+ 39%|███▉      | 920/2340 [1:23:41<1:51:45,  4.72s/it][2021-04-07 00:57:35,943] [INFO] [logging.py:60:log_dist] [Rank 0] step=920, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:57:35,943] [INFO] [timer.py:154:stop] 0/920, SamplesPerSec=3.271762798591379
+ 40%|███▉      | 930/2340 [1:24:28<1:49:10,  4.65s/it][2021-04-07 00:58:22,408] [INFO] [logging.py:60:log_dist] [Rank 0] step=930, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:58:22,409] [INFO] [timer.py:154:stop] 0/930, SamplesPerSec=3.2713037912073397
+ 40%|████      | 940/2340 [1:25:14<1:47:33,  4.61s/it][2021-04-07 00:59:08,365] [INFO] [logging.py:60:log_dist] [Rank 0] step=940, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:59:08,365] [INFO] [timer.py:154:stop] 0/940, SamplesPerSec=3.2712422845802926
+ 41%|████      | 950/2340 [1:26:00<1:47:05,  4.62s/it][2021-04-07 00:59:54,634] [INFO] [logging.py:60:log_dist] [Rank 0] step=950, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 00:59:54,634] [INFO] [timer.py:154:stop] 0/950, SamplesPerSec=3.2709462698732046
+ 41%|████      | 960/2340 [1:26:46<1:46:01,  4.61s/it][2021-04-07 01:00:40,754] [INFO] [logging.py:60:log_dist] [Rank 0] step=960, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:00:40,754] [INFO] [timer.py:154:stop] 0/960, SamplesPerSec=3.270766806064255
+ 41%|████▏     | 970/2340 [1:27:33<1:45:26,  4.62s/it][2021-04-07 01:01:27,008] [INFO] [logging.py:60:log_dist] [Rank 0] step=970, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:01:27,008] [INFO] [timer.py:154:stop] 0/970, SamplesPerSec=3.270492043222801
+ 42%|████▏     | 980/2340 [1:28:19<1:44:33,  4.61s/it][2021-04-07 01:02:13,192] [INFO] [logging.py:60:log_dist] [Rank 0] step=980, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:02:13,192] [INFO] [timer.py:154:stop] 0/980, SamplesPerSec=3.270273999787562
+ 42%|████▏     | 990/2340 [1:29:05<1:43:43,  4.61s/it][2021-04-07 01:02:59,336] [INFO] [logging.py:60:log_dist] [Rank 0] step=990, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:02:59,336] [INFO] [timer.py:154:stop] 0/990, SamplesPerSec=3.2700899044950407
+ 43%|████▎     | 1000/2340 [1:29:51<1:43:04,  4.62s/it][2021-04-07 01:03:45,467] [INFO] [logging.py:60:log_dist] [Rank 0] step=1000, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:03:45,467] [INFO] [timer.py:154:stop] 0/1000, SamplesPerSec=3.269919781848582
+ 43%|████▎     | 1010/2340 [1:30:37<1:42:54,  4.64s/it][2021-04-07 01:04:31,832] [INFO] [logging.py:60:log_dist] [Rank 0] step=1010, skipped=18, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:04:31,832] [INFO] [timer.py:154:stop] 0/1010, SamplesPerSec=3.2695865899715217
+ 44%|████▎     | 1019/2340 [1:31:16<1:22:56,  3.77s/it][2021-04-07 01:05:10,649] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 65536.0, reducing to 65536.0
+[2021-04-07 01:05:12,485] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 65536.0, reducing to 32768.0
+[2021-04-07 01:05:12,485] [INFO] [timer.py:154:stop] 0/1020, SamplesPerSec=3.2732630327715215
+ 44%|████▍     | 1030/2340 [1:32:04<1:40:00,  4.58s/it][2021-04-07 01:05:58,785] [INFO] [logging.py:60:log_dist] [Rank 0] step=1030, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:05:58,785] [INFO] [timer.py:154:stop] 0/1030, SamplesPerSec=3.2729482945684345
+ 44%|████▍     | 1040/2340 [1:32:51<1:40:12,  4.63s/it][2021-04-07 01:06:44,983] [INFO] [logging.py:60:log_dist] [Rank 0] step=1040, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:06:44,983] [INFO] [timer.py:154:stop] 0/1040, SamplesPerSec=3.272709433260542
+ 45%|████▍     | 1050/2340 [1:33:37<1:39:12,  4.61s/it][2021-04-07 01:07:31,147] [INFO] [logging.py:60:log_dist] [Rank 0] step=1050, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:07:31,147] [INFO] [timer.py:154:stop] 0/1050, SamplesPerSec=3.2724986986263738
+ 45%|████▌     | 1060/2340 [1:34:23<1:38:26,  4.61s/it][2021-04-07 01:08:17,213] [INFO] [logging.py:60:log_dist] [Rank 0] step=1060, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:08:17,213] [INFO] [timer.py:154:stop] 0/1060, SamplesPerSec=3.2723593690619426
+ 46%|████▌     | 1070/2340 [1:35:09<1:38:22,  4.65s/it][2021-04-07 01:09:03,438] [INFO] [logging.py:60:log_dist] [Rank 0] step=1070, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:09:03,438] [INFO] [timer.py:154:stop] 0/1070, SamplesPerSec=3.272115224313558
+ 46%|████▌     | 1080/2340 [1:35:55<1:37:06,  4.62s/it][2021-04-07 01:09:49,845] [INFO] [logging.py:60:log_dist] [Rank 0] step=1080, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:09:49,845] [INFO] [timer.py:154:stop] 0/1080, SamplesPerSec=3.271757665427198
+ 47%|████▋     | 1090/2340 [1:36:42<1:35:56,  4.61s/it][2021-04-07 01:10:36,027] [INFO] [logging.py:60:log_dist] [Rank 0] step=1090, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:10:36,027] [INFO] [timer.py:154:stop] 0/1090, SamplesPerSec=3.271552354755468
+ 47%|████▋     | 1100/2340 [1:37:28<1:35:46,  4.63s/it][2021-04-07 01:11:22,382] [INFO] [logging.py:60:log_dist] [Rank 0] step=1100, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:11:22,382] [INFO] [timer.py:154:stop] 0/1100, SamplesPerSec=3.271237897054219
+ 47%|████▋     | 1110/2340 [1:38:14<1:34:40,  4.62s/it][2021-04-07 01:12:08,616] [INFO] [logging.py:60:log_dist] [Rank 0] step=1110, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:12:08,616] [INFO] [timer.py:154:stop] 0/1110, SamplesPerSec=3.2710073743078123
+ 48%|████▊     | 1120/2340 [1:39:00<1:34:09,  4.63s/it][2021-04-07 01:12:54,951] [INFO] [logging.py:60:log_dist] [Rank 0] step=1120, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:12:54,951] [INFO] [timer.py:154:stop] 0/1120, SamplesPerSec=3.2707163718598955
+ 48%|████▊     | 1130/2340 [1:39:47<1:33:23,  4.63s/it][2021-04-07 01:13:41,171] [INFO] [logging.py:60:log_dist] [Rank 0] step=1130, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:13:41,171] [INFO] [timer.py:154:stop] 0/1130, SamplesPerSec=3.2705024032590226
+ 49%|████▊     | 1140/2340 [1:40:33<1:32:45,  4.64s/it][2021-04-07 01:14:27,544] [INFO] [logging.py:60:log_dist] [Rank 0] step=1140, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:14:27,544] [INFO] [timer.py:154:stop] 0/1140, SamplesPerSec=3.27019697457076
+ 49%|████▉     | 1150/2340 [1:41:19<1:31:45,  4.63s/it][2021-04-07 01:15:13,777] [INFO] [logging.py:60:log_dist] [Rank 0] step=1150, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:15:13,777] [INFO] [timer.py:154:stop] 0/1150, SamplesPerSec=3.2699836785507905
+ 50%|████▉     | 1160/2340 [1:42:06<1:31:17,  4.64s/it][2021-04-07 01:16:00,116] [INFO] [logging.py:60:log_dist] [Rank 0] step=1160, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:16:00,116] [INFO] [timer.py:154:stop] 0/1160, SamplesPerSec=3.269709328198306
+ 50%|█████     | 1170/2340 [1:42:52<1:30:06,  4.62s/it][2021-04-07 01:16:46,182] [INFO] [logging.py:60:log_dist] [Rank 0] step=1170, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:16:46,182] [INFO] [timer.py:154:stop] 0/1170, SamplesPerSec=3.2696057650845622
+ 50%|█████     | 1180/2340 [1:43:38<1:29:39,  4.64s/it][2021-04-07 01:17:32,549] [INFO] [logging.py:60:log_dist] [Rank 0] step=1180, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:17:32,549] [INFO] [timer.py:154:stop] 0/1180, SamplesPerSec=3.269321706729269
+ 51%|█████     | 1190/2340 [1:44:24<1:28:29,  4.62s/it][2021-04-07 01:18:18,855] [INFO] [logging.py:60:log_dist] [Rank 0] step=1190, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:18:18,855] [INFO] [timer.py:154:stop] 0/1190, SamplesPerSec=3.269080463683104
+ 51%|█████▏    | 1200/2340 [1:45:11<1:27:55,  4.63s/it][2021-04-07 01:19:05,027] [INFO] [logging.py:60:log_dist] [Rank 0] step=1200, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:19:05,027] [INFO] [timer.py:154:stop] 0/1200, SamplesPerSec=3.268921958338079
+{'loss': 0.5495, 'learning_rate': 5e-05, 'epoch': 2.56}
+[2021-04-07 01:19:05,124] [INFO] [logging.py:60:log_dist] [Rank 0] Saving model checkpoint: ./results/checkpoint-1200/global_step1200/zero_pp_rank_0_mp_rank_00_model_states.pt
+[2021-04-07 01:24:09,267] [INFO] [engine.py:1680:_save_zero_checkpoint] zero checkpoint saved ./results/checkpoint-1200/global_step1200/zero_pp_rank_0_mp_rank_00optim_states.pt
+ 52%|█████▏    | 1210/2340 [1:51:01<2:36:14,  8.30s/it][2021-04-07 01:24:55,513] [INFO] [logging.py:60:log_dist] [Rank 0] step=1210, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:24:55,514] [INFO] [timer.py:154:stop] 0/1210, SamplesPerSec=3.2687393507152023
+ 52%|█████▏    | 1220/2340 [1:51:47<1:28:16,  4.73s/it][2021-04-07 01:25:41,695] [INFO] [logging.py:60:log_dist] [Rank 0] step=1220, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:25:41,695] [INFO] [timer.py:154:stop] 0/1220, SamplesPerSec=3.2685810653041067
+ 53%|█████▎    | 1230/2340 [1:52:34<1:25:38,  4.63s/it][2021-04-07 01:26:27,988] [INFO] [logging.py:60:log_dist] [Rank 0] step=1230, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:26:27,988] [INFO] [timer.py:154:stop] 0/1230, SamplesPerSec=3.268361125978567
+ 53%|█████▎    | 1240/2340 [1:53:20<1:24:47,  4.63s/it][2021-04-07 01:27:14,260] [INFO] [logging.py:60:log_dist] [Rank 0] step=1240, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:27:14,260] [INFO] [timer.py:154:stop] 0/1240, SamplesPerSec=3.268156714341162
+ 53%|█████▎    | 1250/2340 [1:54:06<1:23:58,  4.62s/it][2021-04-07 01:28:00,413] [INFO] [logging.py:60:log_dist] [Rank 0] step=1250, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:28:00,413] [INFO] [timer.py:154:stop] 0/1250, SamplesPerSec=3.268022217471491
+ 54%|█████▍    | 1260/2340 [1:54:52<1:22:56,  4.61s/it][2021-04-07 01:28:46,566] [INFO] [logging.py:60:log_dist] [Rank 0] step=1260, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:28:46,566] [INFO] [timer.py:154:stop] 0/1260, SamplesPerSec=3.267890646186403
+ 54%|█████▍    | 1270/2340 [1:55:38<1:22:09,  4.61s/it][2021-04-07 01:29:32,603] [INFO] [logging.py:60:log_dist] [Rank 0] step=1270, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:29:32,603] [INFO] [timer.py:154:stop] 0/1270, SamplesPerSec=3.26782608696678
+ 55%|█████▍    | 1280/2340 [1:56:24<1:21:41,  4.62s/it][2021-04-07 01:30:18,829] [INFO] [logging.py:60:log_dist] [Rank 0] step=1280, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:30:18,829] [INFO] [timer.py:154:stop] 0/1280, SamplesPerSec=3.267657021186402
+ 55%|█████▌    | 1290/2340 [1:57:11<1:20:38,  4.61s/it][2021-04-07 01:31:04,968] [INFO] [logging.py:60:log_dist] [Rank 0] step=1290, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:31:04,968] [INFO] [timer.py:154:stop] 0/1290, SamplesPerSec=3.2675387152975697
+ 56%|█████▌    | 1300/2340 [1:57:57<1:20:11,  4.63s/it][2021-04-07 01:31:51,263] [INFO] [logging.py:60:log_dist] [Rank 0] step=1300, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:31:51,263] [INFO] [timer.py:154:stop] 0/1300, SamplesPerSec=3.267336595657047
+ 56%|█████▌    | 1310/2340 [1:58:43<1:19:32,  4.63s/it][2021-04-07 01:32:37,479] [INFO] [logging.py:60:log_dist] [Rank 0] step=1310, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:32:37,479] [INFO] [timer.py:154:stop] 0/1310, SamplesPerSec=3.2671808473448114
+ 56%|█████▋    | 1320/2340 [1:59:29<1:18:28,  4.62s/it][2021-04-07 01:33:23,693] [INFO] [logging.py:60:log_dist] [Rank 0] step=1320, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:33:23,693] [INFO] [timer.py:154:stop] 0/1320, SamplesPerSec=3.2670283696069538
+ 57%|█████▋    | 1330/2340 [2:00:16<1:18:19,  4.65s/it][2021-04-07 01:34:10,160] [INFO] [logging.py:60:log_dist] [Rank 0] step=1330, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:34:10,161] [INFO] [timer.py:154:stop] 0/1330, SamplesPerSec=3.266743723108862
+ 57%|█████▋    | 1340/2340 [2:01:04<1:18:49,  4.73s/it][2021-04-07 01:34:58,708] [INFO] [logging.py:60:log_dist] [Rank 0] step=1340, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:34:58,708] [INFO] [timer.py:154:stop] 0/1340, SamplesPerSec=3.2653573430330307
+ 58%|█████▊    | 1350/2340 [2:01:51<1:16:14,  4.62s/it][2021-04-07 01:35:45,094] [INFO] [logging.py:60:log_dist] [Rank 0] step=1350, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:35:45,094] [INFO] [timer.py:154:stop] 0/1350, SamplesPerSec=3.2651321463557905
+ 58%|█████▊    | 1360/2340 [2:02:37<1:15:26,  4.62s/it][2021-04-07 01:36:31,358] [INFO] [logging.py:60:log_dist] [Rank 0] step=1360, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:36:31,358] [INFO] [timer.py:154:stop] 0/1360, SamplesPerSec=3.2649733387015103
+ 59%|█████▊    | 1370/2340 [2:03:23<1:14:50,  4.63s/it][2021-04-07 01:37:17,617] [INFO] [logging.py:60:log_dist] [Rank 0] step=1370, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:37:17,617] [INFO] [timer.py:154:stop] 0/1370, SamplesPerSec=3.264820115511679
+ 59%|█████▉    | 1380/2340 [2:04:09<1:13:50,  4.61s/it][2021-04-07 01:38:03,731] [INFO] [logging.py:60:log_dist] [Rank 0] step=1380, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:38:03,731] [INFO] [timer.py:154:stop] 0/1380, SamplesPerSec=3.2647431580097472
+ 59%|█████▉    | 1390/2340 [2:04:55<1:12:51,  4.60s/it][2021-04-07 01:38:49,812] [INFO] [logging.py:60:log_dist] [Rank 0] step=1390, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:38:49,812] [INFO] [timer.py:154:stop] 0/1390, SamplesPerSec=3.2646841283374117
+ 60%|█████▉    | 1400/2340 [2:05:42<1:12:10,  4.61s/it][2021-04-07 01:39:36,025] [INFO] [logging.py:60:log_dist] [Rank 0] step=1400, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:39:36,026] [INFO] [timer.py:154:stop] 0/1400, SamplesPerSec=3.264559639104762
+ 60%|██████    | 1410/2340 [2:06:27<1:11:18,  4.60s/it][2021-04-07 01:40:21,850] [INFO] [logging.py:60:log_dist] [Rank 0] step=1410, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:40:21,850] [INFO] [timer.py:154:stop] 0/1410, SamplesPerSec=3.264633996804213
+ 61%|██████    | 1420/2340 [2:07:14<1:10:46,  4.62s/it][2021-04-07 01:41:08,112] [INFO] [logging.py:60:log_dist] [Rank 0] step=1420, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:41:08,112] [INFO] [timer.py:154:stop] 0/1420, SamplesPerSec=3.2644887550555164
+ 61%|██████    | 1430/2340 [2:08:00<1:09:54,  4.61s/it][2021-04-07 01:41:54,273] [INFO] [logging.py:60:log_dist] [Rank 0] step=1430, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:41:54,273] [INFO] [timer.py:154:stop] 0/1430, SamplesPerSec=3.2643939402435693
+ 62%|██████▏   | 1440/2340 [2:08:46<1:09:15,  4.62s/it][2021-04-07 01:42:40,604] [INFO] [logging.py:60:log_dist] [Rank 0] step=1440, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:42:40,604] [INFO] [timer.py:154:stop] 0/1440, SamplesPerSec=3.2642160140798926
+ 62%|██████▏   | 1450/2340 [2:09:32<1:08:24,  4.61s/it][2021-04-07 01:43:26,724] [INFO] [logging.py:60:log_dist] [Rank 0] step=1450, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:43:26,725] [INFO] [timer.py:154:stop] 0/1450, SamplesPerSec=3.2641438785460672
+ 62%|██████▏   | 1460/2340 [2:10:18<1:07:40,  4.61s/it][2021-04-07 01:44:12,803] [INFO] [logging.py:60:log_dist] [Rank 0] step=1460, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:44:12,803] [INFO] [timer.py:154:stop] 0/1460, SamplesPerSec=3.2640935523698547
+ 63%|██████▎   | 1470/2340 [2:11:04<1:06:46,  4.61s/it][2021-04-07 01:44:58,875] [INFO] [logging.py:60:log_dist] [Rank 0] step=1470, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:44:58,876] [INFO] [timer.py:154:stop] 0/1470, SamplesPerSec=3.2640464218588106
+ 63%|██████▎   | 1480/2340 [2:11:51<1:06:06,  4.61s/it][2021-04-07 01:45:45,026] [INFO] [logging.py:60:log_dist] [Rank 0] step=1480, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:45:45,027] [INFO] [timer.py:154:stop] 0/1480, SamplesPerSec=3.263962311489369
+ 64%|██████▎   | 1490/2340 [2:12:37<1:05:37,  4.63s/it][2021-04-07 01:46:31,334] [INFO] [logging.py:60:log_dist] [Rank 0] step=1490, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:46:31,335] [INFO] [timer.py:154:stop] 0/1490, SamplesPerSec=3.2638046739296174
+ 64%|██████▍   | 1500/2340 [2:13:23<1:05:08,  4.65s/it][2021-04-07 01:47:17,622] [INFO] [logging.py:60:log_dist] [Rank 0] step=1500, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:47:17,622] [INFO] [timer.py:154:stop] 0/1500, SamplesPerSec=3.263659621344619
+{'loss': 0.4435, 'learning_rate': 5e-05, 'epoch': 3.21}
+[2021-04-07 01:47:17,716] [INFO] [logging.py:60:log_dist] [Rank 0] Saving model checkpoint: ./results/checkpoint-1500/global_step1500/zero_pp_rank_0_mp_rank_00_model_states.pt
+[2021-04-07 01:52:29,618] [INFO] [engine.py:1680:_save_zero_checkpoint] zero checkpoint saved ./results/checkpoint-1500/global_step1500/zero_pp_rank_0_mp_rank_00optim_states.pt
+ 65%|██████▍   | 1510/2340 [2:19:21<1:56:20,  8.41s/it][2021-04-07 01:53:15,853] [INFO] [logging.py:60:log_dist] [Rank 0] step=1510, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:53:15,854] [INFO] [timer.py:154:stop] 0/1510, SamplesPerSec=3.26355492181914
+ 65%|██████▍   | 1520/2340 [2:20:08<1:04:51,  4.75s/it][2021-04-07 01:54:02,146] [INFO] [logging.py:60:log_dist] [Rank 0] step=1520, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:54:02,146] [INFO] [timer.py:154:stop] 0/1520, SamplesPerSec=3.263411132842033
+ 65%|██████▌   | 1530/2340 [2:20:54<1:02:29,  4.63s/it][2021-04-07 01:54:48,402] [INFO] [logging.py:60:log_dist] [Rank 0] step=1530, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:54:48,403] [INFO] [timer.py:154:stop] 0/1530, SamplesPerSec=3.2632850159427624
+ 66%|██████▌   | 1540/2340 [2:21:40<1:01:29,  4.61s/it][2021-04-07 01:55:34,603] [INFO] [logging.py:60:log_dist] [Rank 0] step=1540, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:55:34,603] [INFO] [timer.py:154:stop] 0/1540, SamplesPerSec=3.2631863922806037
+ 66%|██████▌   | 1550/2340 [2:22:26<1:00:55,  4.63s/it][2021-04-07 01:56:20,822] [INFO] [logging.py:60:log_dist] [Rank 0] step=1550, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:56:20,823] [INFO] [timer.py:154:stop] 0/1550, SamplesPerSec=3.2630803204074934
+ 67%|██████▋   | 1560/2340 [2:23:13<1:00:00,  4.62s/it][2021-04-07 01:57:07,194] [INFO] [logging.py:60:log_dist] [Rank 0] step=1560, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:57:07,194] [INFO] [timer.py:154:stop] 0/1560, SamplesPerSec=3.262906337002233
+ 67%|██████▋   | 1570/2340 [2:23:59<59:17,  4.62s/it][2021-04-07 01:57:53,460] [INFO] [logging.py:60:log_dist] [Rank 0] step=1570, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:57:53,460] [INFO] [timer.py:154:stop] 0/1570, SamplesPerSec=3.2627828108052497
+ 68%|██████▊   | 1580/2340 [2:24:45<58:40,  4.63s/it][2021-04-07 01:58:39,800] [INFO] [logging.py:60:log_dist] [Rank 0] step=1580, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:58:39,800] [INFO] [timer.py:154:stop] 0/1580, SamplesPerSec=3.2626274382802523
+ 68%|██████▊   | 1590/2340 [2:25:32<57:58,  4.64s/it][2021-04-07 01:59:26,145] [INFO] [logging.py:60:log_dist] [Rank 0] step=1590, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 01:59:26,145] [INFO] [timer.py:154:stop] 0/1590, SamplesPerSec=3.2624719832188576
+ 68%|██████▊   | 1600/2340 [2:26:18<57:06,  4.63s/it][2021-04-07 02:00:12,437] [INFO] [logging.py:60:log_dist] [Rank 0] step=1600, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:00:12,437] [INFO] [timer.py:154:stop] 0/1600, SamplesPerSec=3.262341302941314
+ 69%|██████▉   | 1610/2340 [2:27:04<56:35,  4.65s/it][2021-04-07 02:00:58,732] [INFO] [logging.py:60:log_dist] [Rank 0] step=1610, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:00:58,732] [INFO] [timer.py:154:stop] 0/1610, SamplesPerSec=3.2622110220856446
+ 69%|██████▉   | 1620/2340 [2:27:50<55:25,  4.62s/it][2021-04-07 02:01:44,897] [INFO] [logging.py:60:log_dist] [Rank 0] step=1620, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:01:44,897] [INFO] [timer.py:154:stop] 0/1620, SamplesPerSec=3.2621401434329664
+ 70%|██████▉   | 1630/2340 [2:28:37<54:41,  4.62s/it][2021-04-07 02:02:31,222] [INFO] [logging.py:60:log_dist] [Rank 0] step=1630, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:02:31,222] [INFO] [timer.py:154:stop] 0/1630, SamplesPerSec=3.2619994736444804
+ 70%|███████   | 1640/2340 [2:29:23<53:35,  4.59s/it][2021-04-07 02:03:17,191] [INFO] [logging.py:60:log_dist] [Rank 0] step=1640, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:03:17,191] [INFO] [timer.py:154:stop] 0/1640, SamplesPerSec=3.2620149491891715
+ 71%|███████   | 1650/2340 [2:30:09<52:59,  4.61s/it][2021-04-07 02:04:03,336] [INFO] [logging.py:60:log_dist] [Rank 0] step=1650, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:04:03,336] [INFO] [timer.py:154:stop] 0/1650, SamplesPerSec=3.261955229331173
+ 71%|███████   | 1660/2340 [2:30:55<52:18,  4.62s/it][2021-04-07 02:04:49,506] [INFO] [logging.py:60:log_dist] [Rank 0] step=1660, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:04:49,506] [INFO] [timer.py:154:stop] 0/1660, SamplesPerSec=3.2618844883614324
+ 71%|███████▏  | 1670/2340 [2:31:41<51:38,  4.62s/it][2021-04-07 02:05:35,774] [INFO] [logging.py:60:log_dist] [Rank 0] step=1670, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:05:35,775] [INFO] [timer.py:154:stop] 0/1670, SamplesPerSec=3.2617736561384505
+ 72%|███████▏  | 1680/2340 [2:32:28<50:51,  4.62s/it][2021-04-07 02:06:22,059] [INFO] [logging.py:60:log_dist] [Rank 0] step=1680, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:06:22,059] [INFO] [timer.py:154:stop] 0/1680, SamplesPerSec=3.261657593148594
+ 72%|███████▏  | 1690/2340 [2:33:14<50:10,  4.63s/it][2021-04-07 02:07:08,283] [INFO] [logging.py:60:log_dist] [Rank 0] step=1690, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:07:08,283] [INFO] [timer.py:154:stop] 0/1690, SamplesPerSec=3.261568037987062
+ 73%|███████▎  | 1700/2340 [2:34:00<49:12,  4.61s/it][2021-04-07 02:07:54,456] [INFO] [logging.py:60:log_dist] [Rank 0] step=1700, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:07:54,456] [INFO] [timer.py:154:stop] 0/1700, SamplesPerSec=3.2614999643876668
+ 73%|███████▎  | 1710/2340 [2:34:46<48:19,  4.60s/it][2021-04-07 02:08:40,571] [INFO] [logging.py:60:log_dist] [Rank 0] step=1710, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:08:40,571] [INFO] [timer.py:154:stop] 0/1710, SamplesPerSec=3.2614571272838564
+ 74%|███████▎  | 1720/2340 [2:35:32<47:35,  4.61s/it][2021-04-07 02:09:26,676] [INFO] [logging.py:60:log_dist] [Rank 0] step=1720, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:09:26,676] [INFO] [timer.py:154:stop] 0/1720, SamplesPerSec=3.2614194027341536
+ 74%|███████▍  | 1730/2340 [2:36:18<46:49,  4.61s/it][2021-04-07 02:10:12,803] [INFO] [logging.py:60:log_dist] [Rank 0] step=1730, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:10:12,803] [INFO] [timer.py:154:stop] 0/1730, SamplesPerSec=3.261373168389635
+ 74%|███████▍  | 1740/2340 [2:37:05<46:12,  4.62s/it][2021-04-07 02:10:58,992] [INFO] [logging.py:60:log_dist] [Rank 0] step=1740, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:10:58,992] [INFO] [timer.py:154:stop] 0/1740, SamplesPerSec=3.261302293670146
+ 75%|███████▍  | 1750/2340 [2:37:51<45:35,  4.64s/it][2021-04-07 02:11:45,235] [INFO] [logging.py:60:log_dist] [Rank 0] step=1750, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:11:45,235] [INFO] [timer.py:154:stop] 0/1750, SamplesPerSec=3.2612101418062958
+ 75%|███████▌  | 1760/2340 [2:38:37<44:37,  4.62s/it][2021-04-07 02:12:31,440] [INFO] [logging.py:60:log_dist] [Rank 0] step=1760, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:12:31,440] [INFO] [timer.py:154:stop] 0/1760, SamplesPerSec=3.2611338491539654
+ 76%|███████▌  | 1770/2340 [2:39:23<43:49,  4.61s/it][2021-04-07 02:13:17,612] [INFO] [logging.py:60:log_dist] [Rank 0] step=1770, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:13:17,612] [INFO] [timer.py:154:stop] 0/1770, SamplesPerSec=3.2610718786499957
+ 76%|███████▌  | 1780/2340 [2:40:09<43:13,  4.63s/it][2021-04-07 02:14:03,867] [INFO] [logging.py:60:log_dist] [Rank 0] step=1780, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:14:03,867] [INFO] [timer.py:154:stop] 0/1780, SamplesPerSec=3.2609773454288926
+ 76%|███████▋  | 1790/2340 [2:40:56<42:28,  4.63s/it][2021-04-07 02:14:49,974] [INFO] [logging.py:60:log_dist] [Rank 0] step=1790, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:14:49,974] [INFO] [timer.py:154:stop] 0/1790, SamplesPerSec=3.2609428644671845
+ 77%|███████▋  | 1800/2340 [2:41:42<41:26,  4.61s/it][2021-04-07 02:15:36,154] [INFO] [logging.py:60:log_dist] [Rank 0] step=1800, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:15:36,154] [INFO] [timer.py:154:stop] 0/1800, SamplesPerSec=3.2608794700980863
+{'loss': 0.3065, 'learning_rate': 5e-05, 'epoch': 3.85}
+[2021-04-07 02:15:36,249] [INFO] [logging.py:60:log_dist] [Rank 0] Saving model checkpoint: ./results/checkpoint-1800/global_step1800/zero_pp_rank_0_mp_rank_00_model_states.pt
+[2021-04-07 02:20:52,009] [INFO] [engine.py:1680:_save_zero_checkpoint] zero checkpoint saved ./results/checkpoint-1800/global_step1800/zero_pp_rank_0_mp_rank_00optim_states.pt
+ 77%|███████▋  | 1810/2340 [2:47:46<1:16:21,  8.64s/it][2021-04-07 02:21:40,144] [INFO] [logging.py:60:log_dist] [Rank 0] step=1810, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:21:40,144] [INFO] [timer.py:154:stop] 0/1810, SamplesPerSec=3.260061636063432
+ 78%|███████▊  | 1820/2340 [2:48:34<43:12,  4.99s/it][2021-04-07 02:22:28,229] [INFO] [logging.py:60:log_dist] [Rank 0] step=1820, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:22:28,230] [INFO] [timer.py:154:stop] 0/1820, SamplesPerSec=3.2592616490618718
+ 78%|███████▊  | 1830/2340 [2:49:22<40:56,  4.82s/it][2021-04-07 02:23:16,088] [INFO] [logging.py:60:log_dist] [Rank 0] step=1830, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:23:16,088] [INFO] [timer.py:154:stop] 0/1830, SamplesPerSec=3.2585590923612817
+ 79%|███████▊  | 1840/2340 [2:50:10<40:34,  4.87s/it][2021-04-07 02:24:04,659] [INFO] [logging.py:60:log_dist] [Rank 0] step=1840, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:24:04,660] [INFO] [timer.py:154:stop] 0/1840, SamplesPerSec=3.2575901656471666
+ 79%|███████▉  | 1850/2340 [2:50:58<39:01,  4.78s/it][2021-04-07 02:24:52,579] [INFO] [logging.py:60:log_dist] [Rank 0] step=1850, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:24:52,579] [INFO] [timer.py:154:stop] 0/1850, SamplesPerSec=3.2568817971314803
+ 79%|███████▉  | 1860/2340 [2:51:46<38:41,  4.84s/it][2021-04-07 02:25:40,777] [INFO] [logging.py:60:log_dist] [Rank 0] step=1860, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:25:40,777] [INFO] [timer.py:154:stop] 0/1860, SamplesPerSec=3.256074750242873
+ 80%|███████▉  | 1870/2340 [2:52:34<37:15,  4.76s/it][2021-04-07 02:26:28,705] [INFO] [logging.py:60:log_dist] [Rank 0] step=1870, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:26:28,705] [INFO] [timer.py:154:stop] 0/1870, SamplesPerSec=3.2553787243860755
+ 80%|████████  | 1880/2340 [2:53:22<36:43,  4.79s/it][2021-04-07 02:27:16,512] [INFO] [logging.py:60:log_dist] [Rank 0] step=1880, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:27:16,512] [INFO] [timer.py:154:stop] 0/1880, SamplesPerSec=3.2547369970746085
+ 81%|████████  | 1890/2340 [2:54:10<36:21,  4.85s/it][2021-04-07 02:28:04,799] [INFO] [logging.py:60:log_dist] [Rank 0] step=1890, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:28:04,799] [INFO] [timer.py:154:stop] 0/1890, SamplesPerSec=3.253922219771142
+ 81%|████████  | 1900/2340 [2:54:58<35:38,  4.86s/it][2021-04-07 02:28:52,857] [INFO] [logging.py:60:log_dist] [Rank 0] step=1900, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:28:52,857] [INFO] [timer.py:154:stop] 0/1900, SamplesPerSec=3.253201301717846
+ 82%|████████▏ | 1910/2340 [2:55:46<33:26,  4.67s/it][2021-04-07 02:29:40,058] [INFO] [logging.py:60:log_dist] [Rank 0] step=1910, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:29:40,059] [INFO] [timer.py:154:stop] 0/1910, SamplesPerSec=3.2528055893917274
+ 82%|████████▏ | 1920/2340 [2:56:32<32:21,  4.62s/it][2021-04-07 02:30:26,282] [INFO] [logging.py:60:log_dist] [Rank 0] step=1920, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:30:26,282] [INFO] [timer.py:154:stop] 0/1920, SamplesPerSec=3.2527730636579193
+ 82%|████████▏ | 1930/2340 [2:57:18<31:38,  4.63s/it][2021-04-07 02:31:12,505] [INFO] [logging.py:60:log_dist] [Rank 0] step=1930, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:31:12,505] [INFO] [timer.py:154:stop] 0/1930, SamplesPerSec=3.2527412845300936
+ 83%|████████▎ | 1940/2340 [2:58:04<30:50,  4.63s/it][2021-04-07 02:31:58,840] [INFO] [logging.py:60:log_dist] [Rank 0] step=1940, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:31:58,840] [INFO] [timer.py:154:stop] 0/1940, SamplesPerSec=3.2526689139717533
+ 83%|████████▎ | 1950/2340 [2:58:51<30:01,  4.62s/it][2021-04-07 02:32:45,040] [INFO] [logging.py:60:log_dist] [Rank 0] step=1950, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:32:45,040] [INFO] [timer.py:154:stop] 0/1950, SamplesPerSec=3.252645822173648
+ 84%|████████▍ | 1960/2340 [2:59:37<29:15,  4.62s/it][2021-04-07 02:33:31,219] [INFO] [logging.py:60:log_dist] [Rank 0] step=1960, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:33:31,220] [INFO] [timer.py:154:stop] 0/1960, SamplesPerSec=3.2526330764062017
+ 84%|████████▍ | 1970/2340 [3:00:23<28:22,  4.60s/it][2021-04-07 02:34:17,301] [INFO] [logging.py:60:log_dist] [Rank 0] step=1970, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:34:17,301] [INFO] [timer.py:154:stop] 0/1970, SamplesPerSec=3.2526532257997
+ 85%|████████▍ | 1980/2340 [3:01:09<27:40,  4.61s/it][2021-04-07 02:35:03,400] [INFO] [logging.py:60:log_dist] [Rank 0] step=1980, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:35:03,401] [INFO] [timer.py:154:stop] 0/1980, SamplesPerSec=3.2526666614908377
+ 85%|████████▌ | 1990/2340 [3:01:55<26:59,  4.63s/it][2021-04-07 02:35:49,685] [INFO] [logging.py:60:log_dist] [Rank 0] step=1990, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:35:49,686] [INFO] [timer.py:154:stop] 0/1990, SamplesPerSec=3.252614374217819
+ 85%|████████▌ | 2000/2340 [3:02:41<26:09,  4.62s/it][2021-04-07 02:36:35,822] [INFO] [logging.py:60:log_dist] [Rank 0] step=2000, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:36:35,822] [INFO] [timer.py:154:stop] 0/2000, SamplesPerSec=3.252614720959554
+ 86%|████████▌ | 2010/2340 [3:03:28<25:28,  4.63s/it][2021-04-07 02:37:22,116] [INFO] [logging.py:60:log_dist] [Rank 0] step=2010, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:37:22,116] [INFO] [timer.py:154:stop] 0/2010, SamplesPerSec=3.2525602933173126
+ 86%|████████▋ | 2020/2340 [3:04:14<24:34,  4.61s/it][2021-04-07 02:38:08,185] [INFO] [logging.py:60:log_dist] [Rank 0] step=2020, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:38:08,185] [INFO] [timer.py:154:stop] 0/2020, SamplesPerSec=3.2525842307738007
+[2021-04-07 02:38:09,976] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 65536.0, reducing to 65536.0
+ 86%|████████▋ | 2022/2340 [3:04:17<16:51,  3.18s/it][2021-04-07 02:38:11,797] [INFO] [stage3.py:2319:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 65536.0, reducing to 32768.0
+ 87%|████████▋ | 2030/2340 [3:04:54<23:23,  4.53s/it][2021-04-07 02:38:48,629] [INFO] [logging.py:60:log_dist] [Rank 0] step=2030, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:38:48,629] [INFO] [timer.py:154:stop] 0/2030, SamplesPerSec=3.254565633752515
+ 87%|████████▋ | 2040/2340 [3:05:40<23:05,  4.62s/it][2021-04-07 02:39:34,897] [INFO] [logging.py:60:log_dist] [Rank 0] step=2040, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:39:34,897] [INFO] [timer.py:154:stop] 0/2040, SamplesPerSec=3.254511941451014
+ 88%|████████▊ | 2050/2340 [3:06:26<22:11,  4.59s/it][2021-04-07 02:40:20,869] [INFO] [logging.py:60:log_dist] [Rank 0] step=2050, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:40:20,869] [INFO] [timer.py:154:stop] 0/2050, SamplesPerSec=3.254559795023298
+ 88%|████████▊ | 2060/2340 [3:07:13<21:31,  4.61s/it][2021-04-07 02:41:07,138] [INFO] [logging.py:60:log_dist] [Rank 0] step=2060, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:41:07,139] [INFO] [timer.py:154:stop] 0/2060, SamplesPerSec=3.2545053980307084
+ 88%|████████▊ | 2070/2340 [3:07:59<20:47,  4.62s/it][2021-04-07 02:41:53,315] [INFO] [logging.py:60:log_dist] [Rank 0] step=2070, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:41:53,315] [INFO] [timer.py:154:stop] 0/2070, SamplesPerSec=3.2544837343185917
+ 89%|████████▉ | 2080/2340 [3:08:45<19:58,  4.61s/it][2021-04-07 02:42:39,480] [INFO] [logging.py:60:log_dist] [Rank 0] step=2080, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:42:39,480] [INFO] [timer.py:154:stop] 0/2080, SamplesPerSec=3.254465225079394
+ 89%|████████▉ | 2090/2340 [3:09:31<19:10,  4.60s/it][2021-04-07 02:43:25,571] [INFO] [logging.py:60:log_dist] [Rank 0] step=2090, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:43:25,571] [INFO] [timer.py:154:stop] 0/2090, SamplesPerSec=3.2544721364290057
+ 90%|████████▉ | 2100/2340 [3:10:18<18:29,  4.62s/it][2021-04-07 02:44:12,169] [INFO] [logging.py:60:log_dist] [Rank 0] step=2100, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:44:12,169] [INFO] [timer.py:154:stop] 0/2100, SamplesPerSec=3.254308187500111
+{'loss': 0.2598, 'learning_rate': 5e-05, 'epoch': 4.49}
+[2021-04-07 02:44:12,266] [INFO] [logging.py:60:log_dist] [Rank 0] Saving model checkpoint: ./results/checkpoint-2100/global_step2100/zero_pp_rank_0_mp_rank_00_model_states.pt
+[2021-04-07 02:49:38,151] [INFO] [engine.py:1680:_save_zero_checkpoint] zero checkpoint saved ./results/checkpoint-2100/global_step2100/zero_pp_rank_0_mp_rank_00optim_states.pt
+ 90%|█████████ | 2110/2340 [3:16:30<32:47,  8.55s/it][2021-04-07 02:50:24,377] [INFO] [logging.py:60:log_dist] [Rank 0] step=2110, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:50:24,377] [INFO] [timer.py:154:stop] 0/2110, SamplesPerSec=3.2542798986611263
+ 91%|█████████ | 2120/2340 [3:17:16<17:24,  4.75s/it][2021-04-07 02:51:10,581] [INFO] [logging.py:60:log_dist] [Rank 0] step=2120, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:51:10,581] [INFO] [timer.py:154:stop] 0/2120, SamplesPerSec=3.254250635415266
+ 91%|█████████ | 2130/2340 [3:18:02<16:14,  4.64s/it][2021-04-07 02:51:56,946] [INFO] [logging.py:60:log_dist] [Rank 0] step=2130, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:51:56,947] [INFO] [timer.py:154:stop] 0/2130, SamplesPerSec=3.254167307553239
+ 91%|█████████▏| 2140/2340 [3:18:49<15:23,  4.62s/it][2021-04-07 02:52:43,197] [INFO] [logging.py:60:log_dist] [Rank 0] step=2140, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:52:43,197] [INFO] [timer.py:154:stop] 0/2140, SamplesPerSec=3.2541230299032047
+ 92%|█████████▏| 2150/2340 [3:19:35<14:35,  4.61s/it][2021-04-07 02:53:29,358] [INFO] [logging.py:60:log_dist] [Rank 0] step=2150, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:53:29,358] [INFO] [timer.py:154:stop] 0/2150, SamplesPerSec=3.254108006752644
+ 92%|█████████▏| 2160/2340 [3:20:21<13:52,  4.63s/it][2021-04-07 02:54:15,557] [INFO] [logging.py:60:log_dist] [Rank 0] step=2160, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:54:15,557] [INFO] [timer.py:154:stop] 0/2160, SamplesPerSec=3.2540821913094926
+ 93%|█████████▎| 2170/2340 [3:21:07<13:01,  4.59s/it][2021-04-07 02:55:01,591] [INFO] [logging.py:60:log_dist] [Rank 0] step=2170, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:55:01,591] [INFO] [timer.py:154:stop] 0/2170, SamplesPerSec=3.254109743632757
+ 93%|█████████▎| 2180/2340 [3:21:53<12:15,  4.60s/it][2021-04-07 02:55:47,579] [INFO] [logging.py:60:log_dist] [Rank 0] step=2180, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:55:47,579] [INFO] [timer.py:154:stop] 0/2180, SamplesPerSec=3.2541512752108583
+ 94%|█████████▎| 2190/2340 [3:22:39<11:33,  4.63s/it][2021-04-07 02:56:33,723] [INFO] [logging.py:60:log_dist] [Rank 0] step=2190, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:56:33,723] [INFO] [timer.py:154:stop] 0/2190, SamplesPerSec=3.2541419152671636
+ 94%|█████████▍| 2200/2340 [3:23:25<10:44,  4.61s/it][2021-04-07 02:57:19,835] [INFO] [logging.py:60:log_dist] [Rank 0] step=2200, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:57:19,836] [INFO] [timer.py:154:stop] 0/2200, SamplesPerSec=3.2541432892892157
+ 94%|█████████▍| 2210/2340 [3:24:12<09:58,  4.61s/it][2021-04-07 02:58:05,993] [INFO] [logging.py:60:log_dist] [Rank 0] step=2210, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:58:05,993] [INFO] [timer.py:154:stop] 0/2210, SamplesPerSec=3.2541301010696433
+ 95%|█████████▍| 2220/2340 [3:24:58<09:16,  4.63s/it][2021-04-07 02:58:52,239] [INFO] [logging.py:60:log_dist] [Rank 0] step=2220, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:58:52,240] [INFO] [timer.py:154:stop] 0/2220, SamplesPerSec=3.254088673669366
+ 95%|█████████▌| 2230/2340 [3:25:44<08:27,  4.61s/it][2021-04-07 02:59:38,428] [INFO] [logging.py:60:log_dist] [Rank 0] step=2230, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 02:59:38,428] [INFO] [timer.py:154:stop] 0/2230, SamplesPerSec=3.2540666220365533
+ 96%|█████████▌| 2240/2340 [3:26:30<07:41,  4.61s/it][2021-04-07 03:00:24,567] [INFO] [logging.py:60:log_dist] [Rank 0] step=2240, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 03:00:24,567] [INFO] [timer.py:154:stop] 0/2240, SamplesPerSec=3.2540595386244346
+ 96%|█████████▌| 2250/2340 [3:27:16<06:55,  4.62s/it][2021-04-07 03:01:10,678] [INFO] [logging.py:60:log_dist] [Rank 0] step=2250, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 03:01:10,678] [INFO] [timer.py:154:stop] 0/2250, SamplesPerSec=3.2540618052560153
+ 97%|█████████▋| 2260/2340 [3:28:02<06:10,  4.63s/it][2021-04-07 03:01:56,873] [INFO] [logging.py:60:log_dist] [Rank 0] step=2260, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 03:01:56,873] [INFO] [timer.py:154:stop] 0/2260, SamplesPerSec=3.254037897200739
+ 97%|█████████▋| 2270/2340 [3:28:49<05:22,  4.60s/it][2021-04-07 03:02:42,989] [INFO] [logging.py:60:log_dist] [Rank 0] step=2270, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 03:02:42,989] [INFO] [timer.py:154:stop] 0/2270, SamplesPerSec=3.2540388288351787
+ 97%|█████████▋| 2280/2340 [3:29:35<04:36,  4.61s/it][2021-04-07 03:03:29,063] [INFO] [logging.py:60:log_dist] [Rank 0] step=2280, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 03:03:29,063] [INFO] [timer.py:154:stop] 0/2280, SamplesPerSec=3.2540533173722688
+ 98%|█████████▊| 2290/2340 [3:30:21<03:51,  4.63s/it][2021-04-07 03:04:15,363] [INFO] [logging.py:60:log_dist] [Rank 0] step=2290, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 03:04:15,363] [INFO] [timer.py:154:stop] 0/2290, SamplesPerSec=3.253997492278299
+ 98%|█████████▊| 2300/2340 [3:31:07<03:04,  4.61s/it][2021-04-07 03:05:01,437] [INFO] [logging.py:60:log_dist] [Rank 0] step=2300, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 03:05:01,437] [INFO] [timer.py:154:stop] 0/2300, SamplesPerSec=3.2540109412277305
+ 99%|█████████▊| 2310/2340 [3:31:53<02:18,  4.61s/it][2021-04-07 03:05:47,552] [INFO] [logging.py:60:log_dist] [Rank 0] step=2310, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 03:05:47,552] [INFO] [timer.py:154:stop] 0/2310, SamplesPerSec=3.254011614285828
+ 99%|█████████▉| 2320/2340 [3:32:39<01:32,  4.61s/it][2021-04-07 03:06:33,724] [INFO] [logging.py:60:log_dist] [Rank 0] step=2320, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 03:06:33,725] [INFO] [timer.py:154:stop] 0/2320, SamplesPerSec=3.253995419920668
+100%|█████████▉| 2330/2340 [3:33:25<00:46,  4.64s/it][2021-04-07 03:07:19,955] [INFO] [logging.py:60:log_dist] [Rank 0] step=2330, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 03:07:19,955] [INFO] [timer.py:154:stop] 0/2330, SamplesPerSec=3.253961584724827
+100%|██████████| 2340/2340 [3:34:11<00:00,  5.49s/it]
+[2021-04-07 03:08:05,853] [INFO] [logging.py:60:log_dist] [Rank 0] step=2340, skipped=22, lr=[5e-05], mom=[[0.9, 0.999]]
+[2021-04-07 03:08:05,853] [INFO] [timer.py:154:stop] 0/2340, SamplesPerSec=3.2540280609460486
+{'train_runtime': 12851.9012, 'train_samples_per_second': 0.182, 'epoch': 5.0}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+0: <|startoftext|>  Held hostage by men unknown after making a hit with a celebrity impersonator, rock star Austin Idol shares what happened to him and how relationships work in hostage.
+1: <|startoftext|>  Heroic knight Embark on a quest to become a legendary dragon brain control meister and take up on a dragon warrior named del Pilar's offer of help in finding the legendary rider who stole from Luis XVI.
+2: <|startoftext|>  Gora is telling the truth about what happened to her – and she's getting caught up in a dangerous fight for survival herself.
+3: <|startoftext|>  Dilan highlights the flaws in the current system and calls for a rollback when it comes to violent deaths. But how far does he willing go?
+4: <|startoftext|>  For decades a master criminal ran wild with the help of a loyal woman, until a determined cop turned him in. In a sequel to the classic Mangle Film.
+5: <|startoftext|>  In this interactive series you can put yourself to the test and prove how accurate AI is at duplicating feelings and images. It's as close as you get.
+6: <|startoftext|>  Dumped and living apart, a man and a woman begin to bond as they get to know more about each other.
+7: <|startoftext|>  With songs made famous by this show, celebrity musicians and their support crews discuss the tumultuous passage from talented child to teenage hit star.
+8: <|startoftext|>  Heroic bad guy Jason Voorhees is back – and more importantly, forward – in this next chapter of his adventures playing himself.
+9: <|startoftext|>   Supermodels!osh new recruits Amy Cole is assigned to help supermodels prepeter the world for aochte newsworthy adventures, Aussinong has news for all his friends.
+10: <|startoftext|>  No need for a memory flashback, a slow-footed bunny slays a Cummings Creek guard and then evades capture, leaving behind an array of challenges and mishaps.
+11: <|startoftext|> icky as sinids but cuticle, vicious as night, two wicked misoscets cut their fights for attention lops off with a fat-pointed provocation. They're back. Prepare for carnage.
+12: <|startoftext|>  Glimpse into the brain's most amazing Calories, Athletic event of the year as explores how the amazing machines might Revolutionize sports.
+13: <|startoftext|>  From kung fu battles to run duets with famous rap stars, the second half of Bollywood romantic comedy covers all bases.
+14: <|startoftext|>  Fusing his activism with good food, Cheek food and community in order to fight food addiction.
+15: <|startoftext|>  Mysterious lights and powerful, mythical creatures come to life when the power of the land – and the elements – combine.
+16: <|startoftext|>  A bank executive weighed down by his responsibilities for a women's center is rocked by her arrival at his church seekingInspration.
+17: <|startoftext|>  When Jeff Ross and Dave Attell take the stage, NO MATTER WHERE IT'S D originateates: Russia, France, Italy... A map of Jeff'sTerrorized audience.
+18: <|startoftext|>  An entrepreneur prone to partying and ladies' love enters the lives of two young, good-natured women who lead different existences.
+19: <|startoftext|>  Doub future prime minister Theresa May struggles against her critics and dodgy husband as she tries to juggle family life, mental health and politics.
+
+Process finished with exit code 0

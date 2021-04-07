@@ -10,9 +10,9 @@ from torch.utils.data import Dataset, random_split
 from transformers import GPT2Tokenizer, TrainingArguments, Trainer, GPTNeoForCausalLM
 
 torch.manual_seed(42)
-tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B", bos_token='<|startoftext|>',
+tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-2.7B", bos_token='<|startoftext|>',
                                           eos_token='<|endoftext|>', pad_token='<|pad|>')
-model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B").cuda()
+model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-2.7B").cuda()
 model.resize_token_embeddings(len(tokenizer))
 descriptions = pd.read_csv('netflix_titles.csv')['description']
 max_length = max([len(tokenizer.encode(description)) for description in descriptions])
@@ -39,8 +39,8 @@ class NetflixDataset(Dataset):
 dataset = NetflixDataset(descriptions, tokenizer, max_length=max_length)
 train_size = int(0.9 * len(dataset))
 train_dataset, val_dataset = random_split(dataset, [train_size, len(dataset) - train_size])
-training_args = TrainingArguments(output_dir='./results', num_train_epochs=5, logging_steps=5000, save_steps=5000,
-                                  per_device_train_batch_size=2, per_device_eval_batch_size=2,warmup_steps=100,
+training_args = TrainingArguments(output_dir='./results', num_train_epochs=5, logging_steps=300, save_steps=300,
+                                  per_device_train_batch_size=15, per_device_eval_batch_size=15,warmup_steps=100,
                                   weight_decay=0.01, logging_dir='./logs', deepspeed='./ds_config.json')
 Trainer(model=model, args=training_args, train_dataset=train_dataset,
         eval_dataset=val_dataset, data_collator=lambda data: {'input_ids': torch.stack([f[0] for f in data]),
