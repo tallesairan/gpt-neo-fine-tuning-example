@@ -1,5 +1,12 @@
 # GPT-Neo-2.7B Fine-Tuning Example Using HuggingFace & DeepSpeed
 
+### Installation
+```sh
+cd venv/bin
+./pip install -r ../../requirements.txt 
+./pip install deepspeed==0.3.13
+```
+
 [**Model**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/gpt_neo_xl.py)  
 [**DeepSpeed configuration**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/ds_config.json)  
 [**Training and testing log**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/training_and_results.txt)  
