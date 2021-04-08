@@ -1,5 +1,9 @@
 # GPT-Neo-2.7B Fine-Tuning Example Using HuggingFace & DeepSpeed
 
+[![medium](https://aleen42.github.io/badges/src/medium.svg)](https://medium.com/geekculture/fine-tune-eleutherai-gpt-neo-to-generate-netflix-movie-descriptions-in-only-47-lines-of-code-40c9b4c32475)
+![Python3.8.6](https://img.shields.io/badge/Python-3.8.6-blue.svg)
+![PyTorch1.8.1](https://img.shields.io/badge/PyTorch-1.8.1-yellow.svg)
+
 ### Installation
 ```sh
 cd venv/bin
