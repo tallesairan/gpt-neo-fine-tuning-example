@@ -7,7 +7,8 @@ cd venv/bin
 ./pip install deepspeed==0.3.13
 ```
 
-[**Model**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/gpt_neo_xl.py)  
+[**Example with GPT-Neo-2.7B with DeepSpeed**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/gpt_neo_xl_deepspeed.py)  
+[**Example with GPT-Neo-1.3B without DeepSpeed**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/gpt_neo.py)  
 [**DeepSpeed configuration**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/ds_config.json)  
 [**Training and testing log**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/training_and_results.txt)  
 ### GPU VRAM load during training
