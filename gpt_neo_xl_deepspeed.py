@@ -16,6 +16,7 @@ model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-2.7B").cuda()
 model.resize_token_embeddings(len(tokenizer))
 descriptions = pd.read_csv('netflix_titles.csv')['description']
 max_length = max([len(tokenizer.encode(description)) for description in descriptions])
+print("Max length: {}".format(max_length))
 
 
 class NetflixDataset(Dataset):
