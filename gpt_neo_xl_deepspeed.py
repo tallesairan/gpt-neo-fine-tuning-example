@@ -10,7 +10,7 @@ from torch.utils.data import Dataset, random_split
 from transformers import GPT2Tokenizer, TrainingArguments, Trainer, GPTNeoForCausalLM
 
 torch.manual_seed(42)
-tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-2.7B", bos_token='<|startoftext|>',
+tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-2.7B", bos_token='<|endoftext|>',
                                           eos_token='<|endoftext|>', pad_token='<|pad|>')
 model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-2.7B").cuda()
 model.resize_token_embeddings(len(tokenizer))
@@ -25,7 +25,7 @@ class NetflixDataset(Dataset):
         self.attn_masks = []
         self.labels = []
         for txt in txt_list:
-            encodings_dict = tokenizer('<|startoftext|>' + txt + '<|endoftext|>', truncation=True,
+            encodings_dict = tokenizer('<|endoftext|>' + txt + '<|endoftext|>', truncation=True,
                                        max_length=max_length, padding="max_length")
             self.input_ids.append(torch.tensor(encodings_dict['input_ids']))
             self.attn_masks.append(torch.tensor(encodings_dict['attention_mask']))
@@ -47,7 +47,7 @@ Trainer(model=model, args=training_args, train_dataset=train_dataset,
         eval_dataset=val_dataset, data_collator=lambda data: {'input_ids': torch.stack([f[0] for f in data]),
                                                               'attention_mask': torch.stack([f[1] for f in data]),
                                                               'labels': torch.stack([f[0] for f in data])}).train()
-generated = tokenizer("<|startoftext|> ", return_tensors="pt").input_ids.cuda()
+generated = tokenizer("<|endoftext|> ", return_tensors="pt").input_ids.cuda()
 sample_outputs = model.generate(generated, do_sample=True, top_k=50,
                                 max_length=300, top_p=0.95, temperature=1.9, num_return_sequences=20)
 for i, sample_output in enumerate(sample_outputs):

@@ -40,7 +40,7 @@ Trainer(model=model, args=training_args, train_dataset=train_dataset,
         eval_dataset=val_dataset, data_collator=lambda data: {'input_ids': torch.stack([f[0] for f in data]),
                                                               'attention_mask': torch.stack([f[1] for f in data]),
                                                               'labels': torch.stack([f[0] for f in data])}).train()
-generated = tokenizer("<|startoftext|> ", return_tensors="pt").input_ids.cuda()
+generated = tokenizer("<|endoftext|> ", return_tensors="pt").input_ids.cuda()
 sample_outputs = model.generate(generated, do_sample=True, top_k=50,
                                 max_length=300, top_p=0.95, temperature=1.9, num_return_sequences=20)
 for i, sample_output in enumerate(sample_outputs):
