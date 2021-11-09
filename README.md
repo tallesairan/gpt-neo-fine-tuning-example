@@ -8,7 +8,6 @@
 ```sh
 cd venv/bin
 ./pip install -r ../../requirements.txt 
-./pip install deepspeed==0.3.13
 ```
 
 [**Example with GPT-Neo-2.7B with DeepSpeed**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/gpt_neo_xl_deepspeed.py)  
