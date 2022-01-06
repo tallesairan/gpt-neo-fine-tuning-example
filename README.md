@@ -11,6 +11,8 @@ cd venv/bin
 ./pip install deepspeed==0.5.9
 ```
 
+## GPT-Neo
+
 [**Example with GPT-Neo-2.7B with DeepSpeed**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/gpt_neo_xl_deepspeed.py)  
 [**Example with GPT-Neo-1.3B without DeepSpeed**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/gpt_neo.py)  
 [**DeepSpeed configuration with GPT-Neo-2.7B**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/ds_config.json)  
@@ -21,9 +23,12 @@ cd venv/bin
 ### Results  
 <img src="https://raw.githubusercontent.com/dredwardhyde/gpt-neo-fine-tuning-example/main/results.png" width="1000"/>  
 
+## GPT-J-6B
+
 [**Example with GPT-J-6B with DeepSpeed**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/gpt_j_deepspeed.py)  
-### GPU VRAM load during GPT-Neo-2.7B training
+[**DeepSpeed configuration with GPT-Neo-2.7B**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/ds_config_gpt_j.json)  
+### GPU VRAM load during GPT-J-6B training
 <img src="https://raw.githubusercontent.com/dredwardhyde/gpt-neo-fine-tuning-example/main/vram_gpt_j.png" width="737"/>  
 
-### RAM load during GPT-Neo-2.7B training
+### RAM load during GPT-J-6B training
 <img src="https://raw.githubusercontent.com/dredwardhyde/gpt-neo-fine-tuning-example/main/ram_gpt_j.png" width="737"/>  
