@@ -1,7 +1,7 @@
 import pandas as pd
 import torch
 from torch.utils.data import Dataset, random_split
-from transformers import GPT2Tokenizer, TrainingArguments, Trainer, GPTNeoForCausalLM
+from transformers import GPT2Tokenizer, TrainingArguments, Trainer, GPTNeoForCausalLM, IntervalStrategy
 
 torch.manual_seed(42)
 tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B", bos_token='<|endoftext|>',
@@ -33,7 +33,8 @@ class NetflixDataset(Dataset):
 dataset = NetflixDataset(descriptions, tokenizer, max_length=max_length)
 train_size = int(0.9 * len(dataset))
 train_dataset, val_dataset = random_split(dataset, [train_size, len(dataset) - train_size])
-training_args = TrainingArguments(output_dir='./results', num_train_epochs=5, logging_steps=5000, save_steps=5000,
+training_args = TrainingArguments(output_dir='./results', num_train_epochs=5, logging_steps=5000,
+                                  save_strategy=IntervalStrategy.NO,
                                   per_device_train_batch_size=2, per_device_eval_batch_size=2,
                                   warmup_steps=100, weight_decay=0.01, logging_dir='./logs')
 Trainer(model=model, args=training_args, train_dataset=train_dataset,

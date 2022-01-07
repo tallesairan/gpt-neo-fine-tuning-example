@@ -26,7 +26,8 @@ cd venv/bin
 ## GPT-J-6B
 
 [**Example with GPT-J-6B with DeepSpeed**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/gpt_j_deepspeed.py)  
-[**DeepSpeed configuration with GPT-Neo-2.7B**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/ds_config_gpt_j.json)  
+[**DeepSpeed configuration with GPT-J-6B**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/ds_config_gpt_j.json)  
+[**Training and testing log with GPT-J-6B**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/training_and_results_gpt_j.txt)  
 ### GPU VRAM load during GPT-J-6B training
 <img src="https://raw.githubusercontent.com/dredwardhyde/gpt-neo-fine-tuning-example/main/vram_gpt_j.png" width="737"/>  
 

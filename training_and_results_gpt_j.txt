@@ -1,0 +1,757 @@
+/home/deepschneider/PycharmProjects/gpt-neo-fine-tuning-example/venv/bin/python /home/deepschneider/PycharmProjects/gpt-neo-fine-tuning-example/gpt_j_deepspeed.py
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+[2022-01-06 21:33:07,854] [INFO] [distributed.py:46:init_distributed] Initializing torch distributed with backend: nccl
+Max length: 62
+Using amp half precision backend
+[2022-01-06 21:35:38,949] [INFO] [logging.py:69:log_dist] [Rank 0] DeepSpeed info: version=0.5.9+d0ab722, git-hash=d0ab722, git-branch=master
+[2022-01-06 21:35:38,954] [INFO] [logging.py:69:log_dist] [Rank 0] initializing deepspeed groups
+[2022-01-06 21:35:38,955] [INFO] [logging.py:69:log_dist] [Rank 0] initializing deepspeed model parallel group with size 1
+[2022-01-06 21:35:38,955] [INFO] [logging.py:69:log_dist] [Rank 0] initializing deepspeed expert parallel group with size 1
+[2022-01-06 21:35:38,955] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert data parallel process group with ranks: [0]
+[2022-01-06 21:35:38,955] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert parallel process group with ranks: [0]
+[2022-01-06 21:35:38,970] [INFO] [engine.py:277:__init__] DeepSpeed Flops Profiler Enabled: False
+Adam Optimizer #0 is created with AVX2 arithmetic capability.
+Config: alpha=0.000050, betas=(0.900000, 0.999000), weight_decay=0.000000, adam_w=1
+[2022-01-06 21:35:39,166] [INFO] [engine.py:1107:_configure_optimizer] Using DeepSpeed Optimizer param name adamw as basic optimizer
+[2022-01-06 21:35:39,174] [INFO] [engine.py:1115:_configure_optimizer] DeepSpeed Basic Optimizer = DeepSpeedCPUAdam
+[2022-01-06 21:35:39,174] [INFO] [utils.py:43:is_zero_supported_optimizer] Checking ZeRO support for optimizer=DeepSpeedCPUAdam type=<class 'deepspeed.ops.adam.cpu_adam.DeepSpeedCPUAdam'>
+[2022-01-06 21:35:39,174] [INFO] [logging.py:69:log_dist] [Rank 0] Creating fp16 ZeRO stage 3 optimizer
+[2022-01-06 21:35:39,174] [INFO] [engine.py:1384:_configure_zero_optimizer] Initializing ZeRO Stage 3
+[2022-01-06 21:35:39,176] [INFO] [stage3.py:639:__init__] Reduce bucket size 500000000
+[2022-01-06 21:35:39,176] [INFO] [stage3.py:640:__init__] Allgather bucket size 50000000
+[2022-01-06 21:36:01,456] [INFO] [stage3.py:811:__init__] optimizer state initialized
+[2022-01-06 21:36:02,024] [INFO] [logging.py:69:log_dist] [Rank 0] DeepSpeed Final Optimizer = adamw
+[2022-01-06 21:36:02,024] [INFO] [engine.py:797:_configure_lr_scheduler] DeepSpeed using configured LR scheduler = WarmupLR
+[2022-01-06 21:36:02,024] [INFO] [logging.py:69:log_dist] [Rank 0] DeepSpeed LR Scheduler = <deepspeed.runtime.lr_schedules.WarmupLR object at 0x7f6a2e53c430>
+[2022-01-06 21:36:02,024] [INFO] [logging.py:69:log_dist] [Rank 0] step=0, skipped=0, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:36:02,024] [INFO] [config.py:1058:print] DeepSpeedEngine configuration:
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   activation_checkpointing_config  {
+    "partition_activations": false, 
+    "contiguous_memory_optimization": false, 
+    "cpu_checkpointing": false, 
+    "number_checkpoints": null, 
+    "synchronize_checkpoint_boundary": false, 
+    "profile": false
+}
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'thread_count': 1, 'single_submit': False, 'overlap_events': True}
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   amp_enabled .................. False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   amp_params ................... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   autotuning_config ............ {
+    "enabled": false, 
+    "start_step": null, 
+    "end_step": null, 
+    "metric_path": null, 
+    "arg_mappings": null, 
+    "metric": "throughput", 
+    "model_info": null, 
+    "results_dir": null, 
+    "exps_dir": null, 
+    "overwrite": true, 
+    "fast": true, 
+    "start_profile_step": 3, 
+    "end_profile_step": 5, 
+    "tuner_type": "gridsearch", 
+    "tuner_early_stopping": 5, 
+    "tuner_num_trials": 50, 
+    "model_info_path": null, 
+    "mp_size": 1, 
+    "max_train_batch_size": null, 
+    "min_train_batch_size": 1, 
+    "max_train_micro_batch_size_per_gpu": 1.024000e+03, 
+    "min_train_micro_batch_size_per_gpu": 1, 
+    "num_tuning_micro_batch_sizes": 3
+}
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   bfloat16_enabled ............. False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   checkpoint_tag_validation_enabled  True
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   checkpoint_tag_validation_fail  False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   communication_data_type ...... None
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   curriculum_enabled ........... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   curriculum_params ............ False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   dataloader_drop_last ......... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   disable_allgather ............ False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   dump_state ................... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   dynamic_loss_scale_args ...... {'init_scale': 4294967296, 'scale_window': 1000, 'delayed_shift': 2, 'min_scale': 1}
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   eigenvalue_enabled ........... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   eigenvalue_gas_boundary_resolution  1
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   eigenvalue_layer_name ........ bert.encoder.layer
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   eigenvalue_layer_num ......... 0
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   eigenvalue_max_iter .......... 100
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   eigenvalue_stability ......... 1e-06
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   eigenvalue_tol ............... 0.01
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   eigenvalue_verbose ........... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   elasticity_enabled ........... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   flops_profiler_config ........ {
+    "enabled": false, 
+    "profile_step": 1, 
+    "module_depth": -1, 
+    "top_modules": 1, 
+    "detailed": true, 
+    "output_file": null
+}
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   fp16_enabled ................. True
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   fp16_master_weights_and_gradients  False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   fp16_mixed_quantize .......... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   global_rank .................. 0
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   gradient_accumulation_steps .. 1
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   gradient_clipping ............ 0.0
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   gradient_predivide_factor .... 1.0
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   initial_dynamic_scale ........ 4294967296
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   loss_scale ................... 0
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   memory_breakdown ............. False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   optimizer_legacy_fusion ...... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   optimizer_name ............... adamw
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   optimizer_params ............. {'lr': 5e-05, 'betas': [0.9, 0.999], 'eps': 1e-08}
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0}
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   pld_enabled .................. False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   pld_params ................... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   prescale_gradients ........... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   quantize_change_rate ......... 0.001
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   quantize_groups .............. 1
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   quantize_offset .............. 1000
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   quantize_period .............. 1000
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   quantize_rounding ............ 0
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   quantize_start_bits .......... 16
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   quantize_target_bits ......... 8
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   quantize_training_enabled .... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   quantize_type ................ 0
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   quantize_verbose ............. False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   scheduler_name ............... WarmupLR
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   scheduler_params ............. {'warmup_min_lr': 0, 'warmup_max_lr': 5e-05, 'warmup_num_steps': 100}
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   sparse_attention ............. None
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   sparse_gradients_enabled ..... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   steps_per_print .............. 10
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   tensorboard_enabled .......... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   tensorboard_job_name ......... DeepSpeedJobName
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   tensorboard_output_path ...... 
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   train_batch_size ............. 15
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   train_micro_batch_size_per_gpu  15
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   use_quantizer_kernel ......... False
+[2022-01-06 21:36:02,025] [INFO] [config.py:1062:print]   wall_clock_breakdown ......... False
+[2022-01-06 21:36:02,026] [INFO] [config.py:1062:print]   world_size ................... 1
+[2022-01-06 21:36:02,026] [INFO] [config.py:1062:print]   zero_allow_untested_optimizer  False
+[2022-01-06 21:36:02,026] [INFO] [config.py:1062:print]   zero_config .................. {
+    "stage": 3, 
+    "contiguous_gradients": true, 
+    "reduce_scatter": true, 
+    "reduce_bucket_size": 5.000000e+08, 
+    "allgather_partitions": true, 
+    "allgather_bucket_size": 5.000000e+08, 
+    "overlap_comm": true, 
+    "load_from_fp32_weights": true, 
+    "elastic_checkpoint": true, 
+    "offload_param": {
+        "device": "cpu", 
+        "nvme_path": null, 
+        "buffer_count": 5, 
+        "buffer_size": 1.000000e+08, 
+        "max_in_cpu": 1.000000e+09, 
+        "pin_memory": false
+    }, 
+    "offload_optimizer": {
+        "device": "cpu", 
+        "nvme_path": null, 
+        "buffer_count": 4, 
+        "pin_memory": false, 
+        "pipeline_read": false, 
+        "pipeline_write": false, 
+        "fast_init": false, 
+        "pipeline": false
+    }, 
+    "sub_group_size": 1.000000e+09, 
+    "prefetch_bucket_size": 5.000000e+07, 
+    "param_persistence_threshold": 1.000000e+05, 
+    "max_live_parameters": 1.000000e+09, 
+    "max_reuse_distance": 1.000000e+09, 
+    "gather_fp16_weights_on_model_save": false, 
+    "ignore_unused_parameters": true, 
+    "round_robin_gradients": false, 
+    "legacy_stage1": false
+}
+[2022-01-06 21:36:02,026] [INFO] [config.py:1062:print]   zero_enabled ................. True
+[2022-01-06 21:36:02,026] [INFO] [config.py:1062:print]   zero_optimization_stage ...... 3
+[2022-01-06 21:36:02,026] [INFO] [config.py:1064:print]   json = {
+    "train_batch_size": 15, 
+    "fp16": {
+        "enabled": true, 
+        "min_loss_scale": 1, 
+        "opt_level": "O3"
+    }, 
+    "zero_optimization": {
+        "stage": 3, 
+        "offload_param": {
+            "device": "cpu"
+        }, 
+        "offload_optimizer": {
+            "device": "cpu"
+        }, 
+        "allgather_partitions": true, 
+        "allgather_bucket_size": 5.000000e+08, 
+        "contiguous_gradients": true
+    }, 
+    "optimizer": {
+        "type": "AdamW", 
+        "params": {
+            "lr": 5e-05, 
+            "betas": [0.9, 0.999], 
+            "eps": 1e-08
+        }
+    }, 
+    "scheduler": {
+        "type": "WarmupLR", 
+        "params": {
+            "warmup_min_lr": 0, 
+            "warmup_max_lr": 5e-05, 
+            "warmup_num_steps": 100
+        }
+    }
+}
+***** Running training *****
+  Num examples = 7008
+  Num Epochs = 5
+  Instantaneous batch size per device = 15
+  Total train batch size (w. parallel, distributed & accumulation) = 15
+  Gradient Accumulation steps = 1
+  Total optimization steps = 2340
+  0%|          | 1/2340 [00:03<2:20:29,  3.60s/it][2022-01-06 21:36:05,631] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 4294967296, reducing to 4294967296
+  0%|          | 2/2340 [00:07<2:19:42,  3.59s/it][2022-01-06 21:36:09,203] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 4294967296, reducing to 2147483648.0
+[2022-01-06 21:36:12,777] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 2147483648.0, reducing to 1073741824.0
+  0%|          | 4/2340 [00:14<2:19:12,  3.58s/it][2022-01-06 21:36:16,346] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 1073741824.0, reducing to 536870912.0
+[2022-01-06 21:36:19,921] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 536870912.0, reducing to 268435456.0
+  0%|          | 6/2340 [00:21<2:19:01,  3.57s/it][2022-01-06 21:36:23,492] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 268435456.0, reducing to 134217728.0
+  0%|          | 7/2340 [00:25<2:18:55,  3.57s/it][2022-01-06 21:36:27,062] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 134217728.0, reducing to 67108864.0
+  0%|          | 8/2340 [00:28<2:18:49,  3.57s/it][2022-01-06 21:36:30,633] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 67108864.0, reducing to 33554432.0
+[2022-01-06 21:36:34,208] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 33554432.0, reducing to 16777216.0
+  0%|          | 10/2340 [00:35<2:18:49,  3.58s/it][2022-01-06 21:36:37,787] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 16777216.0, reducing to 8388608.0
+[2022-01-06 21:36:37,787] [INFO] [logging.py:69:log_dist] [Rank 0] step=10, skipped=10, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:36:37,788] [INFO] [timer.py:181:stop] 0/10, SamplesPerSec=4.199880916872492
+[2022-01-06 21:36:41,369] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 8388608.0, reducing to 4194304.0
+  1%|          | 12/2340 [00:42<2:18:49,  3.58s/it][2022-01-06 21:36:44,948] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 4194304.0, reducing to 2097152.0
+[2022-01-06 21:36:48,528] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 2097152.0, reducing to 1048576.0
+  1%|          | 14/2340 [00:50<2:18:43,  3.58s/it][2022-01-06 21:36:52,106] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 1048576.0, reducing to 524288.0
+  1%|          | 15/2340 [00:53<2:18:44,  3.58s/it][2022-01-06 21:36:55,691] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 524288.0, reducing to 262144.0
+[2022-01-06 21:36:59,265] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 262144.0, reducing to 131072.0
+  1%|          | 17/2340 [01:00<2:18:53,  3.59s/it][2022-01-06 21:37:02,873] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 131072.0, reducing to 65536.0
+  1%|          | 18/2340 [01:04<2:18:51,  3.59s/it][2022-01-06 21:37:06,463] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 65536.0, reducing to 32768.0
+[2022-01-06 21:37:10,052] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 32768.0, reducing to 16384.0
+  1%|          | 20/2340 [01:11<2:18:45,  3.59s/it][2022-01-06 21:37:13,641] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 16384.0, reducing to 8192.0
+[2022-01-06 21:37:13,641] [INFO] [logging.py:69:log_dist] [Rank 0] step=20, skipped=20, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:37:13,641] [INFO] [timer.py:181:stop] 0/20, SamplesPerSec=4.191871627674416
+[2022-01-06 21:37:17,233] [INFO] [stage3.py:2767:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+  1%|▏         | 30/2340 [02:47<6:24:12,  9.98s/it][2022-01-06 21:38:49,449] [INFO] [logging.py:69:log_dist] [Rank 0] step=30, skipped=21, lr=[2.385606273598312e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:38:49,450] [INFO] [timer.py:181:stop] 0/30, SamplesPerSec=2.621758239314852
+  2%|▏         | 40/2340 [04:29<6:32:34, 10.24s/it][2022-01-06 21:40:31,931] [INFO] [logging.py:69:log_dist] [Rank 0] step=40, skipped=21, lr=[3.1968840023820715e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:40:31,931] [INFO] [timer.py:181:stop] 0/40, SamplesPerSec=2.1701356256338977
+  2%|▏         | 50/2340 [06:12<6:31:06, 10.25s/it][2022-01-06 21:42:14,406] [INFO] [logging.py:69:log_dist] [Rank 0] step=50, skipped=21, lr=[3.65599499474739e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:42:14,406] [INFO] [timer.py:181:stop] 0/50, SamplesPerSec=1.9720138577426969
+  3%|▎         | 60/2340 [07:54<6:29:38, 10.25s/it][2022-01-06 21:43:56,932] [INFO] [logging.py:69:log_dist] [Rank 0] step=60, skipped=21, lr=[3.977661517566247e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:43:56,932] [INFO] [timer.py:181:stop] 0/60, SamplesPerSec=1.8605175483533158
+  3%|▎         | 70/2340 [09:37<6:27:38, 10.25s/it][2022-01-06 21:45:39,452] [INFO] [logging.py:69:log_dist] [Rank 0] step=70, skipped=21, lr=[4.2254902000712836e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:45:39,452] [INFO] [timer.py:181:stop] 0/70, SamplesPerSec=1.7891335827870531
+  3%|▎         | 80/2340 [11:19<6:25:55, 10.25s/it][2022-01-06 21:47:21,900] [INFO] [logging.py:69:log_dist] [Rank 0] step=80, skipped=21, lr=[4.42713002910536e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:47:21,901] [INFO] [timer.py:181:stop] 0/80, SamplesPerSec=1.739689369233745
+  4%|▍         | 90/2340 [13:02<6:24:44, 10.26s/it][2022-01-06 21:49:04,991] [INFO] [logging.py:69:log_dist] [Rank 0] step=90, skipped=21, lr=[4.597122726843138e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:49:04,991] [INFO] [timer.py:181:stop] 0/90, SamplesPerSec=1.7019058549683306
+  4%|▍         | 100/2340 [14:45<6:22:36, 10.25s/it][2022-01-06 21:50:47,522] [INFO] [logging.py:69:log_dist] [Rank 0] step=100, skipped=21, lr=[4.744067728226103e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:50:47,522] [INFO] [timer.py:181:stop] 0/100, SamplesPerSec=1.67404951294751
+{'loss': 3.4975, 'learning_rate': 4.744067728226103e-05, 'epoch': 0.21}
+  5%|▍         | 110/2340 [16:28<6:22:33, 10.29s/it][2022-01-06 21:52:30,125] [INFO] [logging.py:69:log_dist] [Rank 0] step=110, skipped=21, lr=[4.873475016612281e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:52:30,126] [INFO] [timer.py:181:stop] 0/110, SamplesPerSec=1.6518971793698876
+  5%|▌         | 120/2340 [18:10<6:19:31, 10.26s/it][2022-01-06 21:54:12,975] [INFO] [logging.py:69:log_dist] [Rank 0] step=120, skipped=21, lr=[4.989087986493874e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:54:12,976] [INFO] [timer.py:181:stop] 0/120, SamplesPerSec=1.6335679990880154
+  6%|▌         | 130/2340 [19:53<6:18:06, 10.27s/it][2022-01-06 21:55:55,619] [INFO] [logging.py:69:log_dist] [Rank 0] step=130, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:55:55,620] [INFO] [timer.py:181:stop] 0/130, SamplesPerSec=1.6186976584680712
+  6%|▌         | 140/2340 [21:36<6:15:46, 10.25s/it][2022-01-06 21:57:38,164] [INFO] [logging.py:69:log_dist] [Rank 0] step=140, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:57:38,165] [INFO] [timer.py:181:stop] 0/140, SamplesPerSec=1.606318242075302
+  6%|▋         | 150/2340 [23:18<6:14:08, 10.25s/it][2022-01-06 21:59:20,691] [INFO] [logging.py:69:log_dist] [Rank 0] step=150, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 21:59:20,692] [INFO] [timer.py:181:stop] 0/150, SamplesPerSec=1.5957851464796757
+  7%|▋         | 160/2340 [25:01<6:12:48, 10.26s/it][2022-01-06 22:01:03,245] [INFO] [logging.py:69:log_dist] [Rank 0] step=160, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:01:03,246] [INFO] [timer.py:181:stop] 0/160, SamplesPerSec=1.5866685468370134
+  7%|▋         | 170/2340 [26:43<6:11:08, 10.26s/it][2022-01-06 22:02:45,822] [INFO] [logging.py:69:log_dist] [Rank 0] step=170, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:02:45,823] [INFO] [timer.py:181:stop] 0/170, SamplesPerSec=1.5786999528643855
+  8%|▊         | 180/2340 [28:26<6:08:55, 10.25s/it][2022-01-06 22:04:28,344] [INFO] [logging.py:69:log_dist] [Rank 0] step=180, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:04:28,345] [INFO] [timer.py:181:stop] 0/180, SamplesPerSec=1.5717435929550356
+  8%|▊         | 190/2340 [30:08<6:07:28, 10.25s/it][2022-01-06 22:06:10,883] [INFO] [logging.py:69:log_dist] [Rank 0] step=190, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:06:10,884] [INFO] [timer.py:181:stop] 0/190, SamplesPerSec=1.5655658777441444
+  9%|▊         | 200/2340 [31:51<6:05:41, 10.25s/it][2022-01-06 22:07:53,459] [INFO] [logging.py:69:log_dist] [Rank 0] step=200, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:07:53,459] [INFO] [timer.py:181:stop] 0/200, SamplesPerSec=1.5600222119135847
+{'loss': 1.9041, 'learning_rate': 5e-05, 'epoch': 0.43}
+  9%|▉         | 210/2340 [33:34<6:04:22, 10.26s/it][2022-01-06 22:09:36,139] [INFO] [logging.py:69:log_dist] [Rank 0] step=210, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:09:36,139] [INFO] [timer.py:181:stop] 0/210, SamplesPerSec=1.5549655466479213
+  9%|▉         | 220/2340 [35:16<6:02:34, 10.26s/it][2022-01-06 22:11:18,721] [INFO] [logging.py:69:log_dist] [Rank 0] step=220, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:11:18,721] [INFO] [timer.py:181:stop] 0/220, SamplesPerSec=1.5504728577817684
+ 10%|▉         | 230/2340 [36:59<6:00:28, 10.25s/it][2022-01-06 22:13:01,268] [INFO] [logging.py:69:log_dist] [Rank 0] step=230, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:13:01,269] [INFO] [timer.py:181:stop] 0/230, SamplesPerSec=1.546421388494231
+ 10%|█         | 240/2340 [38:41<5:58:59, 10.26s/it][2022-01-06 22:14:43,801] [INFO] [logging.py:69:log_dist] [Rank 0] step=240, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:14:43,802] [INFO] [timer.py:181:stop] 0/240, SamplesPerSec=1.5427376968242832
+ 11%|█         | 250/2340 [40:24<5:57:30, 10.26s/it][2022-01-06 22:16:26,434] [INFO] [logging.py:69:log_dist] [Rank 0] step=250, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:16:26,435] [INFO] [timer.py:181:stop] 0/250, SamplesPerSec=1.539303208352243
+ 11%|█         | 260/2340 [42:07<5:55:44, 10.26s/it][2022-01-06 22:18:09,085] [INFO] [logging.py:69:log_dist] [Rank 0] step=260, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:18:09,086] [INFO] [timer.py:181:stop] 0/260, SamplesPerSec=1.5361370529254272
+ 12%|█▏        | 270/2340 [43:49<5:53:43, 10.25s/it][2022-01-06 22:19:51,601] [INFO] [logging.py:69:log_dist] [Rank 0] step=270, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:19:51,601] [INFO] [timer.py:181:stop] 0/270, SamplesPerSec=1.5332988653545419
+ 12%|█▏        | 280/2340 [45:32<5:52:04, 10.25s/it][2022-01-06 22:21:34,154] [INFO] [logging.py:69:log_dist] [Rank 0] step=280, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:21:34,154] [INFO] [timer.py:181:stop] 0/280, SamplesPerSec=1.5306528692332835
+ 12%|█▏        | 290/2340 [47:14<5:50:26, 10.26s/it][2022-01-06 22:23:16,727] [INFO] [logging.py:69:log_dist] [Rank 0] step=290, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:23:16,727] [INFO] [timer.py:181:stop] 0/290, SamplesPerSec=1.5281880397693872
+ 13%|█▎        | 300/2340 [48:57<5:48:44, 10.26s/it][2022-01-06 22:24:59,305] [INFO] [logging.py:69:log_dist] [Rank 0] step=300, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:24:59,306] [INFO] [timer.py:181:stop] 0/300, SamplesPerSec=1.5258924618205987
+{'loss': 1.6725, 'learning_rate': 5e-05, 'epoch': 0.64}
+ 13%|█▎        | 310/2340 [50:39<5:47:00, 10.26s/it][2022-01-06 22:26:41,867] [INFO] [logging.py:69:log_dist] [Rank 0] step=310, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:26:41,867] [INFO] [timer.py:181:stop] 0/310, SamplesPerSec=1.5237612141555357
+ 14%|█▎        | 320/2340 [52:22<5:45:13, 10.25s/it][2022-01-06 22:28:24,414] [INFO] [logging.py:69:log_dist] [Rank 0] step=320, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:28:24,414] [INFO] [timer.py:181:stop] 0/320, SamplesPerSec=1.5217760597807077
+ 14%|█▍        | 330/2340 [54:04<5:43:26, 10.25s/it][2022-01-06 22:30:06,950] [INFO] [logging.py:69:log_dist] [Rank 0] step=330, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:30:06,950] [INFO] [timer.py:181:stop] 0/330, SamplesPerSec=1.5199220121763903
+ 15%|█▍        | 340/2340 [55:47<5:41:41, 10.25s/it][2022-01-06 22:31:49,503] [INFO] [logging.py:69:log_dist] [Rank 0] step=340, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:31:49,503] [INFO] [timer.py:181:stop] 0/340, SamplesPerSec=1.5181737522965533
+ 15%|█▍        | 350/2340 [57:30<5:40:11, 10.26s/it][2022-01-06 22:33:32,063] [INFO] [logging.py:69:log_dist] [Rank 0] step=350, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:33:32,063] [INFO] [timer.py:181:stop] 0/350, SamplesPerSec=1.5165267832678027
+ 15%|█▌        | 360/2340 [59:12<5:38:21, 10.25s/it][2022-01-06 22:35:14,599] [INFO] [logging.py:69:log_dist] [Rank 0] step=360, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:35:14,599] [INFO] [timer.py:181:stop] 0/360, SamplesPerSec=1.5149851735966728
+ 16%|█▌        | 370/2340 [1:00:55<5:36:33, 10.25s/it][2022-01-06 22:36:57,096] [INFO] [logging.py:69:log_dist] [Rank 0] step=370, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:36:57,096] [INFO] [timer.py:181:stop] 0/370, SamplesPerSec=1.5135466170493381
+ 16%|█▌        | 380/2340 [1:02:37<5:34:53, 10.25s/it][2022-01-06 22:38:39,611] [INFO] [logging.py:69:log_dist] [Rank 0] step=380, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:38:39,611] [INFO] [timer.py:181:stop] 0/380, SamplesPerSec=1.5121793946906759
+ 17%|█▋        | 390/2340 [1:04:20<5:33:19, 10.26s/it][2022-01-06 22:40:22,202] [INFO] [logging.py:69:log_dist] [Rank 0] step=390, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:40:22,202] [INFO] [timer.py:181:stop] 0/390, SamplesPerSec=1.5108551345710795
+ 17%|█▋        | 400/2340 [1:06:02<5:31:20, 10.25s/it][2022-01-06 22:42:04,712] [INFO] [logging.py:69:log_dist] [Rank 0] step=400, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:42:04,712] [INFO] [timer.py:181:stop] 0/400, SamplesPerSec=1.5096304282054436
+{'loss': 1.6334, 'learning_rate': 5e-05, 'epoch': 0.85}
+ 18%|█▊        | 410/2340 [1:07:45<5:30:00, 10.26s/it][2022-01-06 22:43:47,373] [INFO] [logging.py:69:log_dist] [Rank 0] step=410, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:43:47,373] [INFO] [timer.py:181:stop] 0/410, SamplesPerSec=1.5084119285870576
+ 18%|█▊        | 420/2340 [1:09:27<5:28:08, 10.25s/it][2022-01-06 22:45:29,954] [INFO] [logging.py:69:log_dist] [Rank 0] step=420, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:45:29,954] [INFO] [timer.py:181:stop] 0/420, SamplesPerSec=1.5072819688865244
+ 18%|█▊        | 430/2340 [1:11:10<5:26:22, 10.25s/it][2022-01-06 22:47:12,466] [INFO] [logging.py:69:log_dist] [Rank 0] step=430, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:47:12,466] [INFO] [timer.py:181:stop] 0/430, SamplesPerSec=1.506231134257198
+ 19%|█▉        | 440/2340 [1:12:53<5:25:07, 10.27s/it][2022-01-06 22:48:55,052] [INFO] [logging.py:69:log_dist] [Rank 0] step=440, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:48:55,052] [INFO] [timer.py:181:stop] 0/440, SamplesPerSec=1.5052038968262729
+ 19%|█▉        | 450/2340 [1:14:35<5:22:54, 10.25s/it][2022-01-06 22:50:37,584] [INFO] [logging.py:69:log_dist] [Rank 0] step=450, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:50:37,584] [INFO] [timer.py:181:stop] 0/450, SamplesPerSec=1.5042425761521412
+ 20%|█▉        | 460/2340 [1:16:18<5:21:15, 10.25s/it][2022-01-06 22:52:20,072] [INFO] [logging.py:69:log_dist] [Rank 0] step=460, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:52:20,072] [INFO] [timer.py:181:stop] 0/460, SamplesPerSec=1.503338407310654
+ 20%|██        | 470/2340 [1:18:00<5:18:58, 10.23s/it][2022-01-06 22:54:02,459] [INFO] [logging.py:69:log_dist] [Rank 0] step=470, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:54:02,459] [INFO] [timer.py:181:stop] 0/470, SamplesPerSec=1.5025061991196416
+ 21%|██        | 480/2340 [1:19:42<5:17:51, 10.25s/it][2022-01-06 22:55:45,010] [INFO] [logging.py:69:log_dist] [Rank 0] step=480, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:55:45,011] [INFO] [timer.py:181:stop] 0/480, SamplesPerSec=1.501658065951905
+ 21%|██        | 490/2340 [1:21:25<5:16:00, 10.25s/it][2022-01-06 22:57:27,531] [INFO] [logging.py:69:log_dist] [Rank 0] step=490, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:57:27,531] [INFO] [timer.py:181:stop] 0/490, SamplesPerSec=1.5008550582046094
+ 21%|██▏       | 500/2340 [1:23:08<5:14:30, 10.26s/it][2022-01-06 22:59:10,035] [INFO] [logging.py:69:log_dist] [Rank 0] step=500, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 22:59:10,035] [INFO] [timer.py:181:stop] 0/500, SamplesPerSec=1.5000899016876388
+{'loss': 1.3848, 'learning_rate': 5e-05, 'epoch': 1.07}
+ 22%|██▏       | 510/2340 [1:24:50<5:12:37, 10.25s/it][2022-01-06 23:00:52,554] [INFO] [logging.py:69:log_dist] [Rank 0] step=510, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:00:52,554] [INFO] [timer.py:181:stop] 0/510, SamplesPerSec=1.4993516307175987
+ 22%|██▏       | 520/2340 [1:26:33<5:11:38, 10.27s/it][2022-01-06 23:02:35,155] [INFO] [logging.py:69:log_dist] [Rank 0] step=520, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:02:35,155] [INFO] [timer.py:181:stop] 0/520, SamplesPerSec=1.4986187823318384
+ 23%|██▎       | 530/2340 [1:28:16<5:09:52, 10.27s/it][2022-01-06 23:04:18,055] [INFO] [logging.py:69:log_dist] [Rank 0] step=530, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:04:18,055] [INFO] [timer.py:181:stop] 0/530, SamplesPerSec=1.4978299003696462
+ 23%|██▎       | 540/2340 [1:29:58<5:07:18, 10.24s/it][2022-01-06 23:06:00,497] [INFO] [logging.py:69:log_dist] [Rank 0] step=540, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:06:00,497] [INFO] [timer.py:181:stop] 0/540, SamplesPerSec=1.4971979063284682
+ 24%|██▎       | 550/2340 [1:31:40<5:05:35, 10.24s/it][2022-01-06 23:07:42,973] [INFO] [logging.py:69:log_dist] [Rank 0] step=550, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:07:42,973] [INFO] [timer.py:181:stop] 0/550, SamplesPerSec=1.4965798540310302
+ 24%|██▍       | 560/2340 [1:33:23<5:04:05, 10.25s/it][2022-01-06 23:09:25,518] [INFO] [logging.py:69:log_dist] [Rank 0] step=560, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:09:25,518] [INFO] [timer.py:181:stop] 0/560, SamplesPerSec=1.4959666810618117
+ 24%|██▍       | 570/2340 [1:35:06<5:02:32, 10.26s/it][2022-01-06 23:11:08,037] [INFO] [logging.py:69:log_dist] [Rank 0] step=570, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:11:08,037] [INFO] [timer.py:181:stop] 0/570, SamplesPerSec=1.4953817927105482
+ 25%|██▍       | 580/2340 [1:36:48<5:00:42, 10.25s/it][2022-01-06 23:12:50,568] [INFO] [logging.py:69:log_dist] [Rank 0] step=580, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:12:50,568] [INFO] [timer.py:181:stop] 0/580, SamplesPerSec=1.4948147184423481
+ 25%|██▌       | 590/2340 [1:38:31<4:58:52, 10.25s/it][2022-01-06 23:14:33,072] [INFO] [logging.py:69:log_dist] [Rank 0] step=590, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:14:33,073] [INFO] [timer.py:181:stop] 0/590, SamplesPerSec=1.4942742458410034
+ 26%|██▌       | 600/2340 [1:40:13<4:57:25, 10.26s/it][2022-01-06 23:16:15,668] [INFO] [logging.py:69:log_dist] [Rank 0] step=600, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:16:15,668] [INFO] [timer.py:181:stop] 0/600, SamplesPerSec=1.493729611355981
+{'loss': 0.857, 'learning_rate': 5e-05, 'epoch': 1.28}
+ 26%|██▌       | 610/2340 [1:41:56<4:55:48, 10.26s/it][2022-01-06 23:17:58,219] [INFO] [logging.py:69:log_dist] [Rank 0] step=610, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:17:58,219] [INFO] [timer.py:181:stop] 0/610, SamplesPerSec=1.4932140624217929
+ 26%|██▋       | 620/2340 [1:43:38<4:54:06, 10.26s/it][2022-01-06 23:19:40,805] [INFO] [logging.py:69:log_dist] [Rank 0] step=620, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:19:40,805] [INFO] [timer.py:181:stop] 0/620, SamplesPerSec=1.492707427110388
+ 27%|██▋       | 630/2340 [1:45:21<4:52:12, 10.25s/it][2022-01-06 23:21:23,459] [INFO] [logging.py:69:log_dist] [Rank 0] step=630, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:21:23,459] [INFO] [timer.py:181:stop] 0/630, SamplesPerSec=1.492200830875643
+ 27%|██▋       | 640/2340 [1:47:04<4:50:41, 10.26s/it][2022-01-06 23:23:06,027] [INFO] [logging.py:69:log_dist] [Rank 0] step=640, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:23:06,028] [INFO] [timer.py:181:stop] 0/640, SamplesPerSec=1.491730423075483
+ 28%|██▊       | 650/2340 [1:48:46<4:48:46, 10.25s/it][2022-01-06 23:24:48,540] [INFO] [logging.py:69:log_dist] [Rank 0] step=650, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:24:48,540] [INFO] [timer.py:181:stop] 0/650, SamplesPerSec=1.4912875218041919
+ 28%|██▊       | 660/2340 [1:50:29<4:47:00, 10.25s/it][2022-01-06 23:26:31,065] [INFO] [logging.py:69:log_dist] [Rank 0] step=660, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:26:31,066] [INFO] [timer.py:181:stop] 0/660, SamplesPerSec=1.4908553926477957
+ 29%|██▊       | 670/2340 [1:52:11<4:45:13, 10.25s/it][2022-01-06 23:28:13,564] [INFO] [logging.py:69:log_dist] [Rank 0] step=670, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:28:13,564] [INFO] [timer.py:181:stop] 0/670, SamplesPerSec=1.4904422878501118
+ 29%|██▉       | 680/2340 [1:53:54<4:43:34, 10.25s/it][2022-01-06 23:29:56,091] [INFO] [logging.py:69:log_dist] [Rank 0] step=680, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:29:56,091] [INFO] [timer.py:181:stop] 0/680, SamplesPerSec=1.4900354751186364
+ 29%|██▉       | 690/2340 [1:55:36<4:41:51, 10.25s/it][2022-01-06 23:31:38,571] [INFO] [logging.py:69:log_dist] [Rank 0] step=690, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:31:38,572] [INFO] [timer.py:181:stop] 0/690, SamplesPerSec=1.4896508814604055
+ 30%|██▉       | 700/2340 [1:57:19<4:40:06, 10.25s/it][2022-01-06 23:33:21,039] [INFO] [logging.py:69:log_dist] [Rank 0] step=700, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:33:21,039] [INFO] [timer.py:181:stop] 0/700, SamplesPerSec=1.4892800517660976
+{'loss': 0.9302, 'learning_rate': 5e-05, 'epoch': 1.5}
+ 30%|███       | 710/2340 [1:59:01<4:38:36, 10.26s/it][2022-01-06 23:35:03,554] [INFO] [logging.py:69:log_dist] [Rank 0] step=710, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:35:03,554] [INFO] [timer.py:181:stop] 0/710, SamplesPerSec=1.4889101742723243
+ 31%|███       | 720/2340 [2:00:44<4:36:44, 10.25s/it][2022-01-06 23:36:46,077] [INFO] [logging.py:69:log_dist] [Rank 0] step=720, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:36:46,077] [INFO] [timer.py:181:stop] 0/720, SamplesPerSec=1.4885489049331142
+ 31%|███       | 730/2340 [2:02:26<4:35:01, 10.25s/it][2022-01-06 23:38:28,591] [INFO] [logging.py:69:log_dist] [Rank 0] step=730, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:38:28,591] [INFO] [timer.py:181:stop] 0/730, SamplesPerSec=1.488199632615074
+ 32%|███▏      | 740/2340 [2:04:09<4:34:53, 10.31s/it][2022-01-06 23:40:11,510] [INFO] [logging.py:69:log_dist] [Rank 0] step=740, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:40:11,511] [INFO] [timer.py:181:stop] 0/740, SamplesPerSec=1.4877790704587932
+ 32%|███▏      | 750/2340 [2:05:52<4:31:58, 10.26s/it][2022-01-06 23:41:54,174] [INFO] [logging.py:69:log_dist] [Rank 0] step=750, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:41:54,174] [INFO] [timer.py:181:stop] 0/750, SamplesPerSec=1.487420211879902
+ 32%|███▏      | 760/2340 [2:07:34<4:30:01, 10.25s/it][2022-01-06 23:43:36,718] [INFO] [logging.py:69:log_dist] [Rank 0] step=760, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:43:36,718] [INFO] [timer.py:181:stop] 0/760, SamplesPerSec=1.4870944292933914
+ 33%|███▎      | 770/2340 [2:09:17<4:28:20, 10.25s/it][2022-01-06 23:45:19,288] [INFO] [logging.py:69:log_dist] [Rank 0] step=770, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:45:19,289] [INFO] [timer.py:181:stop] 0/770, SamplesPerSec=1.4867720043131043
+ 33%|███▎      | 780/2340 [2:10:59<4:26:37, 10.25s/it][2022-01-06 23:47:01,855] [INFO] [logging.py:69:log_dist] [Rank 0] step=780, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:47:01,855] [INFO] [timer.py:181:stop] 0/780, SamplesPerSec=1.4864587245945857
+ 34%|███▍      | 790/2340 [2:12:42<4:25:02, 10.26s/it][2022-01-06 23:48:44,470] [INFO] [logging.py:69:log_dist] [Rank 0] step=790, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:48:44,471] [INFO] [timer.py:181:stop] 0/790, SamplesPerSec=1.4861443940629577
+ 34%|███▍      | 800/2340 [2:14:24<4:23:09, 10.25s/it][2022-01-06 23:50:26,977] [INFO] [logging.py:69:log_dist] [Rank 0] step=800, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:50:26,977] [INFO] [timer.py:181:stop] 0/800, SamplesPerSec=1.4858582131768023
+{'loss': 0.971, 'learning_rate': 5e-05, 'epoch': 1.71}
+ 35%|███▍      | 810/2340 [2:16:07<4:21:28, 10.25s/it][2022-01-06 23:52:09,523] [INFO] [logging.py:69:log_dist] [Rank 0] step=810, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:52:09,524] [INFO] [timer.py:181:stop] 0/810, SamplesPerSec=1.4855722803032998
+ 35%|███▌      | 820/2340 [2:17:50<4:19:42, 10.25s/it][2022-01-06 23:53:52,060] [INFO] [logging.py:69:log_dist] [Rank 0] step=820, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:53:52,060] [INFO] [timer.py:181:stop] 0/820, SamplesPerSec=1.4852948072976753
+ 35%|███▌      | 830/2340 [2:19:32<4:18:01, 10.25s/it][2022-01-06 23:55:34,595] [INFO] [logging.py:69:log_dist] [Rank 0] step=830, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:55:34,595] [INFO] [timer.py:181:stop] 0/830, SamplesPerSec=1.4850244249085038
+ 36%|███▌      | 840/2340 [2:21:15<4:16:12, 10.25s/it][2022-01-06 23:57:17,107] [INFO] [logging.py:69:log_dist] [Rank 0] step=840, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:57:17,108] [INFO] [timer.py:181:stop] 0/840, SamplesPerSec=1.4847646983514613
+ 36%|███▋      | 850/2340 [2:22:57<4:14:37, 10.25s/it][2022-01-06 23:58:59,656] [INFO] [logging.py:69:log_dist] [Rank 0] step=850, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-06 23:58:59,656] [INFO] [timer.py:181:stop] 0/850, SamplesPerSec=1.4845048968598766
+ 37%|███▋      | 860/2340 [2:24:40<4:13:00, 10.26s/it][2022-01-07 00:00:42,210] [INFO] [logging.py:69:log_dist] [Rank 0] step=860, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:00:42,210] [INFO] [timer.py:181:stop] 0/860, SamplesPerSec=1.484250216865807
+ 37%|███▋      | 870/2340 [2:26:22<4:11:11, 10.25s/it][2022-01-07 00:02:24,768] [INFO] [logging.py:69:log_dist] [Rank 0] step=870, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:02:24,768] [INFO] [timer.py:181:stop] 0/870, SamplesPerSec=1.4840009453140681
+ 38%|███▊      | 880/2340 [2:28:05<4:09:27, 10.25s/it][2022-01-07 00:04:07,308] [INFO] [logging.py:69:log_dist] [Rank 0] step=880, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:04:07,308] [INFO] [timer.py:181:stop] 0/880, SamplesPerSec=1.483760441008025
+ 38%|███▊      | 890/2340 [2:29:48<4:09:00, 10.30s/it][2022-01-07 00:05:50,082] [INFO] [logging.py:69:log_dist] [Rank 0] step=890, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:05:50,083] [INFO] [timer.py:181:stop] 0/890, SamplesPerSec=1.4834866326899887
+ 38%|███▊      | 900/2340 [2:31:30<4:06:46, 10.28s/it][2022-01-07 00:07:32,857] [INFO] [logging.py:69:log_dist] [Rank 0] step=900, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:07:32,857] [INFO] [timer.py:181:stop] 0/900, SamplesPerSec=1.4832189950850743
+{'loss': 1.0077, 'learning_rate': 5e-05, 'epoch': 1.92}
+ 39%|███▉      | 910/2340 [2:33:13<4:04:35, 10.26s/it][2022-01-07 00:09:15,490] [INFO] [logging.py:69:log_dist] [Rank 0] step=910, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:09:15,490] [INFO] [timer.py:181:stop] 0/910, SamplesPerSec=1.4829803539389628
+ 39%|███▉      | 920/2340 [2:34:56<4:03:13, 10.28s/it][2022-01-07 00:10:58,474] [INFO] [logging.py:69:log_dist] [Rank 0] step=920, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:10:58,474] [INFO] [timer.py:181:stop] 0/920, SamplesPerSec=1.4826907260892466
+ 40%|███▉      | 930/2340 [2:36:38<4:00:58, 10.25s/it][2022-01-07 00:12:41,017] [INFO] [logging.py:69:log_dist] [Rank 0] step=930, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:12:41,017] [INFO] [timer.py:181:stop] 0/930, SamplesPerSec=1.4824772229004013
+ 40%|████      | 940/2340 [2:38:21<3:59:14, 10.25s/it][2022-01-07 00:14:23,495] [INFO] [logging.py:69:log_dist] [Rank 0] step=940, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:14:23,495] [INFO] [timer.py:181:stop] 0/940, SamplesPerSec=1.482278354379505
+ 41%|████      | 950/2340 [2:40:04<3:57:36, 10.26s/it][2022-01-07 00:16:06,057] [INFO] [logging.py:69:log_dist] [Rank 0] step=950, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:16:06,057] [INFO] [timer.py:181:stop] 0/950, SamplesPerSec=1.482070773211364
+ 41%|████      | 960/2340 [2:41:46<3:55:58, 10.26s/it][2022-01-07 00:17:48,651] [INFO] [logging.py:69:log_dist] [Rank 0] step=960, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:17:48,651] [INFO] [timer.py:181:stop] 0/960, SamplesPerSec=1.4818627064021426
+ 41%|████▏     | 970/2340 [2:43:29<3:54:14, 10.26s/it][2022-01-07 00:19:31,255] [INFO] [logging.py:69:log_dist] [Rank 0] step=970, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:19:31,255] [INFO] [timer.py:181:stop] 0/970, SamplesPerSec=1.481657420754524
+ 42%|████▏     | 980/2340 [2:45:11<3:52:34, 10.26s/it][2022-01-07 00:21:13,865] [INFO] [logging.py:69:log_dist] [Rank 0] step=980, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:21:13,865] [INFO] [timer.py:181:stop] 0/980, SamplesPerSec=1.4814555561276257
+ 42%|████▏     | 990/2340 [2:46:54<3:50:51, 10.26s/it][2022-01-07 00:22:56,444] [INFO] [logging.py:69:log_dist] [Rank 0] step=990, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:22:56,445] [INFO] [timer.py:181:stop] 0/990, SamplesPerSec=1.481262169971584
+ 43%|████▎     | 1000/2340 [2:48:37<3:49:09, 10.26s/it][2022-01-07 00:24:39,044] [INFO] [logging.py:69:log_dist] [Rank 0] step=1000, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:24:39,044] [INFO] [timer.py:181:stop] 0/1000, SamplesPerSec=1.4810699360415398
+{'loss': 0.5916, 'learning_rate': 5e-05, 'epoch': 2.14}
+ 43%|████▎     | 1010/2340 [2:50:19<3:47:26, 10.26s/it][2022-01-07 00:26:21,668] [INFO] [logging.py:69:log_dist] [Rank 0] step=1010, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:26:21,668] [INFO] [timer.py:181:stop] 0/1010, SamplesPerSec=1.4808781985119635
+ 44%|████▎     | 1020/2340 [2:52:02<3:45:42, 10.26s/it][2022-01-07 00:28:04,272] [INFO] [logging.py:69:log_dist] [Rank 0] step=1020, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:28:04,273] [INFO] [timer.py:181:stop] 0/1020, SamplesPerSec=1.4806928262478696
+ 44%|████▍     | 1030/2340 [2:53:44<3:44:03, 10.26s/it][2022-01-07 00:29:46,873] [INFO] [logging.py:69:log_dist] [Rank 0] step=1030, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:29:46,874] [INFO] [timer.py:181:stop] 0/1030, SamplesPerSec=1.480511868112078
+ 44%|████▍     | 1040/2340 [2:55:27<3:42:22, 10.26s/it][2022-01-07 00:31:29,488] [INFO] [logging.py:69:log_dist] [Rank 0] step=1040, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:31:29,489] [INFO] [timer.py:181:stop] 0/1040, SamplesPerSec=1.48033241791703
+ 45%|████▍     | 1050/2340 [2:57:10<3:40:28, 10.25s/it][2022-01-07 00:33:12,047] [INFO] [logging.py:69:log_dist] [Rank 0] step=1050, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:33:12,047] [INFO] [timer.py:181:stop] 0/1050, SamplesPerSec=1.4801641535160848
+ 45%|████▌     | 1060/2340 [2:58:52<3:38:47, 10.26s/it][2022-01-07 00:34:54,627] [INFO] [logging.py:69:log_dist] [Rank 0] step=1060, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:34:54,627] [INFO] [timer.py:181:stop] 0/1060, SamplesPerSec=1.4799961045419048
+ 46%|████▌     | 1070/2340 [3:00:35<3:37:09, 10.26s/it][2022-01-07 00:36:37,247] [INFO] [logging.py:69:log_dist] [Rank 0] step=1070, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:36:37,248] [INFO] [timer.py:181:stop] 0/1070, SamplesPerSec=1.4798258104361801
+ 46%|████▌     | 1080/2340 [3:02:17<3:35:24, 10.26s/it][2022-01-07 00:38:19,832] [INFO] [logging.py:69:log_dist] [Rank 0] step=1080, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:38:19,832] [INFO] [timer.py:181:stop] 0/1080, SamplesPerSec=1.479663693502935
+ 47%|████▋     | 1090/2340 [3:04:00<3:33:46, 10.26s/it][2022-01-07 00:40:02,430] [INFO] [logging.py:69:log_dist] [Rank 0] step=1090, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:40:02,431] [INFO] [timer.py:181:stop] 0/1090, SamplesPerSec=1.4795027858824077
+ 47%|████▋     | 1100/2340 [3:05:43<3:35:55, 10.45s/it][2022-01-07 00:41:45,687] [INFO] [logging.py:69:log_dist] [Rank 0] step=1100, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:41:45,687] [INFO] [timer.py:181:stop] 0/1100, SamplesPerSec=1.4792572361051455
+{'loss': 0.3683, 'learning_rate': 5e-05, 'epoch': 2.35}
+ 47%|████▋     | 1110/2340 [3:07:26<3:30:21, 10.26s/it][2022-01-07 00:43:28,256] [INFO] [logging.py:69:log_dist] [Rank 0] step=1110, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:43:28,256] [INFO] [timer.py:181:stop] 0/1110, SamplesPerSec=1.479106659212119
+ 48%|████▊     | 1120/2340 [3:09:08<3:28:33, 10.26s/it][2022-01-07 00:45:10,843] [INFO] [logging.py:69:log_dist] [Rank 0] step=1120, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:45:10,843] [INFO] [timer.py:181:stop] 0/1120, SamplesPerSec=1.4789564625845066
+ 48%|████▊     | 1130/2340 [3:10:51<3:26:48, 10.25s/it][2022-01-07 00:46:53,381] [INFO] [logging.py:69:log_dist] [Rank 0] step=1130, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:46:53,382] [INFO] [timer.py:181:stop] 0/1130, SamplesPerSec=1.478815293403452
+ 49%|████▊     | 1140/2340 [3:12:33<3:25:09, 10.26s/it][2022-01-07 00:48:35,990] [INFO] [logging.py:69:log_dist] [Rank 0] step=1140, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:48:35,990] [INFO] [timer.py:181:stop] 0/1140, SamplesPerSec=1.4786675382696775
+ 49%|████▉     | 1150/2340 [3:14:16<3:23:29, 10.26s/it][2022-01-07 00:50:18,573] [INFO] [logging.py:69:log_dist] [Rank 0] step=1150, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:50:18,573] [INFO] [timer.py:181:stop] 0/1150, SamplesPerSec=1.4785258757026136
+ 50%|████▉     | 1160/2340 [3:15:59<3:21:44, 10.26s/it][2022-01-07 00:52:01,140] [INFO] [logging.py:69:log_dist] [Rank 0] step=1160, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:52:01,141] [INFO] [timer.py:181:stop] 0/1160, SamplesPerSec=1.4783884315165026
+ 50%|█████     | 1170/2340 [3:17:41<3:20:08, 10.26s/it][2022-01-07 00:53:43,776] [INFO] [logging.py:69:log_dist] [Rank 0] step=1170, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:53:43,777] [INFO] [timer.py:181:stop] 0/1170, SamplesPerSec=1.4782447880371863
+ 50%|█████     | 1180/2340 [3:19:24<3:18:26, 10.26s/it][2022-01-07 00:55:26,418] [INFO] [logging.py:69:log_dist] [Rank 0] step=1180, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:55:26,419] [INFO] [timer.py:181:stop] 0/1180, SamplesPerSec=1.478102896519184
+ 51%|█████     | 1190/2340 [3:21:06<3:16:40, 10.26s/it][2022-01-07 00:57:09,021] [INFO] [logging.py:69:log_dist] [Rank 0] step=1190, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:57:09,021] [INFO] [timer.py:181:stop] 0/1190, SamplesPerSec=1.477968258368563
+ 51%|█████▏    | 1200/2340 [3:22:49<3:15:00, 10.26s/it][2022-01-07 00:58:51,667] [INFO] [logging.py:69:log_dist] [Rank 0] step=1200, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 00:58:51,667] [INFO] [timer.py:181:stop] 0/1200, SamplesPerSec=1.4778305884906093
+{'loss': 0.3887, 'learning_rate': 5e-05, 'epoch': 2.56}
+ 52%|█████▏    | 1210/2340 [3:24:32<3:13:11, 10.26s/it][2022-01-07 01:00:34,248] [INFO] [logging.py:69:log_dist] [Rank 0] step=1210, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:00:34,248] [INFO] [timer.py:181:stop] 0/1210, SamplesPerSec=1.4777031300441026
+ 52%|█████▏    | 1220/2340 [3:26:14<3:11:29, 10.26s/it][2022-01-07 01:02:16,812] [INFO] [logging.py:69:log_dist] [Rank 0] step=1220, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:02:16,813] [INFO] [timer.py:181:stop] 0/1220, SamplesPerSec=1.4775796533213597
+ 53%|█████▎    | 1230/2340 [3:27:58<3:11:18, 10.34s/it][2022-01-07 01:04:00,222] [INFO] [logging.py:69:log_dist] [Rank 0] step=1230, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:04:00,222] [INFO] [timer.py:181:stop] 0/1230, SamplesPerSec=1.4773581259902997
+ 53%|█████▎    | 1240/2340 [3:29:40<3:08:02, 10.26s/it][2022-01-07 01:05:42,805] [INFO] [logging.py:69:log_dist] [Rank 0] step=1240, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:05:42,805] [INFO] [timer.py:181:stop] 0/1240, SamplesPerSec=1.4772375749817852
+ 53%|█████▎    | 1250/2340 [3:31:23<3:06:34, 10.27s/it][2022-01-07 01:07:25,495] [INFO] [logging.py:69:log_dist] [Rank 0] step=1250, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:07:25,496] [INFO] [timer.py:181:stop] 0/1250, SamplesPerSec=1.4771061656922095
+ 54%|█████▍    | 1260/2340 [3:33:06<3:04:52, 10.27s/it][2022-01-07 01:09:08,159] [INFO] [logging.py:69:log_dist] [Rank 0] step=1260, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:09:08,159] [INFO] [timer.py:181:stop] 0/1260, SamplesPerSec=1.4769801501167674
+ 54%|█████▍    | 1270/2340 [3:34:48<3:02:54, 10.26s/it][2022-01-07 01:10:50,760] [INFO] [logging.py:69:log_dist] [Rank 0] step=1270, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:10:50,760] [INFO] [timer.py:181:stop] 0/1270, SamplesPerSec=1.4768632086296312
+ 55%|█████▍    | 1280/2340 [3:36:31<3:01:16, 10.26s/it][2022-01-07 01:12:33,364] [INFO] [logging.py:69:log_dist] [Rank 0] step=1280, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:12:33,365] [INFO] [timer.py:181:stop] 0/1280, SamplesPerSec=1.476747808133779
+ 55%|█████▌    | 1290/2340 [3:38:13<2:59:34, 10.26s/it][2022-01-07 01:14:15,988] [INFO] [logging.py:69:log_dist] [Rank 0] step=1290, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:14:15,988] [INFO] [timer.py:181:stop] 0/1290, SamplesPerSec=1.476631989543534
+ 56%|█████▌    | 1300/2340 [3:39:56<2:57:47, 10.26s/it][2022-01-07 01:15:58,586] [INFO] [logging.py:69:log_dist] [Rank 0] step=1300, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:15:58,586] [INFO] [timer.py:181:stop] 0/1300, SamplesPerSec=1.4765208657977344
+{'loss': 0.4116, 'learning_rate': 5e-05, 'epoch': 2.78}
+ 56%|█████▌    | 1310/2340 [3:41:39<2:56:08, 10.26s/it][2022-01-07 01:17:41,192] [INFO] [logging.py:69:log_dist] [Rank 0] step=1310, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:17:41,192] [INFO] [timer.py:181:stop] 0/1310, SamplesPerSec=1.4764106684977585
+ 56%|█████▋    | 1320/2340 [3:43:21<2:54:20, 10.26s/it][2022-01-07 01:19:23,765] [INFO] [logging.py:69:log_dist] [Rank 0] step=1320, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:19:23,765] [INFO] [timer.py:181:stop] 0/1320, SamplesPerSec=1.4763056377298733
+ 57%|█████▋    | 1330/2340 [3:45:04<2:52:46, 10.26s/it][2022-01-07 01:21:06,384] [INFO] [logging.py:69:log_dist] [Rank 0] step=1330, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:21:06,384] [INFO] [timer.py:181:stop] 0/1330, SamplesPerSec=1.4761971870573989
+ 57%|█████▋    | 1340/2340 [3:46:47<2:53:58, 10.44s/it][2022-01-07 01:22:49,786] [INFO] [logging.py:69:log_dist] [Rank 0] step=1340, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:22:49,786] [INFO] [timer.py:181:stop] 0/1340, SamplesPerSec=1.4760057593794464
+ 58%|█████▊    | 1350/2340 [3:48:32<2:51:45, 10.41s/it][2022-01-07 01:24:34,117] [INFO] [logging.py:69:log_dist] [Rank 0] step=1350, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:24:34,117] [INFO] [timer.py:181:stop] 0/1350, SamplesPerSec=1.4757174045599968
+ 58%|█████▊    | 1360/2340 [3:50:15<2:48:46, 10.33s/it][2022-01-07 01:26:17,751] [INFO] [logging.py:69:log_dist] [Rank 0] step=1360, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:26:17,751] [INFO] [timer.py:181:stop] 0/1360, SamplesPerSec=1.475507556974203
+ 59%|█████▊    | 1370/2340 [3:51:58<2:45:47, 10.26s/it][2022-01-07 01:28:00,307] [INFO] [logging.py:69:log_dist] [Rank 0] step=1370, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:28:00,307] [INFO] [timer.py:181:stop] 0/1370, SamplesPerSec=1.475414823974201
+ 59%|█████▉    | 1380/2340 [3:53:40<2:44:05, 10.26s/it][2022-01-07 01:29:42,881] [INFO] [logging.py:69:log_dist] [Rank 0] step=1380, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:29:42,881] [INFO] [timer.py:181:stop] 0/1380, SamplesPerSec=1.4753215760214256
+ 59%|█████▉    | 1390/2340 [3:55:25<2:47:18, 10.57s/it][2022-01-07 01:31:27,944] [INFO] [logging.py:69:log_dist] [Rank 0] step=1390, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:31:27,944] [INFO] [timer.py:181:stop] 0/1390, SamplesPerSec=1.4749696118645859
+ 60%|█████▉    | 1400/2340 [3:57:10<2:43:20, 10.43s/it][2022-01-07 01:33:12,098] [INFO] [logging.py:69:log_dist] [Rank 0] step=1400, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:33:12,099] [INFO] [timer.py:181:stop] 0/1400, SamplesPerSec=1.4747172581688905
+{'loss': 0.4322, 'learning_rate': 5e-05, 'epoch': 2.99}
+ 60%|██████    | 1410/2340 [3:58:53<2:39:19, 10.28s/it][2022-01-07 01:34:55,464] [INFO] [logging.py:69:log_dist] [Rank 0] step=1410, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:34:55,464] [INFO] [timer.py:181:stop] 0/1410, SamplesPerSec=1.4745499574838499
+ 61%|██████    | 1420/2340 [4:00:36<2:37:14, 10.25s/it][2022-01-07 01:36:38,054] [INFO] [logging.py:69:log_dist] [Rank 0] step=1420, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:36:38,055] [INFO] [timer.py:181:stop] 0/1420, SamplesPerSec=1.4744639248863136
+ 61%|██████    | 1430/2340 [4:02:18<2:35:30, 10.25s/it][2022-01-07 01:38:20,596] [INFO] [logging.py:69:log_dist] [Rank 0] step=1430, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:38:20,597] [INFO] [timer.py:181:stop] 0/1430, SamplesPerSec=1.474384069812955
+ 62%|██████▏   | 1440/2340 [4:04:01<2:33:45, 10.25s/it][2022-01-07 01:40:03,120] [INFO] [logging.py:69:log_dist] [Rank 0] step=1440, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:40:03,120] [INFO] [timer.py:181:stop] 0/1440, SamplesPerSec=1.4743071422439598
+ 62%|██████▏   | 1450/2340 [4:05:43<2:32:04, 10.25s/it][2022-01-07 01:41:45,673] [INFO] [logging.py:69:log_dist] [Rank 0] step=1450, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:41:45,673] [INFO] [timer.py:181:stop] 0/1450, SamplesPerSec=1.4742283892722419
+ 62%|██████▏   | 1460/2340 [4:07:26<2:30:22, 10.25s/it][2022-01-07 01:43:28,221] [INFO] [logging.py:69:log_dist] [Rank 0] step=1460, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:43:28,221] [INFO] [timer.py:181:stop] 0/1460, SamplesPerSec=1.4741511675343169
+ 63%|██████▎   | 1470/2340 [4:09:08<2:28:39, 10.25s/it][2022-01-07 01:45:10,721] [INFO] [logging.py:69:log_dist] [Rank 0] step=1470, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:45:10,721] [INFO] [timer.py:181:stop] 0/1470, SamplesPerSec=1.474079759760289
+ 63%|██████▎   | 1480/2340 [4:10:51<2:27:10, 10.27s/it][2022-01-07 01:46:53,362] [INFO] [logging.py:69:log_dist] [Rank 0] step=1480, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:46:53,362] [INFO] [timer.py:181:stop] 0/1480, SamplesPerSec=1.4739954704401126
+ 64%|██████▎   | 1490/2340 [4:12:33<2:25:13, 10.25s/it][2022-01-07 01:48:35,887] [INFO] [logging.py:69:log_dist] [Rank 0] step=1490, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:48:35,887] [INFO] [timer.py:181:stop] 0/1490, SamplesPerSec=1.4739236516877738
+ 64%|██████▍   | 1500/2340 [4:14:16<2:23:31, 10.25s/it][2022-01-07 01:50:18,399] [INFO] [logging.py:69:log_dist] [Rank 0] step=1500, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:50:18,399] [INFO] [timer.py:181:stop] 0/1500, SamplesPerSec=1.4738540365532151
+{'loss': 0.2844, 'learning_rate': 5e-05, 'epoch': 3.21}
+ 65%|██████▍   | 1510/2340 [4:15:58<2:21:50, 10.25s/it][2022-01-07 01:52:00,927] [INFO] [logging.py:69:log_dist] [Rank 0] step=1510, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:52:00,927] [INFO] [timer.py:181:stop] 0/1510, SamplesPerSec=1.4737839434324627
+ 65%|██████▍   | 1520/2340 [4:17:41<2:20:12, 10.26s/it][2022-01-07 01:53:43,496] [INFO] [logging.py:69:log_dist] [Rank 0] step=1520, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:53:43,496] [INFO] [timer.py:181:stop] 0/1520, SamplesPerSec=1.4737108216942052
+ 65%|██████▌   | 1530/2340 [4:19:23<2:18:21, 10.25s/it][2022-01-07 01:55:26,013] [INFO] [logging.py:69:log_dist] [Rank 0] step=1530, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:55:26,013] [INFO] [timer.py:181:stop] 0/1530, SamplesPerSec=1.4736434674589762
+ 66%|██████▌   | 1540/2340 [4:21:06<2:16:39, 10.25s/it][2022-01-07 01:57:08,521] [INFO] [logging.py:69:log_dist] [Rank 0] step=1540, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:57:08,521] [INFO] [timer.py:181:stop] 0/1540, SamplesPerSec=1.4735779193529848
+ 66%|██████▌   | 1550/2340 [4:22:49<2:14:59, 10.25s/it][2022-01-07 01:58:51,028] [INFO] [logging.py:69:log_dist] [Rank 0] step=1550, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 01:58:51,028] [INFO] [timer.py:181:stop] 0/1550, SamplesPerSec=1.4735134210742917
+ 67%|██████▋   | 1560/2340 [4:24:31<2:13:19, 10.26s/it][2022-01-07 02:00:33,575] [INFO] [logging.py:69:log_dist] [Rank 0] step=1560, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:00:33,575] [INFO] [timer.py:181:stop] 0/1560, SamplesPerSec=1.4734458854766146
+ 67%|██████▋   | 1570/2340 [4:26:14<2:11:37, 10.26s/it][2022-01-07 02:02:16,135] [INFO] [logging.py:69:log_dist] [Rank 0] step=1570, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:02:16,135] [INFO] [timer.py:181:stop] 0/1570, SamplesPerSec=1.473378049696306
+ 68%|██████▊   | 1580/2340 [4:27:56<2:09:49, 10.25s/it][2022-01-07 02:03:58,625] [INFO] [logging.py:69:log_dist] [Rank 0] step=1580, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:03:58,625] [INFO] [timer.py:181:stop] 0/1580, SamplesPerSec=1.4733175386364628
+ 68%|██████▊   | 1590/2340 [4:29:39<2:08:45, 10.30s/it][2022-01-07 02:05:41,599] [INFO] [logging.py:69:log_dist] [Rank 0] step=1590, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:05:41,599] [INFO] [timer.py:181:stop] 0/1590, SamplesPerSec=1.4732136941376746
+ 68%|██████▊   | 1600/2340 [4:31:22<2:07:23, 10.33s/it][2022-01-07 02:07:24,819] [INFO] [logging.py:69:log_dist] [Rank 0] step=1600, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:07:24,819] [INFO] [timer.py:181:stop] 0/1600, SamplesPerSec=1.4730888829103388
+{'loss': 0.2804, 'learning_rate': 5e-05, 'epoch': 3.42}
+ 69%|██████▉   | 1610/2340 [4:33:06<2:08:04, 10.53s/it][2022-01-07 02:09:08,910] [INFO] [logging.py:69:log_dist] [Rank 0] step=1610, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:09:08,911] [INFO] [timer.py:181:stop] 0/1610, SamplesPerSec=1.4728873801560474
+ 69%|██████▉   | 1620/2340 [4:34:51<2:04:56, 10.41s/it][2022-01-07 02:10:53,053] [INFO] [logging.py:69:log_dist] [Rank 0] step=1620, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:10:53,053] [INFO] [timer.py:181:stop] 0/1620, SamplesPerSec=1.4726837232009224
+ 70%|██████▉   | 1630/2340 [4:36:35<2:03:48, 10.46s/it][2022-01-07 02:12:37,603] [INFO] [logging.py:69:log_dist] [Rank 0] step=1630, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:12:37,603] [INFO] [timer.py:181:stop] 0/1630, SamplesPerSec=1.4724465059133984
+ 70%|███████   | 1640/2340 [4:38:19<2:00:27, 10.33s/it][2022-01-07 02:14:21,263] [INFO] [logging.py:69:log_dist] [Rank 0] step=1640, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:14:21,263] [INFO] [timer.py:181:stop] 0/1640, SamplesPerSec=1.4722906987574997
+ 71%|███████   | 1650/2340 [4:40:03<2:00:07, 10.45s/it][2022-01-07 02:16:05,399] [INFO] [logging.py:69:log_dist] [Rank 0] step=1650, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:16:05,399] [INFO] [timer.py:181:stop] 0/1650, SamplesPerSec=1.4720952804410237
+ 71%|███████   | 1660/2340 [4:41:46<1:56:36, 10.29s/it][2022-01-07 02:17:48,215] [INFO] [logging.py:69:log_dist] [Rank 0] step=1660, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:17:48,215] [INFO] [timer.py:181:stop] 0/1660, SamplesPerSec=1.472017060598338
+ 71%|███████▏  | 1670/2340 [4:43:28<1:54:38, 10.27s/it][2022-01-07 02:19:30,909] [INFO] [logging.py:69:log_dist] [Rank 0] step=1670, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:19:30,909] [INFO] [timer.py:181:stop] 0/1670, SamplesPerSec=1.4719503934433853
+ 72%|███████▏  | 1680/2340 [4:45:12<1:54:34, 10.42s/it][2022-01-07 02:21:14,528] [INFO] [logging.py:69:log_dist] [Rank 0] step=1680, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:21:14,529] [INFO] [timer.py:181:stop] 0/1680, SamplesPerSec=1.4718048993652908
+ 72%|███████▏  | 1690/2340 [4:46:56<1:52:01, 10.34s/it][2022-01-07 02:22:58,041] [INFO] [logging.py:69:log_dist] [Rank 0] step=1690, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:22:58,041] [INFO] [timer.py:181:stop] 0/1690, SamplesPerSec=1.4716701980848033
+ 73%|███████▎  | 1700/2340 [4:48:38<1:49:30, 10.27s/it][2022-01-07 02:24:40,955] [INFO] [logging.py:69:log_dist] [Rank 0] step=1700, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:24:40,955] [INFO] [timer.py:181:stop] 0/1700, SamplesPerSec=1.4715880773204486
+{'loss': 0.2833, 'learning_rate': 5e-05, 'epoch': 3.63}
+ 73%|███████▎  | 1710/2340 [4:50:22<1:48:00, 10.29s/it][2022-01-07 02:26:24,059] [INFO] [logging.py:69:log_dist] [Rank 0] step=1710, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:26:24,059] [INFO] [timer.py:181:stop] 0/1710, SamplesPerSec=1.471490855024898
+ 74%|███████▎  | 1720/2340 [4:52:05<1:47:19, 10.39s/it][2022-01-07 02:28:07,992] [INFO] [logging.py:69:log_dist] [Rank 0] step=1720, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:28:07,992] [INFO] [timer.py:181:stop] 0/1720, SamplesPerSec=1.4713253383265814
+ 74%|███████▍  | 1730/2340 [4:53:48<1:44:21, 10.27s/it][2022-01-07 02:29:50,815] [INFO] [logging.py:69:log_dist] [Rank 0] step=1730, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:29:50,815] [INFO] [timer.py:181:stop] 0/1730, SamplesPerSec=1.471254275669087
+ 74%|███████▍  | 1740/2340 [4:55:31<1:42:35, 10.26s/it][2022-01-07 02:31:33,445] [INFO] [logging.py:69:log_dist] [Rank 0] step=1740, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:31:33,446] [INFO] [timer.py:181:stop] 0/1740, SamplesPerSec=1.4712000117793516
+ 75%|███████▍  | 1750/2340 [4:57:14<1:40:57, 10.27s/it][2022-01-07 02:33:16,078] [INFO] [logging.py:69:log_dist] [Rank 0] step=1750, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:33:16,078] [INFO] [timer.py:181:stop] 0/1750, SamplesPerSec=1.4711462550073544
+ 75%|███████▌  | 1760/2340 [4:58:56<1:39:13, 10.26s/it][2022-01-07 02:34:58,684] [INFO] [logging.py:69:log_dist] [Rank 0] step=1760, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:34:58,684] [INFO] [timer.py:181:stop] 0/1760, SamplesPerSec=1.4710951983662703
+ 76%|███████▌  | 1770/2340 [5:00:39<1:37:25, 10.25s/it][2022-01-07 02:36:41,255] [INFO] [logging.py:69:log_dist] [Rank 0] step=1770, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:36:41,255] [INFO] [timer.py:181:stop] 0/1770, SamplesPerSec=1.471047682146543
+ 76%|███████▌  | 1780/2340 [5:02:21<1:35:45, 10.26s/it][2022-01-07 02:38:23,859] [INFO] [logging.py:69:log_dist] [Rank 0] step=1780, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:38:23,860] [INFO] [timer.py:181:stop] 0/1780, SamplesPerSec=1.4709978641509895
+ 76%|███████▋  | 1790/2340 [5:04:04<1:34:06, 10.27s/it][2022-01-07 02:40:06,494] [INFO] [logging.py:69:log_dist] [Rank 0] step=1790, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:40:06,494] [INFO] [timer.py:181:stop] 0/1790, SamplesPerSec=1.470946237540701
+ 77%|███████▋  | 1800/2340 [5:05:47<1:32:17, 10.25s/it][2022-01-07 02:41:49,033] [INFO] [logging.py:69:log_dist] [Rank 0] step=1800, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:41:49,033] [INFO] [timer.py:181:stop] 0/1800, SamplesPerSec=1.4709028415068504
+{'loss': 0.3025, 'learning_rate': 5e-05, 'epoch': 3.85}
+ 77%|███████▋  | 1810/2340 [5:07:29<1:30:36, 10.26s/it][2022-01-07 02:43:31,609] [INFO] [logging.py:69:log_dist] [Rank 0] step=1810, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:43:31,609] [INFO] [timer.py:181:stop] 0/1810, SamplesPerSec=1.4708569757999728
+ 78%|███████▊  | 1820/2340 [5:09:12<1:28:51, 10.25s/it][2022-01-07 02:45:14,174] [INFO] [logging.py:69:log_dist] [Rank 0] step=1820, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:45:14,175] [INFO] [timer.py:181:stop] 0/1820, SamplesPerSec=1.4708125074301248
+ 78%|███████▊  | 1830/2340 [5:10:54<1:27:15, 10.27s/it][2022-01-07 02:46:56,845] [INFO] [logging.py:69:log_dist] [Rank 0] step=1830, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:46:56,845] [INFO] [timer.py:181:stop] 0/1830, SamplesPerSec=1.470760170056363
+ 79%|███████▊  | 1840/2340 [5:12:37<1:25:29, 10.26s/it][2022-01-07 02:48:39,448] [INFO] [logging.py:69:log_dist] [Rank 0] step=1840, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:48:39,448] [INFO] [timer.py:181:stop] 0/1840, SamplesPerSec=1.4707137588887496
+ 79%|███████▉  | 1850/2340 [5:14:20<1:23:47, 10.26s/it][2022-01-07 02:50:22,034] [INFO] [logging.py:69:log_dist] [Rank 0] step=1850, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:50:22,034] [INFO] [timer.py:181:stop] 0/1850, SamplesPerSec=1.4706692433113193
+ 79%|███████▉  | 1860/2340 [5:16:02<1:22:03, 10.26s/it][2022-01-07 02:52:04,605] [INFO] [logging.py:69:log_dist] [Rank 0] step=1860, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:52:04,606] [INFO] [timer.py:181:stop] 0/1860, SamplesPerSec=1.4706262431871193
+ 80%|███████▉  | 1870/2340 [5:17:45<1:20:24, 10.27s/it][2022-01-07 02:53:47,272] [INFO] [logging.py:69:log_dist] [Rank 0] step=1870, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:53:47,272] [INFO] [timer.py:181:stop] 0/1870, SamplesPerSec=1.470576392276965
+ 80%|████████  | 1880/2340 [5:19:27<1:18:40, 10.26s/it][2022-01-07 02:55:29,799] [INFO] [logging.py:69:log_dist] [Rank 0] step=1880, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:55:29,799] [INFO] [timer.py:181:stop] 0/1880, SamplesPerSec=1.4705378059259318
+ 81%|████████  | 1890/2340 [5:21:10<1:16:56, 10.26s/it][2022-01-07 02:57:12,386] [INFO] [logging.py:69:log_dist] [Rank 0] step=1890, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:57:12,386] [INFO] [timer.py:181:stop] 0/1890, SamplesPerSec=1.4704950459365402
+ 81%|████████  | 1900/2340 [5:22:52<1:15:12, 10.26s/it][2022-01-07 02:58:54,948] [INFO] [logging.py:69:log_dist] [Rank 0] step=1900, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 02:58:54,949] [INFO] [timer.py:181:stop] 0/1900, SamplesPerSec=1.4704546330772146
+{'loss': 0.2908, 'learning_rate': 5e-05, 'epoch': 4.06}
+ 82%|████████▏ | 1910/2340 [5:24:35<1:13:31, 10.26s/it][2022-01-07 03:00:37,572] [INFO] [logging.py:69:log_dist] [Rank 0] step=1910, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:00:37,573] [INFO] [timer.py:181:stop] 0/1910, SamplesPerSec=1.4704100791251495
+ 82%|████████▏ | 1920/2340 [5:26:18<1:11:49, 10.26s/it][2022-01-07 03:02:20,143] [INFO] [logging.py:69:log_dist] [Rank 0] step=1920, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:02:20,143] [INFO] [timer.py:181:stop] 0/1920, SamplesPerSec=1.4703699178081329
+ 82%|████████▏ | 1930/2340 [5:28:00<1:10:05, 10.26s/it][2022-01-07 03:04:02,729] [INFO] [logging.py:69:log_dist] [Rank 0] step=1930, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:04:02,729] [INFO] [timer.py:181:stop] 0/1930, SamplesPerSec=1.4703289506708643
+ 83%|████████▎ | 1940/2340 [5:29:43<1:08:26, 10.27s/it][2022-01-07 03:05:45,338] [INFO] [logging.py:69:log_dist] [Rank 0] step=1940, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:05:45,338] [INFO] [timer.py:181:stop] 0/1940, SamplesPerSec=1.4702866271566033
+ 83%|████████▎ | 1950/2340 [5:31:25<1:06:42, 10.26s/it][2022-01-07 03:07:27,989] [INFO] [logging.py:69:log_dist] [Rank 0] step=1950, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:07:27,989] [INFO] [timer.py:181:stop] 0/1950, SamplesPerSec=1.4702417858966481
+ 84%|████████▍ | 1960/2340 [5:33:08<1:04:57, 10.26s/it][2022-01-07 03:09:10,578] [INFO] [logging.py:69:log_dist] [Rank 0] step=1960, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:09:10,578] [INFO] [timer.py:181:stop] 0/1960, SamplesPerSec=1.4702019656261187
+ 84%|████████▍ | 1970/2340 [5:34:51<1:03:17, 10.26s/it][2022-01-07 03:10:53,191] [INFO] [logging.py:69:log_dist] [Rank 0] step=1970, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:10:53,191] [INFO] [timer.py:181:stop] 0/1970, SamplesPerSec=1.470160667724884
+ 85%|████████▍ | 1980/2340 [5:36:33<1:01:35, 10.26s/it][2022-01-07 03:12:35,811] [INFO] [logging.py:69:log_dist] [Rank 0] step=1980, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:12:35,811] [INFO] [timer.py:181:stop] 0/1980, SamplesPerSec=1.4701193512826625
+ 85%|████████▌ | 1990/2340 [5:38:16<59:52, 10.26s/it]  [2022-01-07 03:14:18,406] [INFO] [logging.py:69:log_dist] [Rank 0] step=1990, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:14:18,406] [INFO] [timer.py:181:stop] 0/1990, SamplesPerSec=1.4700802228108119
+ 85%|████████▌ | 2000/2340 [5:39:59<58:09, 10.26s/it][2022-01-07 03:16:01,409] [INFO] [logging.py:69:log_dist] [Rank 0] step=2000, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:16:01,409] [INFO] [timer.py:181:stop] 0/2000, SamplesPerSec=1.4700121252596556
+{'loss': 0.2351, 'learning_rate': 5e-05, 'epoch': 4.27}
+ 86%|████████▌ | 2010/2340 [5:41:41<56:23, 10.25s/it][2022-01-07 03:17:43,948] [INFO] [logging.py:69:log_dist] [Rank 0] step=2010, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:17:43,949] [INFO] [timer.py:181:stop] 0/2010, SamplesPerSec=1.4699780067252946
+ 86%|████████▋ | 2020/2340 [5:43:24<54:43, 10.26s/it][2022-01-07 03:19:26,512] [INFO] [logging.py:69:log_dist] [Rank 0] step=2020, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:19:26,512] [INFO] [timer.py:181:stop] 0/2020, SamplesPerSec=1.4699423951050157
+ 87%|████████▋ | 2030/2340 [5:45:06<52:58, 10.25s/it][2022-01-07 03:21:09,026] [INFO] [logging.py:69:log_dist] [Rank 0] step=2030, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:21:09,026] [INFO] [timer.py:181:stop] 0/2030, SamplesPerSec=1.4699106041288836
+ 87%|████████▋ | 2040/2340 [5:46:49<51:17, 10.26s/it][2022-01-07 03:22:51,575] [INFO] [logging.py:69:log_dist] [Rank 0] step=2040, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:22:51,576] [INFO] [timer.py:181:stop] 0/2040, SamplesPerSec=1.4698766529357756
+ 88%|████████▊ | 2050/2340 [5:48:32<49:34, 10.26s/it][2022-01-07 03:24:34,176] [INFO] [logging.py:69:log_dist] [Rank 0] step=2050, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:24:34,176] [INFO] [timer.py:181:stop] 0/2050, SamplesPerSec=1.469839552184107
+ 88%|████████▊ | 2060/2340 [5:50:14<47:52, 10.26s/it][2022-01-07 03:26:16,791] [INFO] [logging.py:69:log_dist] [Rank 0] step=2060, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:26:16,791] [INFO] [timer.py:181:stop] 0/2060, SamplesPerSec=1.4698017701779524
+ 88%|████████▊ | 2070/2340 [5:51:57<46:08, 10.25s/it][2022-01-07 03:27:59,329] [INFO] [logging.py:69:log_dist] [Rank 0] step=2070, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:27:59,330] [INFO] [timer.py:181:stop] 0/2070, SamplesPerSec=1.469769564827953
+ 89%|████████▉ | 2080/2340 [5:53:39<44:25, 10.25s/it][2022-01-07 03:29:41,886] [INFO] [logging.py:69:log_dist] [Rank 0] step=2080, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:29:41,886] [INFO] [timer.py:181:stop] 0/2080, SamplesPerSec=1.4697365022781186
+ 89%|████████▉ | 2090/2340 [5:55:22<42:43, 10.25s/it][2022-01-07 03:31:24,438] [INFO] [logging.py:69:log_dist] [Rank 0] step=2090, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:31:24,438] [INFO] [timer.py:181:stop] 0/2090, SamplesPerSec=1.4697041170146088
+ 90%|████████▉ | 2100/2340 [5:57:05<41:02, 10.26s/it][2022-01-07 03:33:07,083] [INFO] [logging.py:69:log_dist] [Rank 0] step=2100, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:33:07,083] [INFO] [timer.py:181:stop] 0/2100, SamplesPerSec=1.469665530820494
+{'loss': 0.243, 'learning_rate': 5e-05, 'epoch': 4.49}
+ 90%|█████████ | 2110/2340 [5:58:47<39:20, 10.26s/it][2022-01-07 03:34:49,688] [INFO] [logging.py:69:log_dist] [Rank 0] step=2110, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:34:49,688] [INFO] [timer.py:181:stop] 0/2110, SamplesPerSec=1.4696301904281943
+ 91%|█████████ | 2120/2340 [6:00:30<37:36, 10.25s/it][2022-01-07 03:36:32,216] [INFO] [logging.py:69:log_dist] [Rank 0] step=2120, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:36:32,216] [INFO] [timer.py:181:stop] 0/2120, SamplesPerSec=1.4696003787439695
+ 91%|█████████ | 2130/2340 [6:02:12<35:54, 10.26s/it][2022-01-07 03:38:14,810] [INFO] [logging.py:69:log_dist] [Rank 0] step=2130, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:38:14,810] [INFO] [timer.py:181:stop] 0/2130, SamplesPerSec=1.469566366273999
+ 91%|█████████▏| 2140/2340 [6:03:55<34:13, 10.27s/it][2022-01-07 03:39:57,479] [INFO] [logging.py:69:log_dist] [Rank 0] step=2140, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:39:57,479] [INFO] [timer.py:181:stop] 0/2140, SamplesPerSec=1.4695276181421364
+ 92%|█████████▏| 2150/2340 [6:05:38<32:28, 10.26s/it][2022-01-07 03:41:40,042] [INFO] [logging.py:69:log_dist] [Rank 0] step=2150, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:41:40,043] [INFO] [timer.py:181:stop] 0/2150, SamplesPerSec=1.4694963105446253
+ 92%|█████████▏| 2160/2340 [6:07:20<30:46, 10.26s/it][2022-01-07 03:43:22,614] [INFO] [logging.py:69:log_dist] [Rank 0] step=2160, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:43:22,614] [INFO] [timer.py:181:stop] 0/2160, SamplesPerSec=1.4694647342811415
+ 93%|█████████▎| 2170/2340 [6:09:03<29:04, 10.26s/it][2022-01-07 03:45:05,225] [INFO] [logging.py:69:log_dist] [Rank 0] step=2170, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:45:05,225] [INFO] [timer.py:181:stop] 0/2170, SamplesPerSec=1.4694307850047326
+ 93%|█████████▎| 2180/2340 [6:10:45<27:21, 10.26s/it][2022-01-07 03:46:47,847] [INFO] [logging.py:69:log_dist] [Rank 0] step=2180, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:46:47,848] [INFO] [timer.py:181:stop] 0/2180, SamplesPerSec=1.4693964953343694
+ 94%|█████████▎| 2190/2340 [6:12:28<25:38, 10.25s/it][2022-01-07 03:48:30,377] [INFO] [logging.py:69:log_dist] [Rank 0] step=2190, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:48:30,377] [INFO] [timer.py:181:stop] 0/2190, SamplesPerSec=1.4693685865874395
+ 94%|█████████▍| 2200/2340 [6:14:10<23:55, 10.26s/it][2022-01-07 03:50:12,956] [INFO] [logging.py:69:log_dist] [Rank 0] step=2200, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:50:12,956] [INFO] [timer.py:181:stop] 0/2200, SamplesPerSec=1.4693376814269434
+{'loss': 0.2496, 'learning_rate': 5e-05, 'epoch': 4.7}
+ 94%|█████████▍| 2210/2340 [6:15:53<22:12, 10.25s/it][2022-01-07 03:51:55,497] [INFO] [logging.py:69:log_dist] [Rank 0] step=2210, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:51:55,497] [INFO] [timer.py:181:stop] 0/2210, SamplesPerSec=1.4693096061604012
+ 95%|█████████▍| 2220/2340 [6:17:36<20:31, 10.26s/it][2022-01-07 03:53:38,099] [INFO] [logging.py:69:log_dist] [Rank 0] step=2220, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:53:38,099] [INFO] [timer.py:181:stop] 0/2220, SamplesPerSec=1.4692778308002616
+ 95%|█████████▌| 2230/2340 [6:19:18<18:48, 10.26s/it][2022-01-07 03:55:20,657] [INFO] [logging.py:69:log_dist] [Rank 0] step=2230, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:55:20,657] [INFO] [timer.py:181:stop] 0/2230, SamplesPerSec=1.4692491795638465
+ 96%|█████████▌| 2240/2340 [6:21:01<17:05, 10.26s/it][2022-01-07 03:57:03,195] [INFO] [logging.py:69:log_dist] [Rank 0] step=2240, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:57:03,195] [INFO] [timer.py:181:stop] 0/2240, SamplesPerSec=1.469222004006662
+ 96%|█████████▌| 2250/2340 [6:22:43<15:22, 10.25s/it][2022-01-07 03:58:45,712] [INFO] [logging.py:69:log_dist] [Rank 0] step=2250, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 03:58:45,712] [INFO] [timer.py:181:stop] 0/2250, SamplesPerSec=1.4691964826021413
+ 97%|█████████▋| 2260/2340 [6:24:26<13:40, 10.25s/it][2022-01-07 04:00:28,239] [INFO] [logging.py:69:log_dist] [Rank 0] step=2260, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 04:00:28,239] [INFO] [timer.py:181:stop] 0/2260, SamplesPerSec=1.4691704547765385
+ 97%|█████████▋| 2270/2340 [6:26:08<11:57, 10.25s/it][2022-01-07 04:02:10,780] [INFO] [logging.py:69:log_dist] [Rank 0] step=2270, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 04:02:10,781] [INFO] [timer.py:181:stop] 0/2270, SamplesPerSec=1.4691438023350427
+ 97%|█████████▋| 2280/2340 [6:27:51<10:15, 10.25s/it][2022-01-07 04:03:53,322] [INFO] [logging.py:69:log_dist] [Rank 0] step=2280, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 04:03:53,323] [INFO] [timer.py:181:stop] 0/2280, SamplesPerSec=1.4691173931441899
+ 98%|█████████▊| 2290/2340 [6:29:33<08:32, 10.26s/it][2022-01-07 04:05:35,910] [INFO] [logging.py:69:log_dist] [Rank 0] step=2290, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 04:05:35,910] [INFO] [timer.py:181:stop] 0/2290, SamplesPerSec=1.4690882260844567
+ 98%|█████████▊| 2300/2340 [6:31:16<06:50, 10.26s/it][2022-01-07 04:07:18,487] [INFO] [logging.py:69:log_dist] [Rank 0] step=2300, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 04:07:18,487] [INFO] [timer.py:181:stop] 0/2300, SamplesPerSec=1.4690601011251896
+{'loss': 0.2617, 'learning_rate': 5e-05, 'epoch': 4.91}
+ 99%|█████████▊| 2310/2340 [6:32:59<05:07, 10.25s/it][2022-01-07 04:09:01,049] [INFO] [logging.py:69:log_dist] [Rank 0] step=2310, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 04:09:01,049] [INFO] [timer.py:181:stop] 0/2310, SamplesPerSec=1.469033135431795
+ 99%|█████████▉| 2320/2340 [6:34:41<03:25, 10.26s/it][2022-01-07 04:10:43,626] [INFO] [logging.py:69:log_dist] [Rank 0] step=2320, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 04:10:43,626] [INFO] [timer.py:181:stop] 0/2320, SamplesPerSec=1.4690054246411577
+100%|█████████▉| 2330/2340 [6:36:25<01:43, 10.37s/it][2022-01-07 04:12:27,067] [INFO] [logging.py:69:log_dist] [Rank 0] step=2330, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 04:12:27,067] [INFO] [timer.py:181:stop] 0/2330, SamplesPerSec=1.4689246430423473
+100%|██████████| 2340/2340 [6:38:07<00:00, 10.22s/it]
+[2022-01-07 04:14:09,502] [INFO] [logging.py:69:log_dist] [Rank 0] step=2340, skipped=21, lr=[5e-05], mom=[[0.9, 0.999]]
+[2022-01-07 04:14:09,502] [INFO] [timer.py:181:stop] 0/2340, SamplesPerSec=1.4689063357284047
+{'train_runtime': 23887.4772, 'train_samples_per_second': 1.467, 'train_steps_per_second': 0.098, 'train_loss': 0.7943830441205929, 'epoch': 5.0}
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+100%|██████████| 2340/2340 [6:38:07<00:00, 10.21s/it]
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+0:  kai-ba-shaolin!" "Nunuo!" " San Francisco!" The highs and lows of spring training camp and novice high school baseball team L.A.'s black ops squad are felt around the globe.
+1: ."Last Train Standing" means what it seems: that there’s a woman caught between the bed of a freight train and the engine of a haunted passenger train. A coming-of-age train horror.
+2:  lucky and friends ship for adventure when they become lost in the magical travel ship of the Smurftalikes, but soon reach the enchanted land of Sodor.
+3:  napping, blackmailing and tortuous small town Irish, a gay couple shows Irish-entrepreneurs the error of sex tape recording and discovers its horrifying secret.
+4:  a new part-time job forces Henry Hart to balance two lives: the high-stress of advertising with the easygoing cops of South London.
+5:  llamas, a monkey, redbird and goldenrod all team up to get into the Halloween spirit at this super spooky-costume party in the Día de los Muertel.
+6:  llagellast yearns to become world-famous gymkhana instructor Mr. Rich Froning Jr. sees his dreams coming true when he opens a new school.
+7:   the lives – and careers – of two professional soccer players are profoundly impacted by a single moment of intimacy that took place years earlier.
+8:   The first African-American to play for Major League, Dada-Vidada becomes the second man in baseball history.... and the star of his team.
+9:  nesha's happy life is full of fun and adventure after he falls in love with the wildly rich aunt she turns into the amazingly aunt Shelu.
+10:  makover" King made the most of a troubled crown prince, stepping up to lead the uprising of slaves uprising against a ruthless merchant.
+11:  lli kuoijindaaka walks the dark side-line in life, being the son and grandson of a crime boss involved in this world.
+12:   LA"s most celebrated fairy makes a hilarious stand-up special about pot, Mexican drugs, insecurity, sex and life's wild west.
+13:  lone mage Siluca wanders aimless through politics, only to be offered protection by a handsome stranger with arms and a sad secret.
+14:   Retsuko, Shinda and Kanzo don't like getting mixed up with the dangerous suges, the confusing love and the troublesome wedding in their lives.
+15:  ysmmetry unites pop art forging veneer and video forges the viewer into an experimental computer-generated life to amusements writer-turned-director James Blood.
+16:  ining, outrageous and audacious, comedian DeRay Davis gets real about getting older, the changing culture, social evolution  and even bothersome baby toes. It's up to him and the cast on tour, and there are even some surprising soul toes to see.
+17:  ller mocha dives into the ocean with her shark pals Eddy, Fll, Koy and Bridgette, and together they come to realize just one day can become the girl of their lives.
+18:   The headspace glows strangely upon entry into the world of a young-town mortuary, where unassuming personal secrets become the business-dead become.
+19:   The Scorpion King joins forces with forces out from under the sun to conquer Syria – and soon stands at the very point of his life.
+
+Process finished with exit code 0
+
