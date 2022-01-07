@@ -1,0 +1,42 @@
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+Max length: 62
+***** Running training *****
+  Num examples = 7008
+  Num Epochs = 5
+  Instantaneous batch size per device = 2
+  Total train batch size (w. parallel, distributed & accumulation) = 2
+  Gradient Accumulation steps = 1
+  Total optimization steps = 17520
+ 29%|██▊       | 5000/17520 [20:12<50:32,  4.13it/s]{'loss': 1.6812, 'learning_rate': 3.593570608495982e-05, 'epoch': 1.43}
+ 57%|█████▋    | 10000/17520 [40:38<30:28,  4.11it/s]{'loss': 0.708, 'learning_rate': 2.1584385763490242e-05, 'epoch': 2.85}
+ 86%|████████▌ | 15000/17520 [1:00:51<10:10,  4.13it/s]{'loss': 0.2526, 'learning_rate': 7.233065442020666e-06, 'epoch': 4.28}
+100%|██████████| 17520/17520 [1:11:02<00:00,  4.12it/s]
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+100%|██████████| 17520/17520 [1:11:02<00:00,  4.11it/s]
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{'train_runtime': 4262.4278, 'train_samples_per_second': 8.221, 'train_steps_per_second': 4.11, 'train_loss': 0.7810901850870211, 'epoch': 5.0}
+0: While playing matchmaker to a pair of their friends, two young university students begin developing feelings for each other.
+1: The lives of a Marine, an athlete, a scholar and an impressionable teen intersect at a resort where they discover savage passions and identities.
+2: This animated outdoor adventure follows Bearnard and his girlfriend/the Floriztons and their brave son Connor following their escape from the zombie apocalypse.
+3: Stuck in an liquor store during an earthquake obliterates their memories, six strangers agree to pay for what was never stolen.
+4: The first time the Brentford police officers catch a suspect in their kidnapping unit is when they lose the upper key to a Sorp lover.
+5: Five talented but soul-dest form a breathtaking piece of dance cinema history, exploding into obenshitlonercerts before bigger audiences around the world.
+6: This revealing documentary profiles J.K. Rowling, a Britain-Firstborn whose write and dominates Harry and his brothers' lives.
+7: Five talented but struggling improv comics see a sudden birth trauma, resulting in a drastic shift in their life.
+8: The comic documentary digs deep into the roots of "Bachelor" and discovers that its star, Stephenie " snowfall" Cooper, was really a millionaire.
+9: Divers, activists, poets and lyricists reflect on the complexities of Catalonia's politics, economy and culture in this musical special for 2016.
+10: The life and career of a teenage soccer player are thrown into chaos when his father dies, forcing his mother to make hard choices for their family.
+11: A detective makes a deal with a mobster to free a friend's son from prison, leading to a tense showdown with organized crime.
+12: Scoan Moccia reflects on the burd of fatherhood and how media and political chaos impact the lives of a generation struggling to survive.
+13: Follow former WWE wrestler The Big Show into theFit game and get a closer look at his WWE visa experience, from the making of his pass to the Juggottto experience.
+14: Three small and remote islands off the coast of Europe get a bigshot at freedom – and a bit ofTails' biggest toes.
+15: When two unlikely friends decide to change their bodies and vanquish demons in their quest to create a better world, this film begins.
+16: Battling a deep depression, a unhappy woman seeks medical help from a free-spirited healers whose livesboats lie outside the hospital.
+17: After he gets slapped with a big write-down, writer-director Nick O'Bannon and his pal Jesse Dylan decide to save their filmmaking chances by turning a hit film into a film.
+18: Culture shock waves when teen figure outhow to free a parking space on their street, but we learn how to honor the dealkeeper and make it right.
+19: When Santa travels back in time to visit his children in time, an naughty Child's TV play begins to misfuel the holiday season once again.
+
+Process finished with exit code 0
