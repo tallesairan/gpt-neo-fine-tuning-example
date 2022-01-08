@@ -732,26 +732,26 @@ Training completed. Do not forget to share your model on huggingface.co/models =
 
 100%|██████████| 2340/2340 [6:38:07<00:00, 10.21s/it]
 Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
-0:  kai-ba-shaolin!" "Nunuo!" " San Francisco!" The highs and lows of spring training camp and novice high school baseball team L.A.'s black ops squad are felt around the globe.
-1: ."Last Train Standing" means what it seems: that there’s a woman caught between the bed of a freight train and the engine of a haunted passenger train. A coming-of-age train horror.
-2:  lucky and friends ship for adventure when they become lost in the magical travel ship of the Smurftalikes, but soon reach the enchanted land of Sodor.
-3:  napping, blackmailing and tortuous small town Irish, a gay couple shows Irish-entrepreneurs the error of sex tape recording and discovers its horrifying secret.
-4:  a new part-time job forces Henry Hart to balance two lives: the high-stress of advertising with the easygoing cops of South London.
-5:  llamas, a monkey, redbird and goldenrod all team up to get into the Halloween spirit at this super spooky-costume party in the Día de los Muertel.
-6:  llagellast yearns to become world-famous gymkhana instructor Mr. Rich Froning Jr. sees his dreams coming true when he opens a new school.
-7:   the lives – and careers – of two professional soccer players are profoundly impacted by a single moment of intimacy that took place years earlier.
-8:   The first African-American to play for Major League, Dada-Vidada becomes the second man in baseball history.... and the star of his team.
-9:  nesha's happy life is full of fun and adventure after he falls in love with the wildly rich aunt she turns into the amazingly aunt Shelu.
-10:  makover" King made the most of a troubled crown prince, stepping up to lead the uprising of slaves uprising against a ruthless merchant.
-11:  lli kuoijindaaka walks the dark side-line in life, being the son and grandson of a crime boss involved in this world.
-12:   LA"s most celebrated fairy makes a hilarious stand-up special about pot, Mexican drugs, insecurity, sex and life's wild west.
-13:  lone mage Siluca wanders aimless through politics, only to be offered protection by a handsome stranger with arms and a sad secret.
-14:   Retsuko, Shinda and Kanzo don't like getting mixed up with the dangerous suges, the confusing love and the troublesome wedding in their lives.
-15:  ysmmetry unites pop art forging veneer and video forges the viewer into an experimental computer-generated life to amusements writer-turned-director James Blood.
-16:  ining, outrageous and audacious, comedian DeRay Davis gets real about getting older, the changing culture, social evolution  and even bothersome baby toes. It's up to him and the cast on tour, and there are even some surprising soul toes to see.
-17:  ller mocha dives into the ocean with her shark pals Eddy, Fll, Koy and Bridgette, and together they come to realize just one day can become the girl of their lives.
-18:   The headspace glows strangely upon entry into the world of a young-town mortuary, where unassuming personal secrets become the business-dead become.
-19:   The Scorpion King joins forces with forces out from under the sun to conquer Syria – and soon stands at the very point of his life.
+0: An American in Paris begins to reconnect with two American friends who were formerly entangled in her romantic and mental alter egos.
+1: A teeny-Wolfled nobleman born in poverty and brought up by a reformed Indian opera singer is utterly unprepared for the arrives of an aristocratic Wolf racer in search of a lost sheep.
+2: During his time in Italy, a troubled young man from Los Angeles City tries to resolve his romantic issues and obtain Allies to help his country.
+3: As a police detective ponders how to solve a woman's murder, she interviews a musician who provided an alibi for her late mother.
+4: An elite squad of Navy SEALs is tasked with rescuing a kidnapped CIA agent from a lethal terrorist cell.
+5: From animal oddities and bizarre science to medical marvels, scientists and experts examine some of the world's strangest mysteries and phenomena.
+6: When an old college friend returns from exile, she introduce him to his old flame and the awkward teen crisis his lives have become.
+7: An aging law enforcement agent must protect a rookie cop and his troubled past when a rookie enters his protective duties.
+8: A teen navigates a bitter feud between his willful mom and a free-spirited man, who's the lover and insurance beneficiary of his recently deceased dad.
+9: A family living in Alexandria during World War II poses as typical Yorkers after landing a new source of clean energy: a Nazi machine gun.
+10: Two teenage geeks inadvertently find a lifelike, state-of-the-art sex robot, but must dodge the high-profile owner who lost her in order to keep her.
+11: Toxic conditions and a corrupt union leader prompt a chemical plant worker and earnest family man to fight for justice for his fellow laborers.
+12: As the new kid, a shy high schooler puts his skills to the test and meets the girl of his dreams, but his confidence soon takes a toll on his life.
+13: In an eastern Turkish town, suitors knock on the door of the mayor and father of three beautiful daughters who choose to follow their own paths.
+14: From the preparations to the performances, this documentary showcases Vietnamese pop idol Sơn Tùng M-TP and the passion behind his Sky Tour concerts.
+15: In his farewell show, legendary German host Frank Elstner digs deep and savors his discussions with stars such as Daniel Brühl and Lena Meyer-Landrut.
+16: As high school approaches, four best friends have a summer sleepover and participate in a scavenger hunt against their popular archrivals.
+17: An adoring couple elects to test the strength of their marriage when they run against each other for the office of state governor.
+18: An extraordinary horse trainer and a promising basketball player take opposite paths in life, but meet by chance years later and fall in love.
+19: A gifted teenage pianist gets popular girl stuff whirlwind romance in New York City before a full houses tour. But her real musical future lies in await.
 
 Process finished with exit code 0
 
