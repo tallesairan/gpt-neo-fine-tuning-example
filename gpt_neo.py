@@ -1,12 +1,12 @@
 import pandas as pd
 import torch
 from torch.utils.data import Dataset, random_split
-from transformers import GPT2Tokenizer, TrainingArguments, Trainer, GPTNeoForCausalLM, IntervalStrategy
+from transformers import AutoTokenizer, TrainingArguments, Trainer, AutoModelForCausalLM, IntervalStrategy
 
 torch.manual_seed(42)
-tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B", bos_token='<|startoftext|>',
+tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B", bos_token='<|startoftext|>',
                                           eos_token='<|endoftext|>', pad_token='<|pad|>')
-model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B").cuda()
+model = AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B").cuda()
 model.resize_token_embeddings(len(tokenizer))
 descriptions = pd.read_csv('netflix_titles.csv')['description']
 max_length = max([len(tokenizer.encode(description)) for description in descriptions])
