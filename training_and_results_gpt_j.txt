@@ -1,4 +1,3 @@
-/home/deepschneider/PycharmProjects/gpt-neo-fine-tuning-example/venv/bin/python /home/deepschneider/PycharmProjects/gpt-neo-fine-tuning-example/gpt_j_deepspeed.py
 Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
 [2022-01-06 21:33:07,854] [INFO] [distributed.py:46:init_distributed] Initializing torch distributed with backend: nccl
 Max length: 62
