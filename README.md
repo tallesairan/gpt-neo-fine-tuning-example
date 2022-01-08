@@ -16,7 +16,7 @@ cd venv/bin
 [**Example with GPT-Neo-1.3B without DeepSpeed**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/gpt_neo.py)  
 [**Training and testing log with GPT-Neo-1.3B**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/training_and_results_gpt_neo_13.txt)  
 [**Example with GPT-Neo-2.7B with DeepSpeed**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/gpt_neo_xl_deepspeed.py)  
-[**DeepSpeed configuration with GPT-Neo-2.7B**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/ds_config.json)  
+[**DeepSpeed configuration with GPT-Neo-2.7B**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/ds_config_gpt_neo_27.json)  
 [**Training and testing log with GPT-Neo-2.7B**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/training_and_results_gpt_neo_27.txt)  
 
 ### GPU VRAM load during GPT-Neo-2.7B training
