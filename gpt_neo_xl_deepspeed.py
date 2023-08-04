@@ -17,7 +17,7 @@ print("Imports loaded")
 torch.manual_seed(42)
 print("Seed set")
 print("Loading tokenizer...")
-current_model = "Pirr/pythia-13b-deduped-green_devil"
+current_model = "EleutherAI/gpt-neo-2.7B"
 tokenizer = AutoTokenizer.from_pretrained(current_model, bos_token='<|startoftext|>',
                                           eos_token='<|endoftext|>', pad_token='<|pad|>')
 
