@@ -7,6 +7,7 @@
 ### Installation
 ```sh
 cd venv/bin
+export HF_DATASETS_CACHE="/path/to/another/directory"
 ./pip install -r ../../requirements.txt 
 ./pip install deepspeed==0.5.9
 ```

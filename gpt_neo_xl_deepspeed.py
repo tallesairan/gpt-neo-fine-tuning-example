@@ -1,4 +1,5 @@
 import os
+
 os.environ['MASTER_ADDR'] = 'localhost'
 os.environ['MASTER_PORT'] = '9994'
 os.environ['RANK'] = "0"
@@ -11,18 +12,21 @@ from torch.utils.data import Dataset, random_split
 from transformers import AutoTokenizer, TrainingArguments, Trainer, AutoModelForCausalLM, IntervalStrategy
 
 torch.manual_seed(42)
-tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-neo-2.7B", bos_token='<|startoftext|>', eos_token='<|endoftext|>', pad_token='<|pad|>')
-training_args = TrainingArguments(output_dir='./results', num_train_epochs=4.3, logging_steps=50, save_strategy=IntervalStrategy.NO,
+tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-neo-2.7B", bos_token='<|startoftext|>',
+                                          eos_token='<|endoftext|>', pad_token='<|pad|>')
+training_args = TrainingArguments(output_dir='./results', num_train_epochs=4.3, logging_steps=50,
+                                  save_strategy=IntervalStrategy.NO,
                                   per_device_train_batch_size=15, per_device_eval_batch_size=15, warmup_steps=50,
-                                  weight_decay=0.01, logging_dir='./logs', fp16=True, deepspeed='./ds_config_gpt_neo_27.json')
+                                  weight_decay=0.01, logging_dir='./logs', fp16=True,
+                                  deepspeed='./ds_config_gpt_neo_27.json')
 model = AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-neo-2.7B").cuda()
 model.resize_token_embeddings(len(tokenizer))
-descriptions = pd.read_csv('netflix_titles.csv')['description']
+descriptions = pd.read_csv('dataset.csv')['description']
 max_length = max([len(tokenizer.encode(description)) for description in descriptions])
 print("Max length: {}".format(max_length))
 
 
-class NetflixDataset(Dataset):
+class RawCSVData(Dataset):
     def __init__(self, txt_list, tokenizer, max_length):
         self.input_ids = []
         self.attn_masks = []
@@ -40,7 +44,7 @@ class NetflixDataset(Dataset):
         return self.input_ids[idx], self.attn_masks[idx]
 
 
-dataset = NetflixDataset(descriptions, tokenizer, max_length=max_length)
+dataset = RawCSVData(descriptions, tokenizer, max_length=max_length)
 train_size = int(0.9 * len(dataset))
 train_dataset, val_dataset = random_split(dataset, [train_size, len(dataset) - train_size])
 Trainer(model=model, args=training_args, train_dataset=train_dataset,
