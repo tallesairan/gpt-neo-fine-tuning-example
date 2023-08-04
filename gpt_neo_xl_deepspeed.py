@@ -12,14 +12,14 @@ from torch.utils.data import Dataset, random_split
 from transformers import AutoTokenizer, TrainingArguments, Trainer, AutoModelForCausalLM, IntervalStrategy
 
 torch.manual_seed(42)
-tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-neo-2.7B", bos_token='<|startoftext|>',
+tokenizer = AutoTokenizer.from_pretrained("Pirr/pythia-13b-deduped-green_devil", bos_token='<|startoftext|>',
                                           eos_token='<|endoftext|>', pad_token='<|pad|>')
 training_args = TrainingArguments(output_dir='./results', num_train_epochs=4.3, logging_steps=50,
                                   save_strategy=IntervalStrategy.NO,
                                   per_device_train_batch_size=15, per_device_eval_batch_size=15, warmup_steps=50,
                                   weight_decay=0.01, logging_dir='./logs', fp16=True,
                                   deepspeed='./ds_config_gpt_neo_27.json')
-model = AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-neo-2.7B").cuda()
+model = AutoModelForCausalLM.from_pretrained("Pirr/pythia-13b-deduped-green_devil").cuda()
 model.resize_token_embeddings(len(tokenizer))
 descriptions = pd.read_csv('dataset.csv')['description']
 max_length = max([len(tokenizer.encode(description)) for description in descriptions])
