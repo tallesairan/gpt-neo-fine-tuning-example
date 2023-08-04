@@ -11,7 +11,10 @@ import torch
 from torch.utils.data import Dataset, random_split
 from transformers import AutoTokenizer, TrainingArguments, Trainer, AutoModelForCausalLM, IntervalStrategy
 
+print("Imports loaded")
 torch.manual_seed(42)
+print("Seed set")
+print("Loading tokenizer...")
 tokenizer = AutoTokenizer.from_pretrained("Pirr/pythia-13b-deduped-green_devil", bos_token='<|startoftext|>',
                                           eos_token='<|endoftext|>', pad_token='<|pad|>')
 
