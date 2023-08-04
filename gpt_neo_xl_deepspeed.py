@@ -17,7 +17,8 @@ print("Imports loaded")
 torch.manual_seed(42)
 print("Seed set")
 print("Loading tokenizer...")
-tokenizer = AutoTokenizer.from_pretrained("Pirr/pythia-13b-deduped-green_devil", bos_token='<|startoftext|>',
+current_model = "EleutherAI/gpt-neo-2.7B"
+tokenizer = AutoTokenizer.from_pretrained(current_model, bos_token='<|startoftext|>',
                                           eos_token='<|endoftext|>', pad_token='<|pad|>')
 
 print("Tokenizer loaded")
@@ -28,7 +29,7 @@ training_args = TrainingArguments(output_dir='./results', num_train_epochs=4.3, 
                                   deepspeed='./ds_config_gpt_neo_27.json')
 
 print("Training args loaded")
-model = AutoModelForCausalLM.from_pretrained("Pirr/pythia-13b-deduped-green_devil").cuda()
+model = AutoModelForCausalLM.from_pretrained(current_model).cuda()
 print("Model downloaded")
 model.resize_token_embeddings(len(tokenizer))
 print("Model resized")
