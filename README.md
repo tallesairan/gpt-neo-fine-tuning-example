@@ -10,7 +10,7 @@ export HF_DATASETS_CACHE="/opt/text-generation-dev/config/models"
 
 conda create --name gptneo python=3.8.6
 pip install -r requirements.txt 
-pip install deepspeed==0.5.9
+pip install deepspeed==0.6.5
 ```
 
 ## GPT-Neo
