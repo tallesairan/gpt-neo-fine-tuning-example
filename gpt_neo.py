@@ -46,7 +46,7 @@ train_size = int(0.9 * len(dataset))
 train_dataset, val_dataset = random_split(dataset, [train_size, len(dataset) - train_size])
 training_args = TrainingArguments(output_dir='./results', num_train_epochs=5, logging_steps=5000,
                                   save_strategy=IntervalStrategy.NO,
-                                  per_device_train_batch_size=1, per_device_eval_batch_size=1,
+                                  per_device_train_batch_size=5, per_device_eval_batch_size=5,
                                   warmup_steps=100, weight_decay=0.01, logging_dir='./logs')
 Trainer(model=model, args=training_args, train_dataset=train_dataset,
         eval_dataset=val_dataset, data_collator=lambda data: {'input_ids': torch.stack([f[0] for f in data]),
