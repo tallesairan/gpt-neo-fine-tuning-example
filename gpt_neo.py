@@ -1,19 +1,27 @@
+import os
+os.environ['TRANSFORMERS_CACHE'] = '/opt/text-generation-dev/config/models/'
 import pandas as pd
 import torch
 from torch.utils.data import Dataset, random_split
 from transformers import AutoTokenizer, TrainingArguments, Trainer, AutoModelForCausalLM, IntervalStrategy
+print("Imports loaded")
 
 torch.manual_seed(42)
-tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B", bos_token='<|startoftext|>',
+print("Loading tokenizer...")
+
+tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-neo-2.7B", bos_token='<|startoftext|>',
                                           eos_token='<|endoftext|>', pad_token='<|pad|>')
-model = AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B").cuda()
+print("Tokenizer loaded")
+
+model = AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-neo-2.7B").cuda()
+
 model.resize_token_embeddings(len(tokenizer))
-descriptions = pd.read_csv('netflix_titles.csv')['description']
+descriptions = pd.read_csv('dataset.csv')['description']
 max_length = max([len(tokenizer.encode(description)) for description in descriptions])
 print("Max length: {}".format(max_length))
 
 
-class NetflixDataset(Dataset):
+class RawCSVData(Dataset):
     def __init__(self, txt_list, tokenizer, max_length):
         self.input_ids = []
         self.attn_masks = []
@@ -31,7 +39,7 @@ class NetflixDataset(Dataset):
         return self.input_ids[idx], self.attn_masks[idx]
 
 
-dataset = NetflixDataset(descriptions, tokenizer, max_length=max_length)
+dataset = RawCSVData(descriptions, tokenizer, max_length=max_length)
 train_size = int(0.9 * len(dataset))
 train_dataset, val_dataset = random_split(dataset, [train_size, len(dataset) - train_size])
 training_args = TrainingArguments(output_dir='./results', num_train_epochs=5, logging_steps=5000,
