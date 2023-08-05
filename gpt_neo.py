@@ -1,5 +1,7 @@
 import os
 os.environ['TRANSFORMERS_CACHE'] = '/opt/text-generation-dev/config/models/'
+
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:512"
 import pandas as pd
 import torch
 from torch.utils.data import Dataset, random_split
