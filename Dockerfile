@@ -36,7 +36,7 @@ RUN python3 -m pip install --no-cache-dir git+https://github.com/huggingface/acc
 #RUN python3 -m pip uninstall transformer-engine
 
 # Uninstall `torch-tensorrt` shipped with the base image
-RUN python3 -m pip uninstall torch-tensorrt
+#RUN python3 -m pip uninstall torch-tensorrt
 
 # recompile apex
 RUN python3 -m pip uninstall apex
