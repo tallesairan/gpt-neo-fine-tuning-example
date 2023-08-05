@@ -33,7 +33,7 @@ RUN python3 -m pip install --no-cache-dir ./transformers[deepspeed-testing]
 RUN python3 -m pip install --no-cache-dir git+https://github.com/huggingface/accelerate@main#egg=accelerate
 
 # Uninstall `transformer-engine` shipped with the base image
-RUN python3 -m pip uninstall transformer-engine
+#RUN python3 -m pip uninstall transformer-engine
 
 # Uninstall `torch-tensorrt` shipped with the base image
 RUN python3 -m pip uninstall torch-tensorrt
