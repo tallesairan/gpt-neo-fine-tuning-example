@@ -33,13 +33,13 @@ RUN python3 -m pip install --no-cache-dir ./transformers[deepspeed-testing]
 RUN python3 -m pip install --no-cache-dir git+https://github.com/huggingface/accelerate@main#egg=accelerate
 
 # Uninstall `transformer-engine` shipped with the base image
-RUN python3 -m pip uninstall -y transformer-engine
+RUN python3 -m pip uninstall transformer-engine
 
 # Uninstall `torch-tensorrt` shipped with the base image
-RUN python3 -m pip uninstall -y torch-tensorrt
+RUN python3 -m pip uninstall torch-tensorrt
 
 # recompile apex
-RUN python3 -m pip uninstall -y apex
+RUN python3 -m pip uninstall apex
 RUN git clone https://github.com/NVIDIA/apex
 #  `MAX_JOBS=1` disables parallel building to avoid cpu memory OOM when building image on GitHub Action (standard) runners
 RUN cd apex && git checkout 82ee367f3da74b4cd62a1fb47aa9806f0f47b58b && MAX_JOBS=1 python3 -m pip install --global-option="--cpp_ext" --global-option="--cuda_ext" --no-cache -v --disable-pip-version-check .
@@ -57,7 +57,7 @@ RUN cd transformers && python3 setup.py develop
 
 WORKDIR /app
 
-RUN python3 -m pip install -y pandas numpy
+RUN python3 -m pip install  pandas numpy
 # The base image ships with `pydantic==1.8.2` which is not working - i.e. the next command fails
 RUN python3 -m pip install -U --no-cache-dir "pydantic<2"
 RUN python3 -c "from deepspeed.launcher.runner import main"
