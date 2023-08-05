@@ -1,0 +1,3 @@
+services:
+  gpt_neo_ds:
+    build: .
