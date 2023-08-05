@@ -1,7 +1,7 @@
 import os
 os.environ['TRANSFORMERS_CACHE'] = '/opt/text-generation-dev/config/models/'
 
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:256"
+#os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:256"
 import pandas as pd
 import torch
 from torch.utils.data import Dataset, random_split
@@ -11,11 +11,11 @@ print("Imports loaded")
 torch.manual_seed(42)
 print("Loading tokenizer...")
 
-tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-neo-2.7B", bos_token='<|startoftext|>',
+tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B", bos_token='<|startoftext|>',
                                           eos_token='<|endoftext|>', pad_token='<|pad|>')
 print("Tokenizer loaded")
 
-model = AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-neo-2.7B").cuda()
+model = AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B").cuda()
 
 model.resize_token_embeddings(len(tokenizer))
 descriptions = pd.read_csv('dataset.csv')['description']
