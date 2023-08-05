@@ -19,7 +19,7 @@ training_args = TrainingArguments(output_dir='./results', num_train_epochs=4.3, 
                                   weight_decay=0.01, logging_dir='./logs', fp16=True, deepspeed='./ds_config_gpt_j.json')
 model = AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-j-6B").cuda()
 model.resize_token_embeddings(len(tokenizer))
-descriptions = pd.read_csv('netflix_titles.csv')['description']
+descriptions = pd.read_csv('../netflix_titles.csv')['description']
 max_length = max([len(tokenizer.encode(description)) for description in descriptions])
 print("Max length: {}".format(max_length))
 
