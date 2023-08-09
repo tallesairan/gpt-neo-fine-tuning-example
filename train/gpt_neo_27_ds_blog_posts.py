@@ -23,7 +23,7 @@ print("Seed set")
 if not os.path.isfile('dataset-filtred.csv'):
     print("Downloading dataset...")
     import requests
-    url = 'https://inference-datasets.s3.eu-central-1.amazonaws.com/dataset-filtred.csv.zip'
+    url = 'https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-test.csv'
     dataset_file = requests.get(url, allow_redirects=True)
     open('dataset-filtred.csv.zip', 'wb').write(dataset_file.content)
     print("Dataset downloaded")
@@ -41,20 +41,22 @@ tokenizer = AutoTokenizer.from_pretrained(current_model, bos_token='<|startoftex
                                           eos_token='<|endoftext|>', pad_token='<|pad|>')
 
 print("Tokenizer loaded")
-training_args = TrainingArguments(output_dir='./results',
-                                  num_train_epochs=3,
-                                  logging_steps=500,
+training_args = TrainingArguments(
+                output_dir='./results',
+                num_train_epochs=3,
+                logging_steps=500,
 
-                                  save_total_limit=5,
-                                    save_steps=1000,
-                                  save_strategy="steps",
-                                  per_device_train_batch_size=15,
-                                  per_device_eval_batch_size=15,
-                                  warmup_steps=50,
-                                  weight_decay=0.01,
-                                  logging_dir='./logs',
-                                  fp16=True,
-                                  deepspeed='./ds_config_gpt_neo_27.json')
+                save_total_limit=5,
+                save_steps=1000,
+                save_strategy="steps",
+                per_device_train_batch_size=15,
+                per_device_eval_batch_size=15,
+                warmup_steps=50,
+                weight_decay=0.01,
+                logging_dir='./logs',
+                fp16=True,
+                deepspeed='./ds_config_gpt_neo_27.json'
+              )
 
 print("Training args loaded")
 model = AutoModelForCausalLM.from_pretrained(current_model).cuda()
@@ -64,7 +66,7 @@ print("Model resized")
 
 
 
-blog_posts = pd.read_csv('dataset-filtred.csv')['text']
+blog_posts = pd.read_csv('nsfw-pt-br-dataset-test.csv')['text']
 # default
 # max_length = max([len(tokenizer.encode(description)) for description in blog_posts])
 
@@ -96,10 +98,17 @@ class RawCSVData(Dataset):
 dataset = RawCSVData(blog_posts, tokenizer, max_length=max_length)
 train_size = int(0.9 * len(dataset))
 train_dataset, val_dataset = random_split(dataset, [train_size, len(dataset) - train_size])
-Trainer(model=model, args=training_args, train_dataset=train_dataset,
+trainer = Trainer(model=model, args=training_args, train_dataset=train_dataset,
         eval_dataset=val_dataset, data_collator=lambda data: {'input_ids': torch.stack([f[0] for f in data]),
                                                               'attention_mask': torch.stack([f[1] for f in data]),
-                                                              'labels': torch.stack([f[0] for f in data])}).train()
+                                                              'labels': torch.stack([f[0] for f in data])})
+
+trainer.train()
+
+trainer.save_model("gpt_neo_27_ds_blog_posts")
+print("Model saved")
+# send model to huggingface hub
+#trainer.push_to_hub("gpt_neo_27_ds_blog_posts")
 generated = tokenizer("<|startoftext|>", return_tensors="pt").input_ids.cuda()
 sample_outputs = model.generate(generated, do_sample=True, top_k=50,
                                 bos_token='<|startoftext|>',
