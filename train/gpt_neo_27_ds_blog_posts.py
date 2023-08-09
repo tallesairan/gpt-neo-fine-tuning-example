@@ -12,9 +12,29 @@ import torch
 from torch.utils.data import Dataset, random_split
 from transformers import AutoTokenizer, TrainingArguments, Trainer, AutoModelForCausalLM, IntervalStrategy
 
+
 print("Imports loaded")
 torch.manual_seed(42)
 print("Seed set")
+
+## check if file 'dataset-filtred.csv' exists
+## if not, download it from url with python
+
+if not os.path.isfile('dataset-filtred.csv'):
+    print("Downloading dataset...")
+    import requests
+    url = 'https://inference-datasets.s3.eu-central-1.amazonaws.com/dataset-filtred.csv.zip'
+    dataset_file = requests.get(url, allow_redirects=True)
+    open('dataset-filtred.csv.zip', 'wb').write(dataset_file.content)
+    print("Dataset downloaded")
+    import zipfile
+    with zipfile.ZipFile('dataset-filtred.csv.zip', 'r') as zip_ref:
+        zip_ref.extractall('.')
+    print("Dataset extracted")
+
+if not os.path.isfile('dataset-filtred.csv'):
+    exit("Dataset not found")
+
 print("Loading tokenizer...")
 current_model = "EleutherAI/gpt-neo-2.7B"
 tokenizer = AutoTokenizer.from_pretrained(current_model, bos_token='<|startoftext|>',
@@ -42,30 +62,14 @@ print("Model downloaded")
 model.resize_token_embeddings(len(tokenizer))
 print("Model resized")
 
-## check if file 'dataset-filtred.csv' exists
-## if not, download it from url with python
 
-if not os.path.isfile('dataset-filtred.csv'):
-    print("Downloading dataset...")
-    import requests
-    url = 'https://inference-datasets.s3.eu-central-1.amazonaws.com/dataset-filtred.csv.zip'
-    dataset_file = requests.get(url, allow_redirects=True)
-    open('dataset-filtred.csv.zip', 'wb').write(dataset_file.content)
-    print("Dataset downloaded")
-    import zipfile
-    with zipfile.ZipFile('dataset-filtred.csv.zip', 'r') as zip_ref:
-        zip_ref.extractall('.')
-    print("Dataset extracted")
 
-if not os.path.isfile('dataset-filtred.csv'):
-    exit("Dataset not found")
-
-descriptions = pd.read_csv('dataset-filtred.csv')['text']
+blog_posts = pd.read_csv('dataset-filtred.csv')['text']
 # default
-# max_length = max([len(tokenizer.encode(description)) for description in descriptions])
+# max_length = max([len(tokenizer.encode(description)) for description in blog_posts])
 
 # custom dataset
-max_length = max([len(tokenizer.encode(description, max_length=2048, truncation=True, add_special_tokens=True)) for description in descriptions])
+max_length = max([len(tokenizer.encode(description, max_length=2048, truncation=True, add_special_tokens=True)) for description in blog_posts])
 
 
 print("Max length: {}".format(max_length))
@@ -89,7 +93,7 @@ class RawCSVData(Dataset):
         return self.input_ids[idx], self.attn_masks[idx]
 
 
-dataset = RawCSVData(descriptions, tokenizer, max_length=max_length)
+dataset = RawCSVData(blog_posts, tokenizer, max_length=max_length)
 train_size = int(0.9 * len(dataset))
 train_dataset, val_dataset = random_split(dataset, [train_size, len(dataset) - train_size])
 Trainer(model=model, args=training_args, train_dataset=train_dataset,
