@@ -1,12 +1,11 @@
 import os
-
 os.environ['MASTER_ADDR'] = 'localhost'
 os.environ['MASTER_PORT'] = '9994'
 os.environ['RANK'] = "0"
 os.environ['LOCAL_RANK'] = "0"
 os.environ['WORLD_SIZE'] = "1"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
-#os.environ['TRANSFORMERS_CACHE'] = '/opt/text-generation-dev/config/models/'
+# os.environ['TRANSFORMERS_CACHE'] = '/opt/text-generation-dev/config/models/'
 
 import pandas as pd
 import torch
@@ -22,10 +21,19 @@ tokenizer = AutoTokenizer.from_pretrained(current_model, bos_token='<|startoftex
                                           eos_token='<|endoftext|>', pad_token='<|pad|>')
 
 print("Tokenizer loaded")
-training_args = TrainingArguments(output_dir='./results', num_train_epochs=4.3, logging_steps=50,
-                                  save_strategy=IntervalStrategy.NO,
-                                  per_device_train_batch_size=15, per_device_eval_batch_size=15, warmup_steps=50,
-                                  weight_decay=0.01, logging_dir='./logs', fp16=True,
+training_args = TrainingArguments(output_dir='./results',
+                                  num_train_epochs=3,
+                                  logging_steps=500,
+
+                                  save_total_limit=5,
+                                    save_steps=1000,
+                                  save_strategy="steps",
+                                  per_device_train_batch_size=15,
+                                  per_device_eval_batch_size=15,
+                                  warmup_steps=50,
+                                  weight_decay=0.01,
+                                  logging_dir='./logs',
+                                  fp16=True,
                                   deepspeed='./ds_config_gpt_neo_27.json')
 
 print("Training args loaded")
@@ -34,9 +42,32 @@ print("Model downloaded")
 model.resize_token_embeddings(len(tokenizer))
 print("Model resized")
 
-descriptions = pd.read_csv('dataset.csv')['description']
+## check if file 'dataset-filtred.csv' exists
+## if not, download it from url with python
 
-max_length = max([len(tokenizer.encode(description)) for description in descriptions])
+if not os.path.isfile('dataset-filtred.csv'):
+    print("Downloading dataset...")
+    import requests
+    url = 'https://inference-datasets.s3.eu-central-1.amazonaws.com/dataset-filtred.csv.zip'
+    dataset_file = requests.get(url, allow_redirects=True)
+    open('dataset-filtred.csv.zip', 'wb').write(dataset_file.content)
+    print("Dataset downloaded")
+    import zipfile
+    with zipfile.ZipFile('dataset-filtred.csv.zip', 'r') as zip_ref:
+        zip_ref.extractall('.')
+    print("Dataset extracted")
+
+if not os.path.isfile('dataset-filtred.csv'):
+    exit("Dataset not found")
+
+descriptions = pd.read_csv('dataset-filtred.csv')['text']
+# default
+# max_length = max([len(tokenizer.encode(description)) for description in descriptions])
+
+# custom dataset
+max_length = max([len(tokenizer.encode(description, max_length=2048, truncation=True, add_special_tokens=True)) for description in descriptions])
+
+
 print("Max length: {}".format(max_length))
 
 
