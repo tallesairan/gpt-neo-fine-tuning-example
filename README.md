@@ -13,7 +13,8 @@ pip install -r requirements.txt
 pip install deepspeed==0.6.5
 ```
 
-## RUN Docker Image
+## Build & Run Docker Image
+docker build -t tallesairan/gpt_neo_ds:latest .
 docker run --gpus all -it gpt_neo_ds bash
 
 ## GPT-Neo
