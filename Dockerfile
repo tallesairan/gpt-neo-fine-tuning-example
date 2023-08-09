@@ -174,12 +174,8 @@ RUN cat /etc/ssh/sshd_config > ${STAGE_DIR}/sshd_config && \
 ##############################################################################
 # PyTorch
 ##############################################################################
-ENV PYTORCH_VERSION=1.9.0
-ENV TORCHVISION_VERSION=0.10.0
 ENV TENSORBOARDX_VERSION=1.8
-RUN pip install torch==${PYTORCH_VERSION}
-RUN pip install torchvision==${TORCHVISION_VERSION}
-RUN pip install tensorboardX==${TENSORBOARDX_VERSION}
+RUN pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu117
 RUN pip install torchsummary
 
 
