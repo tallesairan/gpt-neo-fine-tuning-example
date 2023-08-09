@@ -211,7 +211,6 @@ RUN mkdir app
 COPY ./train app
 
 RUN cd app
-RUN cd app \
-        && \
-        wget "https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-test.csv.zip" \
+RUN cd app && \
+        wget "https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-test.csv.zip" && \
         unzip nsfw-pt-br-dataset-test.csv.zip
