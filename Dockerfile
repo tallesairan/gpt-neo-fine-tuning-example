@@ -131,6 +131,12 @@ RUN apt-get update && \
         zip  \
         unzip
 
+##############################################################################
+# PyYAML build issue
+# https://stackoverflow.com/a/53926898
+##############################################################################
+RUN rm -rf /usr/lib/python3/dist-packages/yaml && \
+        rm -rf /usr/lib/python3/dist-packages/PyYAML-*
 RUN pip install psutil \
         yappi \
         cffi \
@@ -176,12 +182,7 @@ RUN pip install torchvision==${TORCHVISION_VERSION}
 RUN pip install tensorboardX==${TENSORBOARDX_VERSION}
 RUN pip install torchsummary
 
-##############################################################################
-# PyYAML build issue
-# https://stackoverflow.com/a/53926898
-##############################################################################
-RUN rm -rf /usr/lib/python3/dist-packages/yaml && \
-        rm -rf /usr/lib/python3/dist-packages/PyYAML-*
+
 
 ##############################################################################
 ## Add deepspeed user
