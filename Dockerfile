@@ -129,7 +129,7 @@ RUN apt-get update && \
         atop  \
         bash  \
         zip  \
-        unzip \
+        unzip
 
 RUN pip install psutil \
         yappi \
