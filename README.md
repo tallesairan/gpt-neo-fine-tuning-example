@@ -13,6 +13,9 @@ pip install -r requirements.txt
 pip install deepspeed==0.6.5
 ```
 
+## RUN Docker Image
+docker run --gpus all -it gpt_neo_ds bash
+
 ## GPT-Neo
 
 [**Example with GPT-Neo-1.3B without DeepSpeed**](https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/gpt_neo.py)  
