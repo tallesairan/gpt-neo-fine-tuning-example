@@ -189,7 +189,7 @@ RUN pip install torchsummary
 ###############################################################################
 # Add a deepspeed user with user id 8877
 #RUN useradd --create-home --uid 8877 deepspeed
-RUN useradd --create-home --uid 1000 --shell /bin/bash deepspeed
+RUN useradd -m -d /home/deepspeed --uid 1000 --shell /bin/bash deepspeed
 RUN usermod -aG sudo deepspeed
 RUN echo "deepspeed ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 # # Change to non-root privilege
@@ -206,9 +206,10 @@ RUN cd ${STAGE_DIR}/DeepSpeed && \
 RUN rm -rf ${STAGE_DIR}/DeepSpeed
 RUN python -c "import deepspeed; print(deepspeed.__version__)"
 
+WORKDIR /home/deepspeed
+RUN mkdir app
+COPY ./train app
+RUN cd app && \
+        wget "https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-train.csv" \
+        unzip dataset-filtred.csv.zip
 
-RUN mkdir "/home/deepspeed/app"
-COPY ./train "/home/deepspeed/app"
-RUN cd /home/deepspeed/app
-RUN wget "https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-test.csv"
-RUN unzip dataset-filtred.csv.zip
