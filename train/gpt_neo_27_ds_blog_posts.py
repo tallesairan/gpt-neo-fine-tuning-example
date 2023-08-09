@@ -23,16 +23,16 @@ print("Seed set")
 if not os.path.isfile('dataset-filtred.csv'):
     print("Downloading dataset...")
     import requests
-    url = 'https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-test.csv'
+    url = 'https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-test.csv.zip'
     dataset_file = requests.get(url, allow_redirects=True)
-    open('dataset-filtred.csv.zip', 'wb').write(dataset_file.content)
+    open('nsfw-pt-br-dataset-test.csv.zip', 'wb').write(dataset_file.content)
     print("Dataset downloaded")
     import zipfile
-    with zipfile.ZipFile('dataset-filtred.csv.zip', 'r') as zip_ref:
+    with zipfile.ZipFile('nsfw-pt-br-dataset-test.csv.zip', 'r') as zip_ref:
         zip_ref.extractall('.')
     print("Dataset extracted")
 
-if not os.path.isfile('dataset-filtred.csv'):
+if not os.path.isfile('nsfw-pt-br-dataset-test.csv'):
     exit("Dataset not found")
 
 print("Loading tokenizer...")

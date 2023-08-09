@@ -209,7 +209,9 @@ RUN python -c "import deepspeed; print(deepspeed.__version__)"
 WORKDIR /home/deepspeed
 RUN mkdir app
 COPY ./train app
-RUN cd app && \
-        wget "https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-train.csv" \
-        unzip dataset-filtred.csv.zip
 
+RUN cd app
+RUN cd app \
+        && \
+        wget "https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-test.csv.zip" \
+        unzip nsfw-pt-br-dataset-test.csv.zip
