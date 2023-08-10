@@ -174,7 +174,11 @@ RUN pip install psutil \
 #RUN pip install torch==${PYTORCH_VERSION}
 #RUN pip install torchvision==${TORCHVISION_VERSION}
 
-
+RUN pip install light-the-torch
+RUN ltt install torch torchvision
+ENV TENSORBOARDX_VERSION=1.8
+RUN pip install tensorboardX==${TENSORBOARDX_VERSION}
+RUN pip install torchsummary
 
 ##############################################################################
 ## Add deepspeed user
@@ -207,13 +211,7 @@ RUN cd /home/deepspeed/app
 
 COPY ./train /home/deepspeed/app
 
-RUN pip install light-the-torch
 
-RUN ltt install torch torchvision
-
-ENV TENSORBOARDX_VERSION=1.8
-RUN pip install tensorboardX==${TENSORBOARDX_VERSION}
-RUN pip install torchsummary
 
 RUN cd /home/deepspeed/app && \
         wget "https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-test.csv.zip" && \
