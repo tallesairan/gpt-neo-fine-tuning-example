@@ -12,7 +12,6 @@ RUN mkdir -p ${STAGE_DIR}
 ##############################################################################
 # Installation/Basic Utilities
 ##############################################################################
-RUN add-apt-repository ppa:deadsnakes/ppa
 
 RUN apt-get update && \
         apt-get install -y --no-install-recommends \
@@ -24,6 +23,8 @@ RUN apt-get update && \
         rsync iputils-ping net-tools sudo \
         llvm-9-dev
 
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt-get update
 ##############################################################################
 # Installation Latest Git
 ##############################################################################
