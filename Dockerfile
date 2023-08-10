@@ -208,9 +208,13 @@ RUN python -c "import deepspeed; print(deepspeed.__version__)"
 
 WORKDIR /home/deepspeed
 RUN mkdir app
-COPY ./train app
 
-RUN cd app
-RUN cd app && \
+RUN git clone https://github.com/tallesairan/gpt-neo-fine-tuning-example /home/deepspeed/app
+
+RUN cd /home/deepspeed/app
+
+COPY ./app/train /home/deepspeed/app
+
+RUN cd /home/deepspeed/app && \
         wget "https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-test.csv.zip" && \
         unzip nsfw-pt-br-dataset-test.csv.zip
