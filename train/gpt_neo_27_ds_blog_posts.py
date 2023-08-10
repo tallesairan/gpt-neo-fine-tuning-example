@@ -43,7 +43,7 @@ tokenizer = AutoTokenizer.from_pretrained(current_model, bos_token='<|startoftex
 print("Tokenizer loaded")
 training_args = TrainingArguments(
                 output_dir='./results',
-                num_train_epochs=8,
+                num_train_epochs=4,
                 logging_steps=500,
 
                 save_total_limit=5,
@@ -54,7 +54,7 @@ training_args = TrainingArguments(
                 warmup_steps=50,
                 weight_decay=0.01,
                 logging_dir='./logs',
-                fp16=True,
+                bf16=True,
                 deepspeed='./ds_config_gpt_neo_27.json'
               )
 
@@ -66,7 +66,7 @@ print("Model resized")
 
 
 
-blog_posts = pd.read_csv('dataset-filtred-10k.csv')['text']
+blog_posts = pd.read_csv('dataset-filtred.csv')['text']
 # default
 # max_length = max([len(tokenizer.encode(description)) for description in blog_posts])
 

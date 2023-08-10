@@ -129,19 +129,7 @@ RUN python -m pip install protobuf==3.20.*
 RUN useradd -m -d /home/deepspeed --uid 1000 --shell /bin/bash deepspeed
 RUN usermod -aG sudo deepspeed
 RUN echo "deepspeed ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-# # Change to non-root privilege
-USER deepspeed
-##############################################################################
-# DeepSpeed
-##############################################################################
-RUN git clone https://github.com/microsoft/DeepSpeed.git ${STAGE_DIR}/DeepSpeed
-RUN cd ${STAGE_DIR}/DeepSpeed && \
-        git checkout . && \
-        git checkout master && \
-        ./install.sh --pip_sudo
-RUN rm -rf ${STAGE_DIR}/DeepSpeed
-RUN python -c "import deepspeed; print(deepspeed.__version__)"
-USER root
+ 
 WORKDIR /
 RUN mkdir app
 
