@@ -164,12 +164,7 @@ RUN pip install psutil \
         mpi4py \
         cupy-cuda100
 
-##############################################################################
-## SSH daemon port inside container cannot conflict with host OS port
-###############################################################################
-ENV SSH_PORT=2222
-RUN cat /etc/ssh/sshd_config > ${STAGE_DIR}/sshd_config && \
-        sed "0,/^Port 22/s//Port ${SSH_PORT}/" ${STAGE_DIR}/sshd_config > /etc/ssh/sshd_config
+
 
 ##############################################################################
 # PyTorch
