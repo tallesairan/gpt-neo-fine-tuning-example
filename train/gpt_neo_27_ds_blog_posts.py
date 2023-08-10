@@ -36,7 +36,7 @@ if not os.path.isfile('nsfw-pt-br-dataset-test.csv'):
     exit("Dataset not found")
 
 print("Loading tokenizer...")
-current_model = "EleutherAI/gpt-neo-2.7B"
+current_model = "josu/gpt-neo-pt-1.3B"
 tokenizer = AutoTokenizer.from_pretrained(current_model, bos_token='<|startoftext|>',
                                           eos_token='<|endoftext|>', pad_token='<|pad|>')
 

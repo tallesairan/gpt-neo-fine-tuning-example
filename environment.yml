@@ -1,0 +1,19 @@
+name: fastai_stable_diff
+channels:
+  - pytorch
+  - anaconda
+  - conda-forge
+dependencies:
+  - python>=3.8
+  - matplotlib
+  - jupyter
+  - pip
+  - pip:
+    - diffusers
+    - transformers
+    - fastcore
+  - cudatoolkit=11.3
+  - pytorch
+  - torchvision
+  - fastai
+  - huggingface-hub
