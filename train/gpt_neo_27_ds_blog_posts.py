@@ -1,10 +1,10 @@
 import os
-os.environ['MASTER_ADDR'] = 'localhost'
-os.environ['MASTER_PORT'] = '9994'
-os.environ['RANK'] = "0"
-os.environ['LOCAL_RANK'] = "0"
-os.environ['WORLD_SIZE'] = "1"
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
+#os.environ['MASTER_ADDR'] = 'localhost'
+#os.environ['MASTER_PORT'] = '9994'
+#os.environ['RANK'] = "0"
+#os.environ['LOCAL_RANK'] = "0"
+#os.environ['WORLD_SIZE'] = "1"
+#os.environ["TOKENIZERS_PARALLELISM"] = "false"
 # os.environ['TRANSFORMERS_CACHE'] = '/opt/text-generation-dev/config/models/'
 
 import pandas as pd
@@ -23,16 +23,16 @@ print("Seed set")
 if not os.path.isfile('dataset-filtred.csv'):
     print("Downloading dataset...")
     import requests
-    url = 'https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-test.csv.zip'
+    url = 'https://inference-datasets.s3.eu-central-1.amazonaws.com/dataset-filtred.csv.zip'
     dataset_file = requests.get(url, allow_redirects=True)
-    open('nsfw-pt-br-dataset-test.csv.zip', 'wb').write(dataset_file.content)
+    open('dataset-filtred.csv.zip', 'wb').write(dataset_file.content)
     print("Dataset downloaded")
     import zipfile
-    with zipfile.ZipFile('nsfw-pt-br-dataset-test.csv.zip', 'r') as zip_ref:
+    with zipfile.ZipFile('dataset-filtred.csv.zip', 'r') as zip_ref:
         zip_ref.extractall('.')
     print("Dataset extracted")
 
-if not os.path.isfile('nsfw-pt-br-dataset-test.csv'):
+if not os.path.isfile('dataset-filtred.csv'):
     exit("Dataset not found")
 
 print("Loading tokenizer...")
@@ -43,14 +43,14 @@ tokenizer = AutoTokenizer.from_pretrained(current_model, bos_token='<|startoftex
 print("Tokenizer loaded")
 training_args = TrainingArguments(
                 output_dir='./results',
-                num_train_epochs=3,
+                num_train_epochs=8,
                 logging_steps=500,
 
                 save_total_limit=5,
                 save_steps=1000,
                 save_strategy="steps",
-                per_device_train_batch_size=15,
-                per_device_eval_batch_size=15,
+                per_device_train_batch_size=4,
+                per_device_eval_batch_size=4,
                 warmup_steps=50,
                 weight_decay=0.01,
                 logging_dir='./logs',
@@ -66,7 +66,7 @@ print("Model resized")
 
 
 
-blog_posts = pd.read_csv('nsfw-pt-br-dataset-test.csv')['text']
+blog_posts = pd.read_csv('dataset-filtred-10k.csv')['text']
 # default
 # max_length = max([len(tokenizer.encode(description)) for description in blog_posts])
 
