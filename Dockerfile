@@ -106,8 +106,7 @@ RUN python -m pip install psutil \
         transformers \
         numpy \
         scikit-learn \
-        nvidia-ml-py3 \
-        cupy-cuda100
+        nvidia-ml-py3
 
 ##############################################################################
 # PyTorch
