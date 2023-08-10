@@ -51,7 +51,6 @@ ENV PYTHON_VERSION=3.9
 RUN apt-get install -y python3.9 python3.9-dev python3.9-venv python3-pip python3-wheel build-essential
 #RUN rm -f /usr/bin/python
 RUN ln -s /usr/bin/python3.9 /usr/bin/python
-#RUN ln -s /usr/bin/pip3 /usr/bin/pip
 
 RUN python -m pip install --upgrade pip
 RUN python -V && pip -V
@@ -110,18 +109,9 @@ RUN python -m pip install psutil \
         nvidia-ml-py3 \
         cupy-cuda100
 
-
-
 ##############################################################################
 # PyTorch
 ##############################################################################
-#ENV PYTORCH_VERSION=1.9.0
-#ENV TORCHVISION_VERSION=0.10.0
-#RUN pip install torch==${PYTORCH_VERSION}
-#RUN pip install torchvision==${TORCHVISION_VERSION}
- 
-
-RUN python --version
 
 RUN python -m pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu117
 
@@ -129,7 +119,8 @@ RUN python -m pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaud
 ENV TENSORBOARDX_VERSION=1.8
 RUN python -m pip install tensorboardX==${TENSORBOARDX_VERSION}
 RUN python -m pip install torchsummary
-
+RUN python -m pip install accelerate
+RUN python -m pip install protobuf==3.20.*
 ##############################################################################
 ## Add deepspeed user
 ###############################################################################
@@ -140,7 +131,6 @@ RUN usermod -aG sudo deepspeed
 RUN echo "deepspeed ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 # # Change to non-root privilege
 USER deepspeed
-
 ##############################################################################
 # DeepSpeed
 ##############################################################################
@@ -151,20 +141,21 @@ RUN cd ${STAGE_DIR}/DeepSpeed && \
         ./install.sh --pip_sudo
 RUN rm -rf ${STAGE_DIR}/DeepSpeed
 RUN python -c "import deepspeed; print(deepspeed.__version__)"
-
-WORKDIR /home/deepspeed
+USER root
+WORKDIR /
 RUN mkdir app
 
-RUN git clone https://github.com/tallesairan/gpt-neo-fine-tuning-example /home/deepspeed/app
+RUN git clone https://github.com/tallesairan/gpt-neo-fine-tuning-example /app
 
-RUN cd /home/deepspeed/app
+RUN cd /app
 
-COPY ./train /home/deepspeed/app
+COPY ./train /app
 
 
 
-RUN cd /home/deepspeed/app && \
+RUN cd /app && \
         wget "https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-test.csv.zip" && \
         unzip nsfw-pt-br-dataset-test.csv.zip && \
+        cp nsfw-pt-br-dataset-test.csv dataset-filtred-10k.csv && \
         wget "https://inference-datasets.s3.eu-central-1.amazonaws.com/dataset-filtred.csv.zip" && \
         unzip dataset-filtred.csv.zip
