@@ -43,14 +43,14 @@ tokenizer = AutoTokenizer.from_pretrained(current_model, bos_token='<|startoftex
 print("Tokenizer loaded")
 training_args = TrainingArguments(
                 output_dir='./results',
-                num_train_epochs=4,
+                num_train_epochs=2,
                 logging_steps=500,
 
                 save_total_limit=5,
                 save_steps=1000,
                 save_strategy="steps",
-                per_device_train_batch_size=4,
-                per_device_eval_batch_size=4,
+                per_device_train_batch_size=2,
+                per_device_eval_batch_size=2,
                 warmup_steps=50,
                 weight_decay=0.01,
                 logging_dir='./logs',
