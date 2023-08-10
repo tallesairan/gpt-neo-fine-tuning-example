@@ -8,9 +8,12 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV STAGE_DIR=/tmp
 RUN mkdir -p ${STAGE_DIR}
 
+
 ##############################################################################
 # Installation/Basic Utilities
 ##############################################################################
+RUN add-apt-repository ppa:deadsnakes/ppa
+
 RUN apt-get update && \
         apt-get install -y --no-install-recommends \
         software-properties-common build-essential autotools-dev \
@@ -93,11 +96,11 @@ RUN mv /usr/local/mpi/bin/mpirun /usr/local/mpi/bin/mpirun.real && \
 # Python
 ##############################################################################
 ENV DEBIAN_FRONTEND=noninteractive
-ENV PYTHON_VERSION=3
-RUN apt-get install -y python3 python3-dev && \
+ENV PYTHON_VERSION=3.8
+RUN apt-get install -y python3.8 python3.8-dev && \
         rm -f /usr/bin/python && \
-        ln -s /usr/bin/python3 /usr/bin/python && \
-        curl -O https://bootstrap.pypa.io/pip/3.6/get-pip.py && \
+        ln -s /usr/bin/python3.8 /usr/bin/python && \
+        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
         python get-pip.py && \
         rm get-pip.py && \
         pip install --upgrade pip && \
@@ -125,6 +128,7 @@ RUN apt-get update && \
         libaio-dev \
         wget \
         curl \
+        nano \
         htop  \
         atop  \
         bash  \
@@ -135,8 +139,8 @@ RUN apt-get update && \
 # PyYAML build issue
 # https://stackoverflow.com/a/53926898
 ##############################################################################
-RUN rm -rf /usr/lib/python3/dist-packages/yaml && \
-        rm -rf /usr/lib/python3/dist-packages/PyYAML-*
+RUN rm -rf /usr/lib/python3.8/dist-packages/yaml && \
+        rm -rf /usr/lib/python3.8/dist-packages/PyYAML-*
 RUN pip install psutil \
         yappi \
         cffi \
@@ -158,7 +162,6 @@ RUN pip install psutil \
         scipy \
         transformers \
         numpy \
-        sklearn \
         scikit-learn \
         nvidia-ml-py3 \
         mpi4py \
@@ -175,7 +178,9 @@ RUN pip install psutil \
 #RUN pip install torchvision==${TORCHVISION_VERSION}
 
 RUN pip install light-the-torch
-RUN ltt install torch torchvision
+RUN pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu117
+
+#RUN ltt install torch torchvision
 ENV TENSORBOARDX_VERSION=1.8
 RUN pip install tensorboardX==${TENSORBOARDX_VERSION}
 RUN pip install torchsummary
@@ -215,4 +220,6 @@ COPY ./train /home/deepspeed/app
 
 RUN cd /home/deepspeed/app && \
         wget "https://inference-datasets.s3.eu-central-1.amazonaws.com/nsfw-pt-br-dataset-test.csv.zip" && \
-        unzip nsfw-pt-br-dataset-test.csv.zip
+        unzip nsfw-pt-br-dataset-test.csv.zip && \
+        wget "https://inference-datasets.s3.eu-central-1.amazonaws.com/dataset-filtred.csv.zip" && \
+        unzip dataset-filtred.csv.zip

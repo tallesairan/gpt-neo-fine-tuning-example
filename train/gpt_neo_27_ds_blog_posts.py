@@ -4,7 +4,7 @@ import os
 #os.environ['RANK'] = "0"
 #os.environ['LOCAL_RANK'] = "0"
 #os.environ['WORLD_SIZE'] = "1"
-#os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 # os.environ['TRANSFORMERS_CACHE'] = '/opt/text-generation-dev/config/models/'
 
 import pandas as pd

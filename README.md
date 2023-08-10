@@ -18,8 +18,9 @@ pip install deepspeed==0.6.5
 docker build -t tallesairan/gpt_neo_ds:latest .
 docker run --gpus all -it gpt_neo_ds bash
 
+ltt install --pytorch-computation-backend=cu117 torch torchvision torchaudio
 
-deepspeed --num_gpus=4 gpt_neo_27_ds_blog_posts.py  --deepspeed ds_config_gpt_neo_27.json
+deepspeed --num_gpus=4 gpt_neo_27_ds_blog_posts.py --deepspeed ds_config_gpt_neo_27.json
 
 ```
 
